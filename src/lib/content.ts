@@ -107,8 +107,8 @@ export const CONTENT: Record<Lang, PageContent> = {
     formTitle: 'رزرو مشاوره رایگان',
     formLead: 'فرم زیر را پر کنید؛ مشاوران ما برای انتخاب بهترین مسیر یادگیری با شما تماس می‌گیرند.',
     contact: [
-      { ic: 'phone', label: 'تماس مستقیم', value: '۰۲۱ ۹۱۰۰ ۲۲۳۳' },
-      { ic: 'mail', label: 'ایمیل', value: 'hello@hamooninstitute.com' },
+      { ic: 'phone', label: 'تماس مستقیم', value: '۰۹۱۲۹۴۷۴۵۵۳' },
+      { ic: 'mail', label: 'ایمیل', value: 'info@hamooninstitute.com' },
       { ic: 'clock', label: 'ساعات پاسخگویی', value: 'شنبه تا پنجشنبه · ۹ تا ۱۹' },
       { ic: 'globe', label: 'وب‌سایت', value: 'www.hamooninstitute.com\nwww.hamooninstitute.ir' },
     ],
@@ -192,8 +192,8 @@ export const CONTENT: Record<Lang, PageContent> = {
     formTitle: 'Book a free consultation',
     formLead: 'Fill in the form and our advisors will call you to choose the best learning path.',
     contact: [
-      { ic: 'phone', label: 'Call us', value: '+98 21 9100 2233' },
-      { ic: 'mail', label: 'Email', value: 'hello@hamooninstitute.com' },
+      { ic: 'phone', label: 'Call us', value: '09129474553' },
+      { ic: 'mail', label: 'Email', value: 'info@hamooninstitute.com' },
       { ic: 'clock', label: 'Support hours', value: 'Sat–Thu · 9:00 to 19:00' },
       { ic: 'globe', label: 'Website', value: 'www.hamooninstitute.com\nwww.hamooninstitute.ir' },
     ],
