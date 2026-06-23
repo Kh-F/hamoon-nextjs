@@ -9,11 +9,12 @@ export interface Pillar     { ic: string; title: string; desc: string; }
 export interface Course     { ic: string; title: string; desc: string; soft: string; ink: string; badge: string; meta: string[]; }
 export interface Instructor { name: string; role: string; bio: string; bg: string; ink: string; initials: string; }
 export interface GalleryTile { caption: string; ic: string; g: string; span: number; }
-export interface ContactItem { ic: string; label: string; value: string; }
-export interface FormData    { name: string; namePh: string; phone: string; phonePh: string; age: string; msg: string; msgPh: string; submit: string; success: string; reset: string; }
-export interface FooterCol   { h: string; items: string[]; }
-export interface FooterData  { tagline: string; rights: string; rightsEn: string; cols: FooterCol[]; }
-export interface SocialItem  { ic: string; label: string; }
+export interface ContactItem  { ic: string; label: string; value: string; }
+export interface FormData     { name: string; namePh: string; phone: string; phonePh: string; age: string; msg: string; msgPh: string; submit: string; success: string; reset: string; }
+export interface FooterCol    { h: string; items: string[]; }
+export interface FooterData   { tagline: string; rights: string; rightsEn: string; cols: FooterCol[]; }
+export interface SocialItem   { ic: string; label: string; }
+export interface Testimonial  { name: string; role: string; body: string; initials: string; bg: string; ink: string; stars: number; }
 
 export interface PageContent {
   dir: Dir;
@@ -42,6 +43,9 @@ export interface PageContent {
   contact: ContactItem[];
   form: FormData;
   ages: string[];
+  testimonialsTitle: string;
+  testimonialsLead: string;
+  testimonials: Testimonial[];
   social: SocialItem[];
   footer: FooterData;
 }
@@ -59,7 +63,7 @@ export const CONTENT: Record<Lang, PageContent> = {
       lead: 'آموزش فردمحور با بازخورد اختصاصی برای هر دانش‌آموز؛ کلاس‌های تعاملی و مدرن برای کودکان، نوجوانان و بزرگسالان.',
       primary: 'رزرو مشاوره رایگان', secondary: 'مشاهده برنامه‌ها', liveLabel: 'زنده',
       cardTitle: 'کلاس زنده مکالمه', cardTeacher: 'مربی: سارا محمدی', cardMeta: 'پنجشنبه · ۱۷:۰۰', cardInitials: 'س',
-      stats: [{ n: '۲٬۴۰۰+', l: 'دانش‌آموز فعال' }, { n: '۹۸٪', l: 'رضایت خانواده‌ها' }, { n: '۴۰+', l: 'مربی متخصص' }],
+      stats: [{ n: '۲٬۴۰۰+', l: 'دانش‌آموز فعال' }, { n: '۹۸٪', l: 'رضایت خانواده‌ها' }],
     },
     aboutStat: { n: '۹۸٪', l: 'رضایت خانواده‌ها' },
     about: {
@@ -110,6 +114,15 @@ export const CONTENT: Record<Lang, PageContent> = {
     ],
     form: { name: 'نام و نام خانوادگی', namePh: 'مثلاً سارا محمدی', phone: 'شماره تماس / ایمیل', phonePh: '۰۹۱۲ ۳۴۵ ۶۷۸۹', age: 'رده سنی دانش‌آموز', msg: 'پیام (اختیاری)', msgPh: 'علاقه‌مندی یا سؤال شما…', submit: 'ارسال درخواست مشاوره', success: 'درخواست شما ثبت شد! به‌زودی برای رزرو مشاوره با شما تماس می‌گیریم.', reset: 'ثبت درخواست جدید' },
     ages: ['۱۰–۱۱ سال', '۱۲–۱۳ سال', '۱۴–۱۶ سال', 'بزرگسال'],
+    testimonialsTitle: 'نظرات خانواده‌ها',
+    testimonialsLead: 'آنچه والدین و دانش‌آموزان درباره هامون می‌گویند',
+    testimonials: [
+      { name: 'زهرا احمدی', role: 'مادر دانش‌آموز', body: 'فرزندم بعد از سه ماه کلاس مکالمه انگلیسی با اعتماد به نفس بیشتری صحبت می‌کند. متد هامون واقعاً متفاوت است و بازخورد اختصاصی هر جلسه تفاوت بزرگی ایجاد کرده.', initials: 'ز ا', bg: 'var(--blue-100)', ink: 'var(--blue-700)', stars: 5 },
+      { name: 'علیرضا رضایی', role: 'پدر دانش‌آموز', body: 'برنامه ریاضی هوشمند معجزه کرد. پسرم که از ریاضی فرار می‌کرد، الان عاشقش شده و هر هفته منتظر کلاس بعدی است. ممنون از تیم هامون.', initials: 'ع ر', bg: 'var(--amber-100)', ink: 'var(--amber-700)', stars: 5 },
+      { name: 'دنیا کریمی', role: 'دانش‌آموز، ۱۴ ساله', body: 'کلاس‌های آنلاین هامون خیلی جذاب‌تر از انتظارم بود. مربی‌ها صبور و دلسوزند و همیشه جواب سؤال‌هایم را می‌دهند.', initials: 'د ک', bg: 'var(--mint-100)', ink: 'var(--mint-700)', stars: 5 },
+      { name: 'فاطمه موسوی', role: 'مادر دانش‌آموز', body: 'گزارش پیشرفت هفتگی فوق‌العاده است. همیشه در جریان دقیق یادگیری فرزندم هستم و این شفافیت برای ما به‌عنوان والدین بسیار ارزشمند است.', initials: 'ف م', bg: 'var(--blue-100)', ink: 'var(--blue-600)', stars: 5 },
+      { name: 'آرش طاهری', role: 'دانش‌آموز، ۱۲ ساله', body: 'سواد علمی هامون دیدم را باز کرد. یاد گرفتم مثل یک دانشمند فکر کنم، سؤال بپرسم و آزمایش کنم. بهترین کلاسی بود که رفتم!', initials: 'آ ط', bg: 'var(--amber-100)', ink: 'var(--amber-600)', stars: 5 },
+    ],
     social: [{ ic: 'instagram', label: 'اینستاگرام' }, { ic: 'telegram', label: 'تلگرام' }],
     footer: {
       tagline: 'یادگیری هوشمند و فردمحور برای کودکان، نوجوانان و بزرگسالان.',
@@ -135,7 +148,7 @@ export const CONTENT: Record<Lang, PageContent> = {
       lead: 'Personalized teaching with dedicated feedback for every student — interactive, modern classes for children, teens, and adults.',
       primary: 'Book a free consultation', secondary: 'See programs', liveLabel: 'LIVE',
       cardTitle: 'Live conversation class', cardTeacher: 'Mentor: Sara M.', cardMeta: 'Thu · 17:00', cardInitials: 'S',
-      stats: [{ n: '2,400+', l: 'Active students' }, { n: '98%', l: 'Family satisfaction' }, { n: '40+', l: 'Expert mentors' }],
+      stats: [{ n: '2,400+', l: 'Active students' }, { n: '98%', l: 'Family satisfaction' }],
     },
     aboutStat: { n: '98%', l: 'Family satisfaction' },
     about: {
@@ -186,6 +199,15 @@ export const CONTENT: Record<Lang, PageContent> = {
     ],
     form: { name: 'Full name', namePh: 'e.g. Sara M.', phone: 'Phone / email', phonePh: '+98 912 345 6789', age: 'Student age group', msg: 'Message (optional)', msgPh: 'Your interest or question…', submit: 'Send consultation request', success: "Your request was submitted! We'll be in touch shortly to book your consultation.", reset: 'Send another request' },
     ages: ['Ages 10–11', 'Ages 12–13', 'Ages 14–16', 'Adult'],
+    testimonialsTitle: 'Testimonials',
+    testimonialsLead: 'What families and students say about Hamoon',
+    testimonials: [
+      { name: 'Zahra Ahmadi', role: 'Parent', body: 'My child speaks English with so much more confidence after just three months. Hamoon\'s approach is truly different — the dedicated feedback every session makes a real difference.', initials: 'ZA', bg: 'var(--blue-100)', ink: 'var(--blue-700)', stars: 5 },
+      { name: 'Alireza Rezaei', role: 'Parent', body: 'The Smart Math program worked wonders. My son used to run from math — now he loves it and looks forward to every class. Thank you, Hamoon team!', initials: 'AR', bg: 'var(--amber-100)', ink: 'var(--amber-700)', stars: 5 },
+      { name: 'Donia Karimi', role: 'Student, age 14', body: 'The online classes were far more engaging than I expected. The mentors are patient and caring and always take time to answer my questions.', initials: 'DK', bg: 'var(--mint-100)', ink: 'var(--mint-700)', stars: 5 },
+      { name: 'Fatemeh Mousavi', role: 'Parent', body: 'The weekly progress reports are outstanding. I always know exactly where my child stands, and that transparency is incredibly valuable as a parent.', initials: 'FM', bg: 'var(--blue-100)', ink: 'var(--blue-600)', stars: 5 },
+      { name: 'Arash Taheri', role: 'Student, age 12', body: 'Hamoon\'s Science course opened my mind. I learned to think like a scientist — to question, experiment, and discover. Best class I\'ve ever attended!', initials: 'AT', bg: 'var(--amber-100)', ink: 'var(--amber-600)', stars: 5 },
+    ],
     social: [{ ic: 'instagram', label: 'Instagram' }, { ic: 'telegram', label: 'Telegram' }],
     footer: {
       tagline: 'Smart, personalized learning for children, teens, and adults.',

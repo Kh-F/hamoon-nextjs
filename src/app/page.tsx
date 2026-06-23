@@ -5,6 +5,7 @@ import About from '@/components/About';
 import Courses from '@/components/Courses';
 import Instructors from '@/components/Instructors';
 import Gallery from '@/components/Gallery';
+import Testimonials from '@/components/Testimonials';
 import Consultation from '@/components/Consultation';
 import Footer from '@/components/Footer';
 
@@ -18,6 +19,7 @@ export default function Home() {
         <Courses />
         <Instructors />
         <Gallery />
+        <Testimonials />
         <Consultation />
       </main>
       <Footer />

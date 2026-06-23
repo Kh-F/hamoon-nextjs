@@ -185,6 +185,30 @@ input,textarea{font-family:inherit;}
 .btn-submit:hover{background:var(--color-accent-hover);}
 .btn-submit:active{transform:translateY(1px) scale(.99);}
 
+/* ── Testimonials ── */
+.testi-header{margin-bottom:var(--space-10);}
+.testi-carousel{max-width:780px;margin-inline:auto;}
+.testi-viewport{overflow:hidden;border-radius:var(--radius-xl);direction:ltr;}
+.testi-track{display:flex;transition:transform .5s cubic-bezier(.4,0,.2,1);direction:ltr;}
+.testi-slide{flex:0 0 100%;width:100%;}
+.testi-card{background:var(--surface-card);border:1px solid var(--border-subtle);border-radius:var(--radius-xl);padding:clamp(1.75rem,5vw,2.75rem);box-shadow:var(--shadow-md);display:flex;flex-direction:column;gap:var(--space-5);}
+.testi-stars{display:flex;gap:4px;color:var(--amber-500);}
+.testi-stars svg{fill:currentColor;stroke:none;}
+.testi-body{font-size:var(--fs-lead);color:var(--text-strong);line-height:var(--lh-relaxed);margin:0;}
+.testi-author{display:flex;align-items:center;gap:var(--space-4);margin-top:var(--space-2);}
+.testi-avatar{width:52px;height:52px;flex:none;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:var(--fs-sm);}
+.testi-name{font-weight:800;color:var(--text-strong);font-size:var(--fs-body);}
+.testi-role{font-size:var(--fs-sm);color:var(--text-muted);margin-top:2px;}
+.testi-controls{display:flex;align-items:center;justify-content:center;gap:var(--space-4);margin-top:var(--space-6);}
+.testi-arrow{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--border-default);background:var(--surface-card);color:var(--text-body);display:flex;align-items:center;justify-content:center;transition:all .15s;box-shadow:var(--shadow-xs);flex:none;}
+.testi-arrow:hover{border-color:var(--color-primary);color:var(--color-primary);background:var(--blue-50);}
+.testi-arrow:focus{outline:none;box-shadow:var(--shadow-ring);}
+.testi-icon-flip{display:inline-flex;transform:rotate(180deg);}
+.testi-dots{display:flex;gap:var(--space-2);align-items:center;}
+.testi-dot{width:8px;height:8px;border-radius:50%;background:var(--border-default);border:none;padding:0;transition:all .3s ease;cursor:pointer;}
+.testi-dot:focus{outline:none;box-shadow:var(--shadow-ring);}
+.testi-dot.active{background:var(--color-primary);width:24px;border-radius:var(--radius-pill);}
+
 /* ── Footer ── */
 .footer{background:var(--surface-card);border-top:1px solid var(--border-subtle);}
 .footer-grid{max-width:var(--container-xl);margin-inline:auto;padding-inline:var(--gutter);padding-block:var(--space-12);display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:var(--space-8);}
