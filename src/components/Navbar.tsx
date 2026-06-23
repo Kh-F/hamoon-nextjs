@@ -35,7 +35,6 @@ export default function Navbar() {
 
         <div className="nav-actions">
           <button type="button" className="btn-lang" onClick={toggle} aria-label={c.switchLabel}>
-            <Icon name="languages" size={18} />
             {c.switchLabel}
           </button>
           <a href="#consult" className="btn-cta">{c.cta}</a>
