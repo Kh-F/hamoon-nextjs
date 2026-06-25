@@ -3,47 +3,110 @@
 import Link from 'next/link';
 import { useLang } from '@/context/LangContext';
 import Icon from '@/components/Icon';
+import DeptInstructor from '@/components/DeptInstructor';
 
 const DEPT = {
   fa: {
     badge: 'بخش هوش مصنوعی',
-    title: 'هوش مصنوعی\nبرای نسل آینده',
-    lead: 'درک مفاهیم هوش مصنوعی، کار با ابزارهای پیشرفته و آماده شدن برای دنیای فردا — به زبانی ساده و عملی.',
+    title: 'سواد دیجیتال آینده\nهوش مصنوعی عاملی و تحلیل داده',
+    lead: 'درک عمیق مفاهیم هوش مصنوعی، تحلیل داده، و معماری AI عاملی — با برنامه درسی سفارشی که دقت ریاضی را با استقرار عملی در کنار هم قرار می‌دهد.',
     back: 'بازگشت به صفحه اصلی',
     cta: 'رزرو مشاوره رایگان',
-    ctaLead: 'برای انتخاب دوره مناسب با مشاوران ما صحبت کنید.',
+    ctaLead: 'برای انتخاب بهترین مسیر یادگیری با مشاوران ما صحبت کنید.',
     ctaTitle: 'آماده‌سازی برای دنیای هوش مصنوعی',
-    coursesTitle: 'دوره‌های هوش مصنوعی',
+    featuresTitle: 'سه محور اصلی برنامه',
+    coursesTitle: 'دوره‌های بخش هوش مصنوعی',
     features: [
-      { ic: 'laptop',  soft: 'var(--blue-50)',  ink: 'var(--blue-600)',  title: 'مبانی هوش مصنوعی',  desc: 'آشنایی با الگوریتم‌ها، یادگیری ماشین و مدل‌های زبانی به زبان ساده.' },
-      { ic: 'bulb',    soft: 'var(--amber-50)', ink: 'var(--amber-600)', title: 'ابزارهای عملی',      desc: 'کار با ChatGPT، Midjourney، Gemini و ابزارهای اتوماسیون در پروژه‌های واقعی.' },
-      { ic: 'target',  soft: 'var(--mint-50)',  ink: 'var(--mint-600)', title: 'پروژه‌محور',         desc: 'ساخت پروژه‌های واقعی با هوش مصنوعی — از ایده تا محصول نهایی.' },
+      {
+        ic: 'graduation', soft: 'var(--blue-50)', ink: 'var(--blue-600)',
+        title: 'سواد دیجیتال آینده',
+        desc: 'آشنایی با مفاهیم پایه هوش مصنوعی، یادگیری ماشین و مدل‌های زبانی بزرگ — به زبانی ساده و کاربردی برای نسل آینده.',
+      },
+      {
+        ic: 'trending', soft: 'var(--amber-50)', ink: 'var(--amber-600)',
+        title: 'تحلیل داده',
+        desc: 'خواندن، تفسیر و بصری‌سازی داده — مهارت‌های اساسی برای تصمیم‌گیری هوشمند در دنیای داده‌محور.',
+      },
+      {
+        ic: 'target', soft: 'var(--mint-50)', ink: 'var(--mint-600)',
+        title: 'معماری AI عاملی',
+        desc: 'طراحی و ساخت سیستم‌های AI عاملی که به‌صورت خودکار اهداف را پردازش و اجرا می‌کنند — رویکرد عملی و پروژه‌محور.',
+      },
     ],
+    curriculum: {
+      badge: 'برنامه درسی سفارشی',
+      title: 'تدریس با دقت ریاضی، استقرار با فناوری روز',
+      body: 'برنامه درسی هوش مصنوعی هامون توسط دکتر خدیجه فتحعلی‌خانی — ریاضیدان و متخصص AI — طراحی و تألیف شده است. این برنامه با ترکیب بهترین مفاهیم جهانی از جمله Stempedia و زیرساخت‌های پیشرفته اتوماسیون AI، دقت ریاضی را با مهارت‌های استقرار عملی در هم می‌آمیزد.',
+      tags: ['Stempedia', 'n8n', 'Dify', 'Docker', 'Computer Vision', 'LLM Pipelines'],
+    },
     courses: [
-      { ic: 'laptop',   title: 'مقدمه هوش مصنوعی',      meta: ['۸ جلسه', '۱۲–۱۳ سال'],  badge: 'جدید',    soft: 'var(--blue-50)',  ink: 'var(--blue-600)' },
-      { ic: 'bulb',     title: 'هوش مصنوعی و خلاقیت',    meta: ['۱۰ جلسه', '۱۴–۱۶ سال'], badge: 'STEM',    soft: 'var(--amber-50)', ink: 'var(--amber-600)' },
-      { ic: 'trending', title: 'اتوماسیون با هوش مصنوعی',meta: ['۱۲ جلسه', 'بزرگسال'],   badge: 'پیشرفته', soft: 'var(--mint-50)',  ink: 'var(--mint-600)' },
+      { ic: 'laptop',   title: 'مقدمه هوش مصنوعی',      desc: 'مفاهیم پایه AI، یادگیری ماشین و کاربرد ابزارهای هوشمند در پروژه‌های واقعی.', meta: ['۸ جلسه', '۱۲–۱۳ سال'], badge: 'جدید',    soft: 'var(--blue-50)',  ink: 'var(--blue-600)' },
+      { ic: 'bulb',     title: 'هوش مصنوعی و خلاقیت',   desc: 'ابزارهای تولید محتوا، طراحی تصویر و موسیقی با AI — برای نوجوانان خلاق.', meta: ['۱۰ جلسه', '۱۴–۱۶ سال'], badge: 'STEM',    soft: 'var(--amber-50)', ink: 'var(--amber-600)' },
+      { ic: 'trending', title: 'اتوماسیون با هوش مصنوعی',desc: 'طراحی پایپلاین‌های اتوماسیون با n8n و Dify — از صفر تا استقرار در محیط تولید.', meta: ['۱۲ جلسه', 'بزرگسال'],   badge: 'پیشرفته', soft: 'var(--mint-50)',  ink: 'var(--mint-600)' },
     ],
+    instructor: {
+      sectionLabel: 'مدرس بخش هوش مصنوعی',
+      name: 'دکتر خدیجه فتحعلی‌خانی',
+      role: 'بنیان‌گذار و استاد ارشد — متخصص AI کاربردی و زیرساخت DevOps',
+      bio: 'دکتر فتحعلی‌خانی با دکترای ریاضیات از دانشگاه الزهرا (تخصص در ترکیبیات و نظریه گراف)، اکنون در حوزه هوش مصنوعی کاربردی و مهندسی زیرساخت DevOps فعالیت می‌کند. تجربه مستقیم او در توسعه اپلیکیشن‌های بینایی ماشین و ساخت پایپلاین‌های اتوماسیون سطح تولید با n8n، Dify و Docker، پشتوانه محکمی برای آموزش عملی و نتیجه‌محور فراهم می‌کند.',
+      creds: ['Ph.D. ریاضیات — ترکیبیات و نظریه گراف', 'دانشگاه الزهرا', 'AI کاربردی و DevOps'],
+      skills: ['Computer Vision', 'n8n', 'Dify', 'Docker', 'LLM Pipelines', 'Stempedia', 'تحلیل داده'],
+      linkedin: 'https://www.linkedin.com/in/khadijeh-fathalikhani-405b0627',
+      linkedinLabel: 'مشاهده پروفایل LinkedIn',
+      initials: 'خ ف',
+      bg: 'var(--amber-100)', ink: 'var(--amber-700)',
+    },
   },
   en: {
     badge: 'AI Department',
-    title: 'Artificial Intelligence\nfor the next generation',
-    lead: "Understand AI concepts, work with cutting-edge tools and prepare for tomorrow's world — practically and simply.",
+    title: 'Future Literacy,\nData Analytics & Agentic AI',
+    lead: 'A deep grasp of AI concepts, data analytics, and agentic AI architecture — through a custom curriculum that unites mathematical rigour with real-world deployment.',
     back: 'Back to home',
     cta: 'Book a free consultation',
-    ctaLead: 'Talk to our advisors to find the right AI course for you.',
+    ctaLead: 'Talk to our advisors to find the right AI learning path for you.',
     ctaTitle: 'Get ready for the AI-powered world',
+    featuresTitle: 'Three core pillars',
     coursesTitle: 'AI Department Courses',
     features: [
-      { ic: 'laptop', soft: 'var(--blue-50)',  ink: 'var(--blue-600)',  title: 'AI fundamentals',    desc: 'Algorithms, machine learning and language models explained simply.' },
-      { ic: 'bulb',   soft: 'var(--amber-50)', ink: 'var(--amber-600)', title: 'Practical AI tools', desc: 'Work with ChatGPT, Midjourney, Gemini and automation tools on real projects.' },
-      { ic: 'target', soft: 'var(--mint-50)',  ink: 'var(--mint-600)', title: 'Project-based',      desc: 'Build real AI-powered projects from idea to finished product.' },
+      {
+        ic: 'graduation', soft: 'var(--blue-50)', ink: 'var(--blue-600)',
+        title: 'Future Literacy',
+        desc: 'AI fundamentals, machine learning, and large language models explained accessibly — equipping the next generation with the vocabulary of tomorrow.',
+      },
+      {
+        ic: 'trending', soft: 'var(--amber-50)', ink: 'var(--amber-600)',
+        title: 'Data Analytics',
+        desc: 'Reading, interpreting, and visualising data — core skills for intelligent decision-making in a data-driven world.',
+      },
+      {
+        ic: 'target', soft: 'var(--mint-50)', ink: 'var(--mint-600)',
+        title: 'Agentic AI Architecture',
+        desc: 'Designing and building agentic AI systems that autonomously plan and execute goals — hands-on and project-based throughout.',
+      },
     ],
+    curriculum: {
+      badge: 'Custom curriculum',
+      title: 'Mathematical rigour meets practical deployment',
+      body: 'The Hamoon AI curriculum is custom-tailored and authored by Dr. Khadijeh Fathalikhani — mathematician and AI specialist. By synthesising the best global frameworks including Stempedia and advanced AI automation infrastructure, it ensures strict mathematical rigour is paired with the practical deployment skills the industry demands.',
+      tags: ['Stempedia', 'n8n', 'Dify', 'Docker', 'Computer Vision', 'LLM Pipelines'],
+    },
     courses: [
-      { ic: 'laptop',   title: 'Intro to AI',       meta: ['8 sessions', 'Ages 12–13'],  badge: 'New',      soft: 'var(--blue-50)',  ink: 'var(--blue-600)' },
-      { ic: 'bulb',     title: 'AI & Creativity',   meta: ['10 sessions', 'Ages 14–16'], badge: 'STEM',     soft: 'var(--amber-50)', ink: 'var(--amber-600)' },
-      { ic: 'trending', title: 'AI Automation',     meta: ['12 sessions', 'Adult'],      badge: 'Advanced', soft: 'var(--mint-50)',  ink: 'var(--mint-600)' },
+      { ic: 'laptop',   title: 'Intro to AI',         desc: 'Core AI concepts, machine learning and practical use of intelligent tools in real projects.',           meta: ['8 sessions', 'Ages 12–13'],  badge: 'New',      soft: 'var(--blue-50)',  ink: 'var(--blue-600)' },
+      { ic: 'bulb',     title: 'AI & Creativity',     desc: 'Content generation, AI image and music tools — designed for creative teens who want to build.',         meta: ['10 sessions', 'Ages 14–16'], badge: 'STEM',     soft: 'var(--amber-50)', ink: 'var(--amber-600)' },
+      { ic: 'trending', title: 'AI Automation',       desc: 'Build production-grade automation pipelines with n8n and Dify — from zero to live deployment.',         meta: ['12 sessions', 'Adult'],      badge: 'Advanced', soft: 'var(--mint-50)',  ink: 'var(--mint-600)' },
     ],
+    instructor: {
+      sectionLabel: 'Lead instructor — AI Department',
+      name: 'Dr. Khadijeh Fathalikhani',
+      role: 'Co-Founder & Lead Instructor — Applied AI & DevOps Infrastructure',
+      bio: 'Dr. Fathalikhani holds a Ph.D. in Mathematics from Alzahra University, specialising in Combinatorics and Graph Theory, now active in Applied AI and DevOps Infrastructure Engineering. Her hands-on experience building computer vision applications and production-grade automated pipelines using n8n, Dify, and Docker provides the practical foundation that defines every Hamoon AI course.',
+      creds: ['Ph.D. Mathematics — Combinatorics & Graph Theory', 'Alzahra University', 'Applied AI & DevOps'],
+      skills: ['Computer Vision', 'n8n', 'Dify', 'Docker', 'LLM Pipelines', 'Stempedia', 'Data Analytics'],
+      linkedin: 'https://www.linkedin.com/in/khadijeh-fathalikhani-405b0627',
+      linkedinLabel: 'View LinkedIn Profile',
+      initials: 'KF',
+      bg: 'var(--amber-100)', ink: 'var(--amber-700)',
+    },
   },
 } as const;
 
@@ -53,6 +116,7 @@ export default function AIContent() {
 
   return (
     <>
+      {/* ── Hero ── */}
       <section className="dept-hero">
         <div className="dept-hero-inner">
           <div className="dept-badge-row">
@@ -67,10 +131,11 @@ export default function AIContent() {
         </div>
       </section>
 
+      {/* ── Three pillars ── */}
       <section className="dept-features">
         <div className="dept-features-inner">
           <div className="dept-features-h section-center">
-            <h2 className="section-title">{d.coursesTitle}</h2>
+            <h2 className="section-title">{d.featuresTitle}</h2>
           </div>
           <div className="dept-features-grid">
             {d.features.map(f => (
@@ -86,8 +151,31 @@ export default function AIContent() {
         </div>
       </section>
 
+      {/* ── Curriculum highlight ── */}
+      <section className="dept-curriculum">
+        <div className="dept-curriculum-inner">
+          <div className="dept-curriculum-icon">
+            <Icon name="graduation" size={28} />
+          </div>
+          <div className="dept-curriculum-content">
+            <span className="dept-curriculum-badge">{d.curriculum.badge}</span>
+            <h2 className="dept-curriculum-title">{d.curriculum.title}</h2>
+            <p className="dept-curriculum-body">{d.curriculum.body}</p>
+            <div className="dept-curriculum-tags">
+              {d.curriculum.tags.map(t => (
+                <span key={t} className="dept-curriculum-tag">{t}</span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Courses ── */}
       <section>
         <div className="dept-courses-inner">
+          <div className="section-center" style={{ marginBottom: 'var(--space-10)' }}>
+            <h2 className="section-title">{d.coursesTitle}</h2>
+          </div>
           <div className="courses-grid">
             {d.courses.map(co => (
               <article key={co.title} className="course-card">
@@ -97,6 +185,7 @@ export default function AIContent() {
                 </div>
                 <div className="course-body">
                   <h3 className="course-title">{co.title}</h3>
+                  <p className="course-desc">{co.desc}</p>
                   <div className="course-metas">
                     {co.meta.map(m => <span key={m} className="course-meta-item">{m}</span>)}
                   </div>
@@ -110,6 +199,10 @@ export default function AIContent() {
         </div>
       </section>
 
+      {/* ── Instructor profile ── */}
+      <DeptInstructor {...d.instructor} />
+
+      {/* ── CTA ── */}
       <section className="dept-cta">
         <div className="dept-cta-inner">
           <h2 className="dept-cta-title">{d.ctaTitle}</h2>

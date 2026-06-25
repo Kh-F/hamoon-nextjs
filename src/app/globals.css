@@ -263,6 +263,49 @@ input,textarea{font-family:inherit;}
 .ws-cta-link{display:inline-flex;align-items:center;gap:6px;font-size:var(--fs-sm);font-weight:700;color:var(--color-primary);padding:8px 0;transition:color .15s;margin-top:var(--space-1);}
 .ws-cta-link:hover{color:var(--color-primary-hover);}
 .ws-note{text-align:center;margin-top:var(--space-10);font-size:var(--fs-sm);color:var(--text-muted);}
+.ws-status{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:var(--radius-pill);font-size:var(--fs-xs);font-weight:700;}
+.ws-status--upcoming{background:var(--green-50);color:var(--green-500);}
+.ws-status--past{background:var(--surface-sunken);color:var(--text-muted);}
+.ws-status--recurring{background:var(--blue-50);color:var(--blue-700);}
+.ws-status-dot{width:6px;height:6px;border-radius:50%;background:currentColor;flex:none;}
+.ws-section-h{font-size:var(--fs-h3);font-weight:800;color:var(--text-strong);margin:0 0 var(--space-6) 0;}
+.ws-divider{border:none;border-top:1px solid var(--border-subtle);margin-block:var(--space-12);}
+
+/* ── Dept instructor profile ── */
+.dept-instructor-wrap{max-width:var(--container-xl);margin-inline:auto;padding-inline:var(--gutter);padding-block:var(--section-y);}
+.dept-section-label{font-size:var(--fs-sm);font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.08em;margin:0 0 var(--space-6) 0;}
+.instructor-profile{display:flex;gap:clamp(var(--space-5),4vw,var(--space-8));align-items:flex-start;background:var(--surface-card);border:1px solid var(--border-subtle);border-radius:var(--radius-xl);padding:clamp(1.5rem,4vw,2.75rem);box-shadow:var(--shadow-lg);}
+.ip-avatar{width:96px;height:96px;flex:none;border-radius:var(--radius-xl);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:var(--fs-h3);}
+.ip-body{flex:1;min-width:0;display:flex;flex-direction:column;gap:var(--space-4);}
+.ip-name{font-size:var(--fs-h3);font-weight:800;color:var(--text-strong);margin:0;}
+.ip-role{font-size:var(--fs-body);font-weight:700;color:var(--color-primary);}
+.ip-creds{display:flex;gap:var(--space-2);flex-wrap:wrap;}
+.ip-cred{display:inline-flex;align-items:center;padding:5px 12px;border-radius:var(--radius-pill);background:var(--blue-50);color:var(--blue-700);font-size:var(--fs-xs);font-weight:700;border:1px solid var(--blue-200);}
+.ip-bio{font-size:var(--fs-sm);color:var(--text-body);line-height:var(--lh-relaxed);margin:0;}
+.ip-skills{display:flex;gap:var(--space-2);flex-wrap:wrap;}
+.ip-skill{display:inline-block;padding:4px 10px;border-radius:var(--radius-pill);background:var(--surface-sunken);color:var(--text-muted);font-size:var(--fs-xs);font-weight:600;border:1px solid var(--border-subtle);}
+.ip-actions{display:flex;gap:var(--space-3);flex-wrap:wrap;margin-top:var(--space-1);}
+@media(max-width:640px){.instructor-profile{flex-direction:column;}.ip-avatar{width:72px;height:72px;font-size:var(--fs-h4);}}
+
+/* ── Dept curriculum highlight ── */
+.dept-curriculum{background:linear-gradient(135deg,var(--blue-950) 0%,var(--blue-800) 100%);}
+.dept-curriculum-inner{max-width:var(--container-xl);margin-inline:auto;padding-inline:var(--gutter);padding-block:var(--section-y);display:grid;grid-template-columns:auto 1fr;gap:clamp(var(--space-6),4vw,var(--space-10));align-items:start;}
+.dept-curriculum-icon{width:64px;height:64px;flex:none;border-radius:var(--radius-xl);background:rgba(255,255,255,.1);color:var(--amber-300);display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.15);}
+.dept-curriculum-content{display:flex;flex-direction:column;gap:var(--space-4);}
+.dept-curriculum-badge{display:inline-block;padding:5px 12px;border-radius:var(--radius-pill);background:rgba(255,255,255,.12);color:var(--amber-300);font-size:var(--fs-sm);font-weight:700;align-self:flex-start;}
+.dept-curriculum-title{font-size:var(--fs-h3);font-weight:800;color:#fff;margin:0;line-height:var(--lh-tight);}
+.dept-curriculum-body{font-size:var(--fs-body);color:var(--blue-200);line-height:var(--lh-relaxed);margin:0;}
+.dept-curriculum-tags{display:flex;gap:var(--space-2);flex-wrap:wrap;margin-top:var(--space-2);}
+.dept-curriculum-tag{display:inline-block;padding:4px 10px;border-radius:var(--radius-pill);background:rgba(255,255,255,.1);color:#fff;font-size:var(--fs-xs);font-weight:600;border:1px solid rgba(255,255,255,.15);}
+@media(max-width:600px){.dept-curriculum-inner{grid-template-columns:1fr;}.dept-curriculum-icon{display:none;}}
+
+/* ── Voice practice callout (English dept) ── */
+.voice-callout-wrap{max-width:var(--container-xl);margin-inline:auto;padding-inline:var(--gutter);padding-block:var(--space-10);}
+.voice-callout{background:linear-gradient(135deg,var(--blue-50) 0%,var(--amber-50) 100%);border:1px solid var(--border-subtle);border-radius:var(--radius-xl);padding:clamp(1.5rem,4vw,2.5rem);display:flex;align-items:center;gap:var(--space-6);flex-wrap:wrap;box-shadow:var(--shadow-sm);}
+.voice-callout-icon{width:60px;height:60px;flex:none;border-radius:var(--radius-xl);background:var(--color-accent);color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow-accent);}
+.voice-callout-body{flex:1;min-width:0;}
+.voice-callout-title{font-size:var(--fs-h4);font-weight:800;color:var(--text-strong);margin:0 0 var(--space-2) 0;}
+.voice-callout-desc{font-size:var(--fs-sm);color:var(--text-body);line-height:var(--lh-normal);margin:0;}
 
 /* ── Voice Assistant ── */
 @keyframes voiceSpin{to{transform:rotate(360deg)}}

@@ -30,7 +30,12 @@ export default function Founders() {
                 <div className="founder-role">{f.role}</div>
                 <p className="founder-bio">{f.bio}</p>
                 <div className="founder-actions">
-                  <Link href={f.linkedin} className="founder-link founder-link--linkedin">
+                  <Link
+                    href={f.linkedin}
+                    target={f.linkedin.startsWith('http') ? '_blank' : undefined}
+                    rel={f.linkedin.startsWith('http') ? 'noopener noreferrer' : undefined}
+                    className="founder-link founder-link--linkedin"
+                  >
                     <Icon name="linkedin" size={14} />
                     LinkedIn
                   </Link>
