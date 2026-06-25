@@ -3,7 +3,7 @@ import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
 import About from '@/components/About';
 import Courses from '@/components/Courses';
-import Instructors from '@/components/Instructors';
+import Founders from '@/components/Founders';
 import Gallery from '@/components/Gallery';
 import Testimonials from '@/components/Testimonials';
 import Consultation from '@/components/Consultation';
@@ -17,7 +17,7 @@ export default function Home() {
         <Hero />
         <About />
         <Courses />
-        <Instructors />
+        <Founders />
         <Gallery />
         <Testimonials />
         <Consultation />

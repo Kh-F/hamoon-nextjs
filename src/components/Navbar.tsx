@@ -1,8 +1,8 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import { useLang } from '@/context/LangContext';
-import Icon from './Icon';
 
 export default function Navbar() {
   const { c, toggle } = useLang();
@@ -10,7 +10,7 @@ export default function Navbar() {
   return (
     <header className="navbar">
       <div className="navbar-inner">
-        <a href="#top" className="nav-brand">
+        <Link href="/" className="nav-brand">
           <Image
             src="/logo.png.png"
             alt="Hamoon Academy"
@@ -23,13 +23,13 @@ export default function Navbar() {
             <strong className="nav-brand-name">{c.brand}</strong>
             <span className="nav-brand-sub">{c.brandSub}</span>
           </span>
-        </a>
+        </Link>
 
         <nav className="main-nav" aria-label="main">
           {c.nav.map(item => (
-            <a key={item.id} href={`#${item.id}`} className="nav-link">
+            <Link key={item.id} href={item.href ?? `#${item.id}`} className="nav-link">
               {item.label}
-            </a>
+            </Link>
           ))}
         </nav>
 
@@ -37,7 +37,7 @@ export default function Navbar() {
           <button type="button" className="btn-lang" onClick={toggle} aria-label={c.switchLabel}>
             {c.switchLabel}
           </button>
-          <a href="#consult" className="btn-cta">{c.cta}</a>
+          <Link href="/#consult" className="btn-cta">{c.cta}</Link>
         </div>
       </div>
     </header>

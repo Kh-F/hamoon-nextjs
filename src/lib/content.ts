@@ -2,7 +2,8 @@ export type Lang = 'fa' | 'en';
 export type Dir = 'rtl' | 'ltr';
 
 export interface Stat       { n: string; l: string; }
-export interface NavItem    { label: string; id: string; }
+export interface NavItem    { label: string; id: string; href?: string; }
+export interface Founder    { name: string; role: string; bio: string; linkedin: string; cv: string; initials: string; bg: string; ink: string; }
 export interface HeroData   { badge: string; title: string; lead: string; primary: string; secondary: string; liveLabel: string; cardTitle: string; cardTeacher: string; cardMeta: string; cardInitials: string; stats: Stat[]; }
 export interface AboutData  { badge: string; title: string; body: string; body2: string; }
 export interface Pillar     { ic: string; title: string; desc: string; }
@@ -35,6 +36,9 @@ export interface PageContent {
   instructorsTitle: string;
   instructorsLead: string;
   instructors: Instructor[];
+  foundersTitle: string;
+  foundersLead: string;
+  founders: Founder[];
   galleryTitle: string;
   galleryLead: string;
   gallery: GalleryTile[];
@@ -54,7 +58,13 @@ export const CONTENT: Record<Lang, PageContent> = {
   fa: {
     dir: 'rtl', lang: 'fa',
     brand: 'آکادمی هامون', brandSub: 'یادگیری هوشمند برای نسل آینده',
-    nav: [{ label: 'درباره ما', id: 'about' }, { label: 'دوره‌ها', id: 'courses' }, { label: 'اساتید', id: 'instructors' }, { label: 'گالری', id: 'gallery' }],
+    nav: [
+      { label: 'درباره ما',    id: 'about',        href: '/#about' },
+      { label: 'زبان انگلیسی', id: 'dept-english',  href: '/departments/english' },
+      { label: 'ریاضی',        id: 'dept-math',     href: '/departments/mathematics' },
+      { label: 'هوش مصنوعی',   id: 'dept-ai',       href: '/departments/ai' },
+      { label: 'کارگاه‌ها',    id: 'workshops',     href: '/workshops' },
+    ],
     cta: 'رزرو مشاوره رایگان',
     switchLabel: 'EN',
     hero: {
@@ -93,6 +103,24 @@ export const CONTENT: Record<Lang, PageContent> = {
       { name: 'علی رضایی', role: 'مدرس ریاضی', bio: 'عاشق آموزش مفهومی ریاضی و حل خلاقانه‌ی مسئله.', bg: 'var(--amber-100)', ink: 'var(--amber-600)', initials: 'ع ر' },
       { name: 'نگار کریمی', role: 'مدرس علوم و کاوش', bio: 'کنجکاوی را در آزمایشگاه به ماجراجویی تبدیل می‌کند.', bg: 'var(--mint-100)', ink: 'var(--mint-600)', initials: 'ن ک' },
       { name: 'رضا تهرانی', role: 'مهارت‌های دیجیتال', bio: 'متخصص ابزارهای نوین یادگیری و سواد دیجیتال.', bg: 'var(--blue-100)', ink: 'var(--blue-700)', initials: 'ر ت' },
+    ],
+    foundersTitle: 'بنیان‌گذاران و اساتید ارشد',
+    foundersLead: 'آشنایی با پایه‌گذاران آکادمی هامون',
+    founders: [
+      {
+        name: '[نام شما]',
+        role: 'مدیر و بنیان‌گذار هامون',
+        bio: '[بیوگرافی، سوابق علمی و تجربه‌های حرفه‌ای شما اینجا قرار می‌گیرد. لطفاً این متن را با محتوای واقعی جایگزین کنید.]',
+        linkedin: '#', cv: '#',
+        initials: 'ب ۱', bg: 'var(--blue-100)', ink: 'var(--blue-700)',
+      },
+      {
+        name: '[نام بنیان‌گذار دوم]',
+        role: 'مدیر آموزش و بنیان‌گذار',
+        bio: '[بیوگرافی، سوابق علمی و تجربه‌های حرفه‌ای بنیان‌گذار دوم اینجا قرار می‌گیرد.]',
+        linkedin: '#', cv: '#',
+        initials: 'ب ۲', bg: 'var(--amber-100)', ink: 'var(--amber-700)',
+      },
     ],
     galleryTitle: 'لحظه‌هایی از آکادمی هامون',
     galleryLead: 'نگاهی به کلاس‌های زنده، تعامل دانش‌آموزان و منابع آموزشی پیشرو.',
@@ -139,7 +167,13 @@ export const CONTENT: Record<Lang, PageContent> = {
   en: {
     dir: 'ltr', lang: 'en',
     brand: 'Hamoon Academy', brandSub: 'Smart learning for the next generation',
-    nav: [{ label: 'About', id: 'about' }, { label: 'Courses', id: 'courses' }, { label: 'Instructors', id: 'instructors' }, { label: 'Gallery', id: 'gallery' }],
+    nav: [
+      { label: 'About',        id: 'about',        href: '/#about' },
+      { label: 'English',      id: 'dept-english',  href: '/departments/english' },
+      { label: 'Mathematics',  id: 'dept-math',     href: '/departments/mathematics' },
+      { label: 'AI',           id: 'dept-ai',       href: '/departments/ai' },
+      { label: 'Workshops',    id: 'workshops',     href: '/workshops' },
+    ],
     cta: 'Book a free consultation',
     switchLabel: 'فا',
     hero: {
@@ -178,6 +212,24 @@ export const CONTENT: Record<Lang, PageContent> = {
       { name: 'Ali Rezaei', role: 'Math Instructor', bio: 'Passionate about conceptual math and creative problem-solving.', bg: 'var(--amber-100)', ink: 'var(--amber-600)', initials: 'AR' },
       { name: 'Negar Karimi', role: 'Science & Inquiry', bio: 'Turns curiosity into adventure in the lab.', bg: 'var(--mint-100)', ink: 'var(--mint-600)', initials: 'NK' },
       { name: 'Reza Tehrani', role: 'Digital Skills', bio: 'Specialist in modern learning tools and digital literacy.', bg: 'var(--blue-100)', ink: 'var(--blue-700)', initials: 'RT' },
+    ],
+    foundersTitle: 'Founders & Senior Instructors',
+    foundersLead: 'Meet the people behind Hamoon Academy',
+    founders: [
+      {
+        name: '[Your Name]',
+        role: 'CEO & Co-Founder of Hamoon',
+        bio: '[Your biography, academic background, and professional experience will be placed here. Please replace this text with your own content.]',
+        linkedin: '#', cv: '#',
+        initials: 'F1', bg: 'var(--blue-100)', ink: 'var(--blue-700)',
+      },
+      {
+        name: '[Co-Founder Name]',
+        role: 'Head of Education & Co-Founder',
+        bio: '[Co-founder biography, academic credentials, and professional experience will be placed here.]',
+        linkedin: '#', cv: '#',
+        initials: 'F2', bg: 'var(--amber-100)', ink: 'var(--amber-700)',
+      },
     ],
     galleryTitle: 'Moments from Hamoon Academy',
     galleryLead: 'A look at our live classes, student interaction, and leading learning resources.',
