@@ -4,6 +4,9 @@ import Link from 'next/link';
 import { useLang } from '@/context/LangContext';
 import Icon from '@/components/Icon';
 import DeptInstructor from '@/components/DeptInstructor';
+import DeptVoiceAssistant from '@/components/DeptVoiceAssistant';
+
+const AI_AGENT_ID = 'agent_6901kvx2pxa4evqsz6bfm578n0a0';
 
 const DEPT = {
   fa: {
@@ -56,6 +59,11 @@ const DEPT = {
       initials: 'خ ف',
       bg: 'var(--amber-100)', ink: 'var(--amber-700)',
     },
+    voice: {
+      title: 'مشاوره هوشمند دپارتمان AI',
+      desc: 'سؤالات خود درباره دوره‌های هوش مصنوعی، برنامه درسی و ثبت‌نام را با مشاور هوشمند هامون در میان بگذارید.',
+      button: 'گفتگو با مشاور هوش مصنوعی آکادمی',
+    },
   },
   en: {
     badge: 'AI Department',
@@ -106,6 +114,11 @@ const DEPT = {
       linkedinLabel: 'View LinkedIn Profile',
       initials: 'KF',
       bg: 'var(--amber-100)', ink: 'var(--amber-700)',
+    },
+    voice: {
+      title: 'AI Department Smart Advisor',
+      desc: 'Ask the Hamoon AI advisor about our AI courses, curriculum, and enrollment — get instant answers.',
+      button: 'گفتگو با مشاور هوش مصنوعی آکادمی',
     },
   },
 } as const;
@@ -201,6 +214,14 @@ export default function AIContent() {
 
       {/* ── Instructor profile ── */}
       <DeptInstructor {...d.instructor} />
+
+      {/* ── Inline voice assistant ── */}
+      <DeptVoiceAssistant
+        agentId={AI_AGENT_ID}
+        buttonText={d.voice.button}
+        title={d.voice.title}
+        description={d.voice.desc}
+      />
 
       {/* ── CTA ── */}
       <section className="dept-cta">

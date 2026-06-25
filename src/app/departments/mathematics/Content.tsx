@@ -4,6 +4,9 @@ import Link from 'next/link';
 import { useLang } from '@/context/LangContext';
 import Icon from '@/components/Icon';
 import DeptInstructor from '@/components/DeptInstructor';
+import DeptVoiceAssistant from '@/components/DeptVoiceAssistant';
+
+const MATH_AGENT_ID = 'YOUR_MATH_AGENT_ID';
 
 const DEPT = {
   fa: {
@@ -16,6 +19,11 @@ const DEPT = {
     ctaTitle: 'شروع ماجراجویی ریاضی',
     featuresTitle: 'رویکرد آموزشی ما',
     coursesTitle: 'دوره‌های بخش ریاضی',
+    voice: {
+      title: 'مشاوره صوتی دپارتمان ریاضی',
+      desc: 'برای راهنمایی در انتخاب دوره ریاضی مناسب، با مشاور صوتی هامون صحبت کنید.',
+      button: 'مشاوره صوتی دپارتمان ریاضی',
+    },
     features: [
       {
         ic: 'bulb', soft: 'var(--amber-50)', ink: 'var(--amber-600)',
@@ -61,6 +69,11 @@ const DEPT = {
     ctaTitle: 'Begin your mathematics adventure',
     featuresTitle: 'Our teaching approach',
     coursesTitle: 'Mathematics Department Courses',
+    voice: {
+      title: 'Mathematics Department Voice Advisor',
+      desc: 'Speak with the Hamoon voice advisor for guidance on choosing the right mathematics course for your child.',
+      button: 'مشاوره صوتی دپارتمان ریاضی',
+    },
     features: [
       {
         ic: 'bulb', soft: 'var(--amber-50)', ink: 'var(--amber-600)',
@@ -170,6 +183,14 @@ export default function MathContent() {
 
       {/* ── Instructor profile ── */}
       <DeptInstructor {...d.instructor} />
+
+      {/* ── Inline voice assistant ── */}
+      <DeptVoiceAssistant
+        agentId={MATH_AGENT_ID}
+        buttonText={d.voice.button}
+        title={d.voice.title}
+        description={d.voice.desc}
+      />
 
       {/* ── CTA ── */}
       <section className="dept-cta">

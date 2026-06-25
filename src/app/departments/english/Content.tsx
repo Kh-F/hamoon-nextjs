@@ -3,6 +3,9 @@
 import Link from 'next/link';
 import { useLang } from '@/context/LangContext';
 import Icon from '@/components/Icon';
+import DeptVoiceAssistant from '@/components/DeptVoiceAssistant';
+
+const ENGLISH_AGENT_ID = 'YOUR_ENGLISH_AGENT_ID';
 
 const DEPT = {
   fa: {
@@ -15,8 +18,9 @@ const DEPT = {
     ctaTitle: 'شروع سفر یادگیری زبان انگلیسی',
     featuresTitle: 'رویکرد آموزشی ما',
     coursesTitle: 'دوره‌های زبان انگلیسی',
-    voiceTitle: 'تمرین مکالمه با مشاور هوشمند',
-    voiceDesc: 'دستیار صوتی هوش مصنوعی هامون آماده تمرین مکالمه با شماست — در هر زمان، بدون قضاوت. دکمه نارنجی را در گوشه صفحه فشار دهید و صحبت را شروع کنید.',
+    voiceTitle: 'تمرین مکالمه با مشاور زبان هوشمند',
+    voiceDesc: 'مکالمه زبان انگلیسی را با مشاور هوشمند هامون تمرین کنید — در هر زمان، بدون قضاوت، با بازخورد فوری.',
+    voiceButton: 'شروع گفتگوی انگلیسی و مشاوره',
     features: [
       {
         ic: 'chat', soft: 'var(--blue-50)', ink: 'var(--blue-600)',
@@ -50,8 +54,9 @@ const DEPT = {
     ctaTitle: 'Begin your English language journey',
     featuresTitle: 'Our teaching approach',
     coursesTitle: 'English Department Courses',
-    voiceTitle: 'Practise speaking with the AI assistant',
-    voiceDesc: "Hamoon's AI voice assistant is ready to practise English conversation with you — any time, judgment-free. Press the orange button in the corner of the screen and start speaking.",
+    voiceTitle: 'Practise with the AI language mentor',
+    voiceDesc: "Practise English conversation with the Hamoon AI mentor — any time, judgment-free, with instant feedback. Click below to start speaking.",
+    voiceButton: 'شروع گفتگوی انگلیسی و مشاوره',
     features: [
       {
         ic: 'chat', soft: 'var(--blue-50)', ink: 'var(--blue-600)',
@@ -147,18 +152,13 @@ export default function EnglishContent() {
         </div>
       </section>
 
-      {/* ── Voice assistant callout ── */}
-      <div className="voice-callout-wrap">
-        <div className="voice-callout">
-          <div className="voice-callout-icon">
-            <Icon name="mic" size={26} />
-          </div>
-          <div className="voice-callout-body">
-            <h3 className="voice-callout-title">{d.voiceTitle}</h3>
-            <p className="voice-callout-desc">{d.voiceDesc}</p>
-          </div>
-        </div>
-      </div>
+      {/* ── Inline voice assistant ── */}
+      <DeptVoiceAssistant
+        agentId={ENGLISH_AGENT_ID}
+        buttonText={d.voiceButton}
+        title={d.voiceTitle}
+        description={d.voiceDesc}
+      />
 
       {/* ── CTA ── */}
       <section className="dept-cta">
