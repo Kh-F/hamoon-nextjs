@@ -93,7 +93,6 @@ export const CONTENT: Record<Lang, PageContent> = {
     courses: [
       { ic: 'chat', title: 'مکالمه انگلیسی نوجوانان', desc: 'کلاس‌های تعاملی با بازخورد اختصاصی برای هر زبان‌آموز.', soft: 'var(--blue-50)', ink: 'var(--blue-600)', badge: 'پرطرفدار', meta: ['۱۲ جلسه', '۱۴–۱۶ سال'] },
       { ic: 'calculator', title: 'ریاضی هوشمند کودکان', desc: 'یادگیری مفهومی ریاضی با بازی و چالش‌های گروهی.', soft: 'var(--amber-50)', ink: 'var(--amber-600)', badge: 'جدید', meta: ['۸ جلسه', '۱۰–۱۱ سال'] },
-      { ic: 'flask', title: 'سواد علمی و کاوش', desc: 'آزمایش، پرسش و کشف؛ پرورش ذهن کنجکاو دانش‌آموز.', soft: 'var(--mint-50)', ink: 'var(--mint-600)', badge: 'STEM', meta: ['۱۰ جلسه', '۱۲–۱۳ سال'] },
       { ic: 'laptop', title: 'کارگاه مهارت‌های دیجیتال', desc: 'ویژه‌ی بزرگسالان؛ ابزارهای روز دنیا برای کار و یادگیری.', soft: 'var(--blue-50)', ink: 'var(--blue-700)', badge: 'بزرگسالان', meta: ['۶ جلسه', 'آنلاین'] },
     ],
     instructorsTitle: 'با اساتید هامون آشنا شوید',
@@ -108,16 +107,16 @@ export const CONTENT: Record<Lang, PageContent> = {
     foundersLead: 'آشنایی با پایه‌گذاران آکادمی هامون',
     founders: [
       {
-        name: 'سعید موسوی‌اندرانی',
-        role: 'سرپرست ارشد و بنیان‌گذار هامون',
-        bio: 'سعید موسوی‌اندرانی با سال‌ها تجربه در مدیریت آموزش و توسعه محصولات یادگیری، بینش راهبردی و مسیر رشد آکادمی هامون را شکل داده است. تخصص او در طراحی سیستم‌های آموزشی مؤثر و ایجاد محیط‌های یادگیری پویا، سنگ بنای موفقیت هامون است.',
+        name: 'سعید موسونددرانی',
+        role: '',
+        bio: 'سعید موسونددرانی با سال‌ها تجربه در مدیریت آموزش و توسعه محصولات یادگیری، بینش راهبردی و مسیر رشد آکادمی هامون را شکل داده است. تخصص او در طراحی سیستم‌های آموزشی مؤثر و ایجاد محیط‌های یادگیری پویا، سنگ بنای موفقیت هامون است.',
         linkedin: '#', cv: '#',
         initials: 'س م', bg: 'var(--blue-100)', ink: 'var(--blue-700)',
       },
       {
         name: 'دکتر خدیجه فتحعلی‌خانی',
-        role: 'بنیان‌گذار و استاد ارشد هامون',
-        bio: 'دکتر خدیجه فتحعلی‌خانی دارای دکترای ریاضیات با تخصص در ترکیبیات و نظریه گراف است که اکنون در حوزه هوش مصنوعی کاربردی و مهندسی زیرساخت DevOps فعالیت می‌کند. سابقه تدریس گسترده در دانشگاه الزهرا و دانشگاه کاشان، همراه با پژوهش‌های بین‌المللی در اسپانیا و اسلوونی، پشتوانه علمی قوی او را نشان می‌دهد.',
+        role: '',
+        bio: 'دکتر خدیجه فتحعلی‌خانی دارای دکترای ریاضیات با تخصص در ترکیبیات و نظریه گراف است که اکنون در حوزه هوش مصنوعی کاربردی و مهندسی زیرساخت DevOps فعالیت می‌کند. سابقه تدریس گسترده در دانشگاه‌های مختلف از جمله الزهرا و فرهنگیان، همراه با پژوهش‌های بین‌المللی در اسپانیا و اسلوونی.',
         linkedin: 'https://www.linkedin.com/in/khadijeh-fathalikhani-405b0627', cv: '#',
         initials: 'خ ف', bg: 'var(--amber-100)', ink: 'var(--amber-700)',
       },
@@ -126,9 +125,7 @@ export const CONTENT: Record<Lang, PageContent> = {
     galleryLead: 'نگاهی به کلاس‌های زنده، تعامل دانش‌آموزان و منابع آموزشی پیشرو.',
     gallery: [
       { caption: 'کلاس زنده‌ی مکالمه', ic: 'chat', g: 'linear-gradient(135deg,var(--blue-500),var(--blue-800))', span: 2 },
-      { caption: 'کارگاه علوم و آزمایش', ic: 'flask', g: 'linear-gradient(135deg,var(--mint-400),var(--mint-700))', span: 1 },
       { caption: 'تعامل و کار گروهی', ic: 'users', g: 'linear-gradient(135deg,var(--amber-400),var(--amber-700))', span: 1 },
-      { caption: 'کتابخانه‌ی دیجیتال', ic: 'book', g: 'linear-gradient(135deg,var(--blue-400),var(--blue-700))', span: 1 },
       { caption: 'پروژه‌ی دانش‌آموزی', ic: 'bulb', g: 'linear-gradient(135deg,var(--amber-500),var(--amber-800))', span: 1 },
       { caption: 'جشن پایان دوره', ic: 'party', g: 'linear-gradient(135deg,var(--blue-600),var(--blue-900))', span: 2 },
     ],
@@ -202,7 +199,6 @@ export const CONTENT: Record<Lang, PageContent> = {
     courses: [
       { ic: 'chat', title: 'Teen English Conversation', desc: 'Interactive classes with dedicated feedback for every learner.', soft: 'var(--blue-50)', ink: 'var(--blue-600)', badge: 'Popular', meta: ['12 sessions', 'Ages 14–16'] },
       { ic: 'calculator', title: 'Smart Math for Kids', desc: 'Conceptual math learning through play and group challenges.', soft: 'var(--amber-50)', ink: 'var(--amber-600)', badge: 'New', meta: ['8 sessions', 'Ages 10–11'] },
-      { ic: 'flask', title: 'Science Literacy & Inquiry', desc: 'Experiment, question and discover; nurturing a curious mind.', soft: 'var(--mint-50)', ink: 'var(--mint-600)', badge: 'STEM', meta: ['10 sessions', 'Ages 12–13'] },
       { ic: 'laptop', title: 'Digital Skills Workshop', desc: "For adults; today's tools for work and lifelong learning.", soft: 'var(--blue-50)', ink: 'var(--blue-700)', badge: 'Adults', meta: ['6 sessions', 'Online'] },
     ],
     instructorsTitle: 'Meet the Hamoon mentors',
@@ -218,15 +214,15 @@ export const CONTENT: Record<Lang, PageContent> = {
     founders: [
       {
         name: 'Saeid Mousavandrani',
-        role: 'Senior Lead & Co-Founder of Hamoon',
+        role: '',
         bio: 'Saeid Mousavandrani brings years of experience in education management and learning product development, defining the strategic vision and growth path of Hamoon Academy. His expertise in designing effective educational systems and dynamic learning environments is the cornerstone of Hamoon\'s success.',
         linkedin: '#', cv: '#',
         initials: 'SM', bg: 'var(--blue-100)', ink: 'var(--blue-700)',
       },
       {
         name: 'Dr. Khadijeh Fathalikhani',
-        role: 'Co-Founder & Lead Instructor',
-        bio: 'Dr. Khadijeh Fathalikhani holds a Ph.D. in Mathematics specializing in Combinatorics and Graph Theory, now active in Applied AI and DevOps Infrastructure Engineering. Her extensive university-level teaching at Alzahra University and the University of Kashan, combined with international research in Spain and Slovenia, reflects her deep academic foundation.',
+        role: '',
+        bio: 'Dr. Khadijeh Fathalikhani holds a Ph.D. in Mathematics specializing in Combinatorics and Graph Theory, now active in Applied AI and DevOps Infrastructure Engineering. Her extensive university-level teaching across multiple institutions, combined with international research in Spain and Slovenia, reflects her broad academic track record.',
         linkedin: 'https://www.linkedin.com/in/khadijeh-fathalikhani-405b0627', cv: '#',
         initials: 'KF', bg: 'var(--amber-100)', ink: 'var(--amber-700)',
       },
@@ -235,9 +231,7 @@ export const CONTENT: Record<Lang, PageContent> = {
     galleryLead: 'A look at our live classes, student interaction, and leading learning resources.',
     gallery: [
       { caption: 'Live conversation class', ic: 'chat', g: 'linear-gradient(135deg,var(--blue-500),var(--blue-800))', span: 2 },
-      { caption: 'Science & experiment lab', ic: 'flask', g: 'linear-gradient(135deg,var(--mint-400),var(--mint-700))', span: 1 },
       { caption: 'Group interaction', ic: 'users', g: 'linear-gradient(135deg,var(--amber-400),var(--amber-700))', span: 1 },
-      { caption: 'Digital library', ic: 'book', g: 'linear-gradient(135deg,var(--blue-400),var(--blue-700))', span: 1 },
       { caption: 'Student project', ic: 'bulb', g: 'linear-gradient(135deg,var(--amber-500),var(--amber-800))', span: 1 },
       { caption: 'Graduation celebration', ic: 'party', g: 'linear-gradient(135deg,var(--blue-600),var(--blue-900))', span: 2 },
     ],

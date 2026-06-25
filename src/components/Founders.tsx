@@ -27,7 +27,7 @@ export default function Founders() {
               </div>
               <div className="founder-info">
                 <h3 className="founder-name">{f.name}</h3>
-                <div className="founder-role">{f.role}</div>
+                {f.role && <div className="founder-role">{f.role}</div>}
                 <p className="founder-bio">{f.bio}</p>
                 <div className="founder-actions">
                   <Link
