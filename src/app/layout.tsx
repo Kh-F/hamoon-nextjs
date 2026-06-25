@@ -27,10 +27,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="fa" dir="rtl">
       <body className={`${vazirmatn.variable} ${lexend.variable}`}>
         {children}
-        <elevenlabs-convai agent-id="agent_6901kvx2pxa4evqsz6bfm578n0a0" />
+        <elevenlabs-convai agent-id="agent_6901kvx2pxa4evqsz6bfm578n0a0" lang="fa" />
         <Script
           src="https://unpkg.com/@elevenlabs/convai-widget-embed"
-          strategy="lazyOnload"
+          strategy="afterInteractive"
         />
       </body>
     </html>
