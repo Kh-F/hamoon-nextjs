@@ -23,4 +23,5 @@ export const ICONS: Record<string, string> = {
   check:      '<path d="M20 6.5 9.2 17.5 4 12.3"/>',
   star:       '<path d="M12 3.2l2.6 5.7 6.2.7-4.6 4.2 1.3 6.1L12 16.9 6.5 19.9l1.3-6.1L3.2 9.6l6.2-.7Z"/>',
   chevron:    '<path d="M9 6l6 6-6 6"/>',
+  mic:        '<path d="M12 2a3 3 0 0 1 3 3v7a3 3 0 0 1-6 0V5a3 3 0 0 1 3-3Z"/><path d="M19 11a7 7 0 0 1-14 0"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/>',
 };
