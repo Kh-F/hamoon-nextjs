@@ -90,6 +90,8 @@ input,textarea{font-family:inherit;}
 .hero-stat-n{font-size:var(--fs-h2);font-weight:800;color:var(--color-primary);}
 .hero-stat-l{font-size:var(--fs-sm);color:var(--text-muted);}
 .hero-card-wrap{display:flex;justify-content:center;}
+.hero-illus-wrap{display:flex;justify-content:center;align-items:center;}
+.hero-illus{width:100%;max-width:520px;height:auto;border-radius:var(--radius-2xl);box-shadow:var(--shadow-xl);object-fit:cover;}
 .hero-card{width:100%;max-width:400px;background:var(--surface-card);border-radius:var(--radius-xl);box-shadow:var(--shadow-xl);padding:var(--space-5);border:1px solid var(--border-subtle);animation:hmFloat 7s ease-in-out infinite;}
 .hero-card-thumb{aspect-ratio:16/10;border-radius:var(--radius-lg);background:linear-gradient(135deg,var(--blue-600),var(--blue-800));display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
 .live-badge{position:absolute;top:12px;inset-inline-start:12px;display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.95);color:var(--red-500);font-size:var(--fs-xs);font-weight:800;padding:5px 11px;border-radius:var(--radius-pill);}

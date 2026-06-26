@@ -13,7 +13,19 @@ export default function Hero() {
       <div className="hero-blob2" />
 
       <div className="hero-inner">
-        {/* Left: text content */}
+        {/* Illustration */}
+        <div className="hero-illus-wrap">
+          <Image
+            src="/website-photo.png"
+            alt="Hamoon Academy"
+            width={520}
+            height={420}
+            className="hero-illus"
+            priority
+          />
+        </div>
+
+        {/* Text content */}
         <div className="hero-content">
           <span className="hero-badge">
             <span className="badge-dot" />
