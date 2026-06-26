@@ -114,9 +114,9 @@ export const CONTENT: Record<Lang, PageContent> = {
         initials: 'س م', bg: 'var(--blue-100)', ink: 'var(--blue-700)',
       },
       {
-        name: 'خدیجه فتحعلی‌خانی',
+        name: 'خدیجه فتحعلیخانی',
         role: '',
-        bio: 'خدیجه فتحعلی‌خانی دارای دکترای ریاضیات با تخصص در ترکیبیات و نظریه گراف است که اکنون در حوزه هوش مصنوعی کاربردی و مهندسی زیرساخت DevOps فعالیت می‌کند. او سابقه تدریس گسترده‌ای در دانشگاه‌های مختلف از جمله الزهرا و فرهنگیان دارد و پژوهش‌های بین‌المللی متعددی را در اسپانیا و اسلوونی به سرانجام رسانده است.',
+        bio: 'خدیجه فتحعلیخانی دارای دکترای ریاضیات با تخصص در ترکیبیات و نظریه گراف است که اکنون در حوزه هوش مصنوعی کاربردی و مهندسی زیرساخت DevOps فعالیت می‌کند. او سابقه تدریس گسترده‌ای در دانشگاه‌های مختلف از جمله الزهرا و فرهنگیان دارد و پژوهش‌های بین‌المللی متعددی را در اسپانیا و اسلوونی به سرانجام رسانده است.',
         linkedin: 'https://www.linkedin.com/in/khadijeh-fathalikhani-405b0627', cv: '#',
         initials: 'خ ف', bg: 'var(--amber-100)', ink: 'var(--amber-700)',
       },
@@ -124,7 +124,6 @@ export const CONTENT: Record<Lang, PageContent> = {
     galleryTitle: 'لحظه‌هایی از آکادمی هامون',
     galleryLead: 'نگاهی به کلاس‌های زنده، تعامل دانش‌آموزان و منابع آموزشی پیشرو.',
     gallery: [
-      { caption: 'کلاس زنده‌ی مکالمه', ic: 'chat', g: 'linear-gradient(135deg,var(--blue-500),var(--blue-800))', span: 2 },
       { caption: 'تعامل و کار گروهی', ic: 'users', g: 'linear-gradient(135deg,var(--amber-400),var(--amber-700))', span: 1 },
       { caption: 'پروژه‌ی دانش‌آموزی', ic: 'bulb', g: 'linear-gradient(135deg,var(--amber-500),var(--amber-800))', span: 1 },
       { caption: 'جشن پایان دوره', ic: 'party', g: 'linear-gradient(135deg,var(--blue-600),var(--blue-900))', span: 2 },
@@ -230,7 +229,6 @@ export const CONTENT: Record<Lang, PageContent> = {
     galleryTitle: 'Moments from Hamoon Academy',
     galleryLead: 'A look at our live classes, student interaction, and leading learning resources.',
     gallery: [
-      { caption: 'Live conversation class', ic: 'chat', g: 'linear-gradient(135deg,var(--blue-500),var(--blue-800))', span: 2 },
       { caption: 'Group interaction', ic: 'users', g: 'linear-gradient(135deg,var(--amber-400),var(--amber-700))', span: 1 },
       { caption: 'Student project', ic: 'bulb', g: 'linear-gradient(135deg,var(--amber-500),var(--amber-800))', span: 1 },
       { caption: 'Graduation celebration', ic: 'party', g: 'linear-gradient(135deg,var(--blue-600),var(--blue-900))', span: 2 },
