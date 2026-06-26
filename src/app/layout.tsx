@@ -20,7 +20,7 @@ const lexend = Lexend({
 export const metadata: Metadata = {
   title: 'آکادمی هامون | Hamoon Academy',
   description: 'یادگیری هوشمند برای نسل آینده — Smart learning for the next generation',
-  icons: { icon: '/logo.png.png' },
+  icons: { icon: '/icon.png' },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
