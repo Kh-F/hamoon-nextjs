@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import { Vazirmatn, Lexend } from 'next/font/google';
-import { HamoonVoiceAssistant } from '@/components/HamoonVoiceAssistant';
 import './globals.css';
 
 const vazirmatn = Vazirmatn({
@@ -28,7 +27,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="fa" dir="rtl">
       <body className={`${vazirmatn.variable} ${lexend.variable}`}>
         {children}
-        <HamoonVoiceAssistant />
       </body>
     </html>
   );
