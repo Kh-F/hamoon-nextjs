@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import { useLang } from '@/context/LangContext';
 import Icon from '@/components/Icon';
-import DeptInstructor from '@/components/DeptInstructor';
 import DeptVoiceAssistant from '@/components/DeptVoiceAssistant';
 
 const AI_AGENT_ID = 'agent_6901kvx2pxa4evqsz6bfm578n0a0';
@@ -47,18 +46,6 @@ const DEPT = {
       { ic: 'bulb',     title: 'هوش مصنوعی و خلاقیت',   desc: 'ابزارهای تولید محتوا، طراحی تصویر و موسیقی با AI — برای نوجوانان خلاق.', meta: ['۱۰ جلسه', '۱۴–۱۶ سال'], badge: 'STEM',    soft: 'var(--amber-50)', ink: 'var(--amber-600)' },
       { ic: 'trending', title: 'اتوماسیون با هوش مصنوعی',desc: 'طراحی پایپلاین‌های اتوماسیون با n8n و Dify — از صفر تا استقرار در محیط تولید.', meta: ['۱۲ جلسه', 'بزرگسال'],   badge: 'پیشرفته', soft: 'var(--mint-50)',  ink: 'var(--mint-600)' },
     ],
-    instructor: {
-      sectionLabel: 'مدرس بخش هوش مصنوعی',
-      name: 'دکتر خدیجه فتحعلی‌خانی',
-      role: 'بنیان‌گذار و استاد ارشد — متخصص AI کاربردی و زیرساخت DevOps',
-      bio: 'دکتر فتحعلی‌خانی با دکترای ریاضیات از دانشگاه الزهرا (تخصص در ترکیبیات و نظریه گراف)، اکنون در حوزه هوش مصنوعی کاربردی و مهندسی زیرساخت DevOps فعالیت می‌کند. تجربه مستقیم او در توسعه اپلیکیشن‌های بینایی ماشین و ساخت پایپلاین‌های اتوماسیون سطح تولید با n8n، Dify و Docker، پشتوانه محکمی برای آموزش عملی و نتیجه‌محور فراهم می‌کند.',
-      creds: ['Ph.D. ریاضیات — ترکیبیات و نظریه گراف', 'دانشگاه الزهرا', 'AI کاربردی و DevOps'],
-      skills: ['Computer Vision', 'n8n', 'Dify', 'Docker', 'LLM Pipelines', 'Stempedia', 'تحلیل داده'],
-      linkedin: 'https://www.linkedin.com/in/khadijeh-fathalikhani-405b0627',
-      linkedinLabel: 'مشاهده پروفایل LinkedIn',
-      initials: 'خ ف',
-      bg: 'var(--amber-100)', ink: 'var(--amber-700)',
-    },
     voice: {
       title: 'مشاوره هوشمند دپارتمان AI',
       desc: 'سؤالات خود درباره دوره‌های هوش مصنوعی، برنامه درسی و ثبت‌نام را با مشاور هوشمند هامون در میان بگذارید.',
@@ -103,18 +90,6 @@ const DEPT = {
       { ic: 'bulb',     title: 'AI & Creativity',     desc: 'Content generation, AI image and music tools — designed for creative teens who want to build.',         meta: ['10 sessions', 'Ages 14–16'], badge: 'STEM',     soft: 'var(--amber-50)', ink: 'var(--amber-600)' },
       { ic: 'trending', title: 'AI Automation',       desc: 'Build production-grade automation pipelines with n8n and Dify — from zero to live deployment.',         meta: ['12 sessions', 'Adult'],      badge: 'Advanced', soft: 'var(--mint-50)',  ink: 'var(--mint-600)' },
     ],
-    instructor: {
-      sectionLabel: 'Lead instructor — AI Department',
-      name: 'Dr. Khadijeh Fathalikhani',
-      role: 'Co-Founder & Lead Instructor — Applied AI & DevOps Infrastructure',
-      bio: 'Dr. Fathalikhani holds a Ph.D. in Mathematics from Alzahra University, specialising in Combinatorics and Graph Theory, now active in Applied AI and DevOps Infrastructure Engineering. Her hands-on experience building computer vision applications and production-grade automated pipelines using n8n, Dify, and Docker provides the practical foundation that defines every Hamoon AI course.',
-      creds: ['Ph.D. Mathematics — Combinatorics & Graph Theory', 'Alzahra University', 'Applied AI & DevOps'],
-      skills: ['Computer Vision', 'n8n', 'Dify', 'Docker', 'LLM Pipelines', 'Stempedia', 'Data Analytics'],
-      linkedin: 'https://www.linkedin.com/in/khadijeh-fathalikhani-405b0627',
-      linkedinLabel: 'View LinkedIn Profile',
-      initials: 'KF',
-      bg: 'var(--amber-100)', ink: 'var(--amber-700)',
-    },
     voice: {
       title: 'AI Department Smart Advisor',
       desc: 'Ask the Hamoon AI advisor about our AI courses, curriculum, and enrollment — get instant answers.',
@@ -211,9 +186,6 @@ export default function AIContent() {
           </div>
         </div>
       </section>
-
-      {/* ── Instructor profile ── */}
-      <DeptInstructor {...d.instructor} />
 
       {/* ── Inline voice assistant ── */}
       <DeptVoiceAssistant
