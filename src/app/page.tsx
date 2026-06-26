@@ -2,7 +2,6 @@ import { LangProvider } from '@/context/LangContext';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
 import About from '@/components/About';
-import Courses from '@/components/Courses';
 import Founders from '@/components/Founders';
 import Gallery from '@/components/Gallery';
 import Testimonials from '@/components/Testimonials';
@@ -16,7 +15,6 @@ export default function Home() {
       <main id="top">
         <Hero />
         <About />
-        <Courses />
         <Founders />
         <Gallery />
         <Testimonials />
