@@ -228,6 +228,10 @@ input,textarea{font-family:inherit;}
 .founder-link--cv:hover{background:var(--amber-100);}
 @media(max-width:600px){.founder-card{flex-direction:column;}.founder-avatar-lg{width:70px;height:70px;font-size:var(--fs-h4);}}
 
+/* ── English dept series image ── */
+.english-series-wrap{max-width:var(--container-xl);margin-inline:auto;padding-inline:var(--gutter);padding-block:var(--space-8);}
+.english-series-img{width:100%;height:auto;display:block;border-radius:var(--radius-2xl);box-shadow:var(--shadow-xl);object-fit:cover;}
+
 /* ── Dept / inner pages ── */
 .dept-hero{background:linear-gradient(180deg,var(--blue-50) 0%,var(--surface-page) 100%);padding-block:clamp(3rem,8vw,5.5rem);}
 .dept-hero-inner{max-width:var(--container-xl);margin-inline:auto;padding-inline:var(--gutter);}

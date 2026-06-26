@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { useLang } from '@/context/LangContext';
 import Icon from '@/components/Icon';
@@ -194,6 +195,18 @@ export default function EnglishContent() {
           </div>
         </div>
       </section>
+
+      {/* ── Book series showcase ── */}
+      <div className="english-series-wrap">
+        <Image
+          src="/Oxford-Discover-Full-Series.webp"
+          alt="Oxford Discover Full Series — 2nd Edition"
+          width={1200}
+          height={592}
+          className="english-series-img"
+          priority
+        />
+      </div>
 
       {/* ── Teaching approach ── */}
       <section className="dept-features">
