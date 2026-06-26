@@ -37,7 +37,6 @@ export default function Hero() {
 
           <div className="hero-btns">
             <a href="#consult" className="btn-primary">{hero.primary}</a>
-            <a href="#courses" className="btn-secondary">{hero.secondary}</a>
           </div>
 
           <div className="hero-stats">
