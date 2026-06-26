@@ -29,21 +29,27 @@ export default function Founders() {
                 <h3 className="founder-name">{f.name}</h3>
                 {f.role && <div className="founder-role">{f.role}</div>}
                 <p className="founder-bio">{f.bio}</p>
-                <div className="founder-actions">
-                  <Link
-                    href={f.linkedin}
-                    target={f.linkedin.startsWith('http') ? '_blank' : undefined}
-                    rel={f.linkedin.startsWith('http') ? 'noopener noreferrer' : undefined}
-                    className="founder-link founder-link--linkedin"
-                  >
-                    <Icon name="linkedin" size={14} />
-                    LinkedIn
-                  </Link>
-                  <a href={f.cv} download className="founder-link founder-link--cv">
-                    <Icon name="download" size={14} />
-                    {c.lang === 'fa' ? 'دانلود رزومه' : 'Download CV'}
-                  </a>
-                </div>
+                {(f.linkedin !== '#' || f.cv !== '#') && (
+                  <div className="founder-actions">
+                    {f.linkedin !== '#' && (
+                      <Link
+                        href={f.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="founder-link founder-link--linkedin"
+                      >
+                        <Icon name="linkedin" size={14} />
+                        LinkedIn
+                      </Link>
+                    )}
+                    {f.cv !== '#' && (
+                      <a href={f.cv} download className="founder-link founder-link--cv">
+                        <Icon name="download" size={14} />
+                        {c.lang === 'fa' ? 'دانلود رزومه' : 'Download CV'}
+                      </a>
+                    )}
+                  </div>
+                )}
               </div>
             </div>
           ))}

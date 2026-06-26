@@ -126,7 +126,6 @@ export const CONTENT: Record<Lang, PageContent> = {
     gallery: [
       { caption: 'تعامل و کار گروهی', ic: 'users', g: 'linear-gradient(135deg,var(--amber-400),var(--amber-700))', span: 1 },
       { caption: 'پروژه‌ی دانش‌آموزی', ic: 'bulb', g: 'linear-gradient(135deg,var(--amber-500),var(--amber-800))', span: 1 },
-      { caption: 'جشن پایان دوره', ic: 'party', g: 'linear-gradient(135deg,var(--blue-600),var(--blue-900))', span: 2 },
     ],
     formTitle: 'رزرو مشاوره رایگان',
     formLead: 'فرم زیر را پر کنید؛ مشاوران ما برای انتخاب بهترین مسیر یادگیری با شما تماس می‌گیرند.',
@@ -231,7 +230,6 @@ export const CONTENT: Record<Lang, PageContent> = {
     gallery: [
       { caption: 'Group interaction', ic: 'users', g: 'linear-gradient(135deg,var(--amber-400),var(--amber-700))', span: 1 },
       { caption: 'Student project', ic: 'bulb', g: 'linear-gradient(135deg,var(--amber-500),var(--amber-800))', span: 1 },
-      { caption: 'Graduation celebration', ic: 'party', g: 'linear-gradient(135deg,var(--blue-600),var(--blue-900))', span: 2 },
     ],
     formTitle: 'Book a free consultation',
     formLead: 'Fill in the form and our advisors will call you to choose the best learning path.',
