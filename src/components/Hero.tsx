@@ -38,33 +38,6 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Right: floating card */}
-        <div className="hero-card-wrap">
-          <div className="hero-card">
-            <div className="hero-card-thumb">
-              <Image
-                src="/logo.png.png"
-                alt=""
-                width={96}
-                height={96}
-                className="img-logo-hero"
-              />
-              <span className="live-badge">
-                <span className="live-dot" />
-                {hero.liveLabel}
-              </span>
-            </div>
-
-            <div className="hero-card-body">
-              <span className="card-avatar">{hero.cardInitials}</span>
-              <div className="card-info">
-                <div className="card-title">{hero.cardTitle}</div>
-                <div className="card-teacher">{hero.cardTeacher}</div>
-              </div>
-              <span className="card-meta-pill">{hero.cardMeta}</span>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
   );
