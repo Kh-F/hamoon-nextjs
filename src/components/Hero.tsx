@@ -16,10 +16,10 @@ export default function Hero() {
         {/* Illustration */}
         <div className="hero-illus-wrap">
           <Image
-            src="/website-photo.png"
+            src="/website-photo.webp"
             alt="Hamoon Academy"
             width={520}
-            height={420}
+            height={284}
             className="hero-illus"
             priority
           />
