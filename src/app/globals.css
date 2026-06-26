@@ -235,6 +235,10 @@ input,textarea{font-family:inherit;}
 /* ── Dept / inner pages ── */
 .dept-hero{background:linear-gradient(180deg,var(--blue-50) 0%,var(--surface-page) 100%);padding-block:clamp(3rem,8vw,5.5rem);}
 .dept-hero-inner{max-width:var(--container-xl);margin-inline:auto;padding-inline:var(--gutter);}
+.dept-hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-12);align-items:center;}
+.dept-hero-img-col{display:flex;justify-content:center;align-items:center;}
+.dept-hero-series-img{width:100%;max-width:560px;height:auto;display:block;border-radius:var(--radius-2xl);box-shadow:var(--shadow-xl);object-fit:cover;}
+@media(max-width:860px){.dept-hero-grid{grid-template-columns:1fr;}.dept-hero-img-col{order:-1;}}
 .dept-badge-row{display:flex;align-items:center;gap:var(--space-3);margin-bottom:var(--space-4);flex-wrap:wrap;}
 .dept-back{display:inline-flex;align-items:center;gap:5px;font-size:var(--fs-sm);font-weight:600;color:var(--text-muted);transition:color .15s;}
 .dept-back:hover{color:var(--color-primary);}

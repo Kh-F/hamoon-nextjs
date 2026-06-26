@@ -176,37 +176,41 @@ export default function EnglishContent() {
       {/* ── Hero ── */}
       <section className="dept-hero">
         <div className="dept-hero-inner">
-          <div className="dept-badge-row">
-            <Link href="/" className="dept-back"><Icon name="arrowleft" size={16} />{d.back}</Link>
-            <span className="dept-badge">{d.badge}</span>
-          </div>
-          <h1 className="dept-title" style={{ whiteSpace: 'pre-line' }}>{d.title}</h1>
-          <p className="dept-lead">{d.lead}</p>
-          <p style={{
-            marginTop: 'var(--space-3)',
-            fontSize: 'var(--fs-sm)',
-            color: 'var(--text-muted)',
-            fontWeight: 600,
-          }}>
-            {d.manager}
-          </p>
-          <div className="dept-btns">
-            <Link href="/#consult" className="btn-primary">{d.cta}</Link>
+          <div className="dept-hero-grid">
+            {/* Text column */}
+            <div>
+              <div className="dept-badge-row">
+                <Link href="/" className="dept-back"><Icon name="arrowleft" size={16} />{d.back}</Link>
+                <span className="dept-badge">{d.badge}</span>
+              </div>
+              <h1 className="dept-title" style={{ whiteSpace: 'pre-line' }}>{d.title}</h1>
+              <p className="dept-lead">{d.lead}</p>
+              <p style={{
+                marginTop: 'var(--space-3)',
+                fontSize: 'var(--fs-sm)',
+                color: 'var(--text-muted)',
+                fontWeight: 600,
+              }}>
+                {d.manager}
+              </p>
+              <div className="dept-btns">
+                <Link href="/#consult" className="btn-primary">{d.cta}</Link>
+              </div>
+            </div>
+            {/* Image column */}
+            <div className="dept-hero-img-col">
+              <Image
+                src="/Oxford-Discover-Full-Series.webp"
+                alt="Oxford Discover Full Series — 2nd Edition"
+                width={600}
+                height={296}
+                className="dept-hero-series-img"
+                priority
+              />
+            </div>
           </div>
         </div>
       </section>
-
-      {/* ── Book series showcase ── */}
-      <div className="english-series-wrap">
-        <Image
-          src="/Oxford-Discover-Full-Series.webp"
-          alt="Oxford Discover Full Series — 2nd Edition"
-          width={1200}
-          height={592}
-          className="english-series-img"
-          priority
-        />
-      </div>
 
       {/* ── Teaching approach ── */}
       <section className="dept-features">
