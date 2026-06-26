@@ -39,7 +39,6 @@ const DEPT = {
       badge: 'برنامه درسی سفارشی',
       title: 'تدریس با دقت ریاضی، استقرار با فناوری روز',
       body: 'برنامه درسی هوش مصنوعی هامون توسط دکتر خدیجه فتحعلی‌خانی — ریاضیدان و متخصص AI — طراحی و تألیف شده است. این برنامه با ترکیب بهترین مفاهیم جهانی از جمله Stempedia و زیرساخت‌های پیشرفته اتوماسیون AI، دقت ریاضی را با مهارت‌های استقرار عملی در هم می‌آمیزد.',
-      tags: ['Stempedia', 'n8n', 'Dify', 'Docker', 'Computer Vision', 'LLM Pipelines'],
     },
     courses: [
       { ic: 'laptop',   title: 'مقدمه هوش مصنوعی',      desc: 'مفاهیم پایه AI، یادگیری ماشین و کاربرد ابزارهای هوشمند در پروژه‌های واقعی.', meta: ['۸ جلسه', '۱۲–۱۳ سال'], badge: 'جدید',    soft: 'var(--blue-50)',  ink: 'var(--blue-600)' },
@@ -83,7 +82,6 @@ const DEPT = {
       badge: 'Custom curriculum',
       title: 'Mathematical rigour meets practical deployment',
       body: 'The Hamoon AI curriculum is custom-tailored and authored by Dr. Khadijeh Fathalikhani — mathematician and AI specialist. By synthesising the best global frameworks including Stempedia and advanced AI automation infrastructure, it ensures strict mathematical rigour is paired with the practical deployment skills the industry demands.',
-      tags: ['Stempedia', 'n8n', 'Dify', 'Docker', 'Computer Vision', 'LLM Pipelines'],
     },
     courses: [
       { ic: 'laptop',   title: 'Intro to AI',         desc: 'Core AI concepts, machine learning and practical use of intelligent tools in real projects.',           meta: ['8 sessions', 'Ages 12–13'],  badge: 'New',      soft: 'var(--blue-50)',  ink: 'var(--blue-600)' },
@@ -149,11 +147,6 @@ export default function AIContent() {
             <span className="dept-curriculum-badge">{d.curriculum.badge}</span>
             <h2 className="dept-curriculum-title">{d.curriculum.title}</h2>
             <p className="dept-curriculum-body">{d.curriculum.body}</p>
-            <div className="dept-curriculum-tags">
-              {d.curriculum.tags.map(t => (
-                <span key={t} className="dept-curriculum-tag">{t}</span>
-              ))}
-            </div>
           </div>
         </div>
       </section>
