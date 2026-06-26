@@ -203,7 +203,7 @@ export default function EnglishContent() {
                 src="/Oxford-Discover-Full-Series.webp"
                 alt="Oxford Discover Full Series — 2nd Edition"
                 width={600}
-                height={296}
+                height={347}
                 className="dept-hero-series-img"
                 priority
               />
