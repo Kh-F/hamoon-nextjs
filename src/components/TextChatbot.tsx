@@ -63,12 +63,14 @@ export function TextChatbot({ context = 'general', onClose }: Props) {
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({ messages: [...messages, userMsg], context }),
       });
-      const { content, error } = (await res.json()) as { content?: string; error?: string };
+      const data = (await res.json()) as { content?: string; error?: string };
+      if (!res.ok || data.error) console.error('[chat API]', data.error);
       setMessages(prev => [
         ...prev,
-        { role: 'assistant', content: content ?? (error ? ERROR_MSG[context] : '…') },
+        { role: 'assistant', content: data.content ?? ERROR_MSG[context] },
       ]);
-    } catch {
+    } catch (err) {
+      console.error('[chat fetch]', err);
       setMessages(prev => [...prev, { role: 'assistant', content: ERROR_MSG[context] }]);
     } finally {
       setLoading(false);
