@@ -204,6 +204,7 @@ export default function EnglishContent() {
                 alt="Oxford Discover Full Series — 2nd Edition"
                 width={600}
                 height={347}
+                sizes="(max-width: 860px) 100vw, 50vw"
                 className="dept-hero-series-img"
                 priority
               />
