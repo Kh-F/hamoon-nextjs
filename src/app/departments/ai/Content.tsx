@@ -3,9 +3,6 @@
 import Link from 'next/link';
 import { useLang } from '@/context/LangContext';
 import Icon from '@/components/Icon';
-import DeptVoiceAssistant from '@/components/DeptVoiceAssistant';
-
-const AI_AGENT_ID = 'agent_6901kvx2pxa4evqsz6bfm578n0a0';
 
 const DEPT = {
   fa: {
@@ -45,11 +42,6 @@ const DEPT = {
       { ic: 'bulb',     title: 'هوش مصنوعی و خلاقیت',   desc: 'ابزارهای تولید محتوا، طراحی تصویر و موسیقی با AI — برای نوجوانان خلاق.', meta: ['۱۰ جلسه', '۱۴–۱۶ سال'], badge: 'STEM',    soft: 'var(--amber-50)', ink: 'var(--amber-600)' },
       { ic: 'trending', title: 'اتوماسیون با هوش مصنوعی',desc: 'طراحی پایپلاین‌های اتوماسیون با n8n و Dify — از صفر تا استقرار در محیط تولید.', meta: ['۱۲ جلسه', 'بزرگسال'],   badge: 'پیشرفته', soft: 'var(--mint-50)',  ink: 'var(--mint-600)' },
     ],
-    voice: {
-      title: 'مشاوره هوشمند دپارتمان AI',
-      desc: 'سؤالات خود درباره دوره‌های هوش مصنوعی، برنامه درسی و ثبت‌نام را با مشاور هوشمند هامون در میان بگذارید.',
-      button: 'گفتگو با مشاور هوش مصنوعی آکادمی',
-    },
   },
   en: {
     badge: 'AI Department',
@@ -88,11 +80,6 @@ const DEPT = {
       { ic: 'bulb',     title: 'AI & Creativity',     desc: 'Content generation, AI image and music tools — designed for creative teens who want to build.',         meta: ['10 sessions', 'Ages 14–16'], badge: 'STEM',     soft: 'var(--amber-50)', ink: 'var(--amber-600)' },
       { ic: 'trending', title: 'AI Automation',       desc: 'Build production-grade automation pipelines with n8n and Dify — from zero to live deployment.',         meta: ['12 sessions', 'Adult'],      badge: 'Advanced', soft: 'var(--mint-50)',  ink: 'var(--mint-600)' },
     ],
-    voice: {
-      title: 'AI Department Smart Advisor',
-      desc: 'Ask the Hamoon AI advisor about our AI courses, curriculum, and enrollment — get instant answers.',
-      button: 'گفتگو با مشاور هوش مصنوعی آکادمی',
-    },
   },
 } as const;
 
@@ -179,14 +166,6 @@ export default function AIContent() {
           </div>
         </div>
       </section>
-
-      {/* ── Inline voice assistant ── */}
-      <DeptVoiceAssistant
-        agentId={AI_AGENT_ID}
-        buttonText={d.voice.button}
-        title={d.voice.title}
-        description={d.voice.desc}
-      />
 
       {/* ── CTA ── */}
       <section className="dept-cta">

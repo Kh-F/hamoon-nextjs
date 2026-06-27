@@ -4,9 +4,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useLang } from '@/context/LangContext';
 import Icon from '@/components/Icon';
-import DeptVoiceAssistant from '@/components/DeptVoiceAssistant';
-
-const ENGLISH_AGENT_ID = 'YOUR_ENGLISH_AGENT_ID';
 
 const DEPT = {
   fa: {
@@ -20,9 +17,6 @@ const DEPT = {
     ctaTitle: 'شروع سفر یادگیری زبان انگلیسی',
     featuresTitle: 'رویکرد آموزشی ما',
     coursesTitle: 'دوره‌های Oxford Discover — ویرایش دوم',
-    voiceTitle: 'تمرین مکالمه با مشاور زبان هوشمند',
-    voiceDesc: 'مکالمه زبان انگلیسی را با مشاور هوشمند هامون تمرین کنید — در هر زمان، بدون قضاوت، با بازخورد فوری.',
-    voiceButton: 'شروع گفتگوی انگلیسی و مشاوره',
     policyTitle: 'قانون الزامی ثبت‌نام',
     policyBody: 'در آکادمی هامون، یادگیری یک مسیر پیوسته و زنجیره‌وار است. هیچ زبان‌آموزی نمی‌تواند بدون گذراندن دوره‌های قبلی، مستقیماً وارد سطوح بالاتر (مانند سطح ۲ و بعد از آن) شود. تمامی زبان‌آموزان جدید واجد شرایط، الزامات آموزشی را از «سطح ۱» آغاز خواهند کرد.',
     features: [
@@ -98,9 +92,6 @@ const DEPT = {
     ctaTitle: 'Begin your English language journey',
     featuresTitle: 'Our teaching approach',
     coursesTitle: 'Oxford Discover Courses — 2nd Edition',
-    voiceTitle: 'Practise with the AI language mentor',
-    voiceDesc: "Practise English conversation with the Hamoon AI mentor — any time, judgment-free, with instant feedback. Click below to start speaking.",
-    voiceButton: 'شروع گفتگوی انگلیسی و مشاوره',
     policyTitle: 'Mandatory Enrolment Policy',
     policyBody: 'At Hamoon Academy, learning follows a continuous, sequential path. No learner may skip directly into a higher level (Level 2 or above) without completing the prerequisite levels. All new eligible learners begin their journey at Level 1.',
     features: [
@@ -288,14 +279,6 @@ export default function EnglishContent() {
           </div>
         </div>
       </section>
-
-      {/* ── Inline voice assistant ── */}
-      <DeptVoiceAssistant
-        agentId={ENGLISH_AGENT_ID}
-        buttonText={d.voiceButton}
-        title={d.voiceTitle}
-        description={d.voiceDesc}
-      />
 
       {/* ── CTA ── */}
       <section className="dept-cta">
