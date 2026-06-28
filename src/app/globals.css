@@ -154,6 +154,9 @@ input,textarea{font-family:inherit;}
 .cdp-level-icon{flex-shrink:0;margin-top:1px;}
 .cdp-level-label{font-weight:700;color:var(--text-strong);white-space:nowrap;flex-shrink:0;}
 .cdp-level-val{color:var(--text-body);flex:1;min-width:0;}
+.cdp-level-row--goal{align-items:flex-start;}
+.cdp-level-goal-wrap{display:flex;flex-direction:column;gap:3px;flex:1;min-width:0;}
+.cdp-level-goal-text{font-size:var(--fs-sm);color:var(--text-body);margin:0;line-height:1.6;}
 /* general info header */
 .cdp-gen-head{display:flex;align-items:center;gap:var(--space-3);}
 .cdp-gen-line{flex:1;height:1px;background:var(--border-subtle);}

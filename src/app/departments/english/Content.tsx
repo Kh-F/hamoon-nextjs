@@ -414,8 +414,10 @@ export default function EnglishContent() {
                             </div>
                             <div className="cdp-level-row cdp-level-row--goal">
                               <span className="cdp-level-icon" style={{ color: co.ink }}><Icon name="target" size={15} /></span>
-                              <span className="cdp-level-label">{d.goalLabel}:</span>
-                              <span className="cdp-level-val">{co.detail.goal}</span>
+                              <div className="cdp-level-goal-wrap">
+                                <span className="cdp-level-label">{d.goalLabel}:</span>
+                                <p className="cdp-level-goal-text">{co.detail.goal}</p>
+                              </div>
                             </div>
                           </div>
 
