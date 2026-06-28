@@ -1,3 +1,4 @@
+import { ElevenLabsWidget } from '@/components/ElevenLabsWidget';
 import { LangProvider } from '@/context/LangContext';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
@@ -21,6 +22,7 @@ export default function Home() {
         <Consultation />
       </main>
       <Footer />
+      <ElevenLabsWidget />
     </LangProvider>
   );
 }
