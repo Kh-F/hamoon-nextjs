@@ -311,19 +311,17 @@ input,textarea{font-family:inherit;}
 
 /* ── ElevenLabs convai widget ── */
 elevenlabs-convai{
-  /* Explicit physical right — overrides RTL so the widget always sits
-     in the visual bottom-right corner regardless of page direction. */
   position:fixed;
-  bottom:1.5rem;
-  right:1.5rem;
+  bottom:32px;
+  right:32px;
   left:unset;
-  z-index:9999;
+  z-index:10000;
   display:block !important;
   visibility:visible !important;
   pointer-events:auto;
 }
 @media(max-width:640px){
-  elevenlabs-convai{bottom:1rem;right:1rem;}
+  elevenlabs-convai{bottom:20px;right:20px;}
 }
 
 /* ── Footer ── */
