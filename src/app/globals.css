@@ -153,7 +153,7 @@ input,textarea{font-family:inherit;}
 .cdp-level-row--goal{align-items:flex-start;}
 .cdp-level-icon{flex-shrink:0;margin-top:1px;}
 .cdp-level-label{font-weight:700;color:var(--text-strong);white-space:nowrap;flex-shrink:0;}
-.cdp-level-val{color:var(--text-body);}
+.cdp-level-val{color:var(--text-body);flex:1;min-width:0;}
 /* general info header */
 .cdp-gen-head{display:flex;align-items:center;gap:var(--space-3);}
 .cdp-gen-line{flex:1;height:1px;background:var(--border-subtle);}
