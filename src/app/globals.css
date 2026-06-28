@@ -309,6 +309,23 @@ input,textarea{font-family:inherit;}
 .dept-curriculum-tag{display:inline-block;padding:4px 10px;border-radius:var(--radius-pill);background:rgba(255,255,255,.1);color:#fff;font-size:var(--fs-xs);font-weight:600;border:1px solid rgba(255,255,255,.15);}
 @media(max-width:600px){.dept-curriculum-inner{grid-template-columns:1fr;}.dept-curriculum-icon{display:none;}}
 
+/* ── ElevenLabs convai widget ── */
+elevenlabs-convai{
+  /* Explicit physical right — overrides RTL so the widget always sits
+     in the visual bottom-right corner regardless of page direction. */
+  position:fixed;
+  bottom:1.5rem;
+  right:1.5rem;
+  left:unset;
+  z-index:9999;
+  display:block !important;
+  visibility:visible !important;
+  pointer-events:auto;
+}
+@media(max-width:640px){
+  elevenlabs-convai{bottom:1rem;right:1rem;}
+}
+
 /* ── Footer ── */
 .footer{background:var(--surface-card);border-top:1px solid var(--border-subtle);}
 .footer-grid{max-width:var(--container-xl);margin-inline:auto;padding-inline:var(--gutter);padding-block:var(--space-12);display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:var(--space-8);}

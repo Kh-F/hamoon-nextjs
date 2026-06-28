@@ -1,4 +1,4 @@
-import { ElevenLabsWidget } from '@/components/ElevenLabsWidget';
+import ElevenLabsWidget from '@/components/ElevenLabsWidget';
 import { LangProvider } from '@/context/LangContext';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';

@@ -18,21 +18,22 @@ export default function ElevenLabsWidget() {
   const agentId = AGENT_MAP[pathname] ?? FALLBACK_AGENT;
 
   useEffect(() => {
-    const script = document.createElement('script');
-    script.src = 'https://unpkg.com/@elevenlabs/convai-widget-embed';
-    script.async = true;
-    script.type = 'text/javascript';
-    document.body.appendChild(script);
-
-    return () => {
-      document.body.removeChild(script);
-    };
+    // Inject once per browser session — never remove.
+    // Removing the script mid-session kills the active WebSocket/WebRTC
+    // voice connection when the user navigates between pages.
+    if (!document.querySelector('script[src*="convai-widget-embed"]')) {
+      const script = document.createElement('script');
+      script.src = 'https://unpkg.com/@elevenlabs/convai-widget-embed';
+      script.async = true;
+      script.type = 'text/javascript';
+      document.body.appendChild(script);
+    }
   }, []);
 
   // key={agentId} forces React to unmount + remount the custom element
   // whenever the agent changes, triggering a fresh widget initialization.
   return (
-    <div key={agentId} style={{ zIndex: 9999, position: 'relative' }}>
+    <div key={agentId}>
       <elevenlabs-convai agent-id={agentId} />
     </div>
   );
