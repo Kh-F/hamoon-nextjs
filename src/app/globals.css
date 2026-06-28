@@ -310,18 +310,30 @@ input,textarea{font-family:inherit;}
 @media(max-width:600px){.dept-curriculum-inner{grid-template-columns:1fr;}.dept-curriculum-icon{display:none;}}
 
 /* ── ElevenLabs convai widget ── */
-elevenlabs-convai{
-  position:fixed;
-  bottom:32px;
-  right:32px;
-  left:unset;
-  z-index:10000;
+/* Layer 1: external CSS — covers the host element and any known portal targets */
+elevenlabs-convai,
+html body elevenlabs-convai,
+#elevenlabs-conversational-ai-widget,
+[id*="elevenlabs-convai"],
+[class*="elevenlabs-convai"]{
+  position:fixed !important;
+  bottom:32px !important;
+  right:32px !important;
+  left:auto !important;
+  z-index:10000 !important;
   display:block !important;
   visibility:visible !important;
-  pointer-events:auto;
+  pointer-events:auto !important;
 }
 @media(max-width:640px){
-  elevenlabs-convai{bottom:20px;right:20px;}
+  elevenlabs-convai,
+  html body elevenlabs-convai,
+  #elevenlabs-conversational-ai-widget,
+  [id*="elevenlabs-convai"],
+  [class*="elevenlabs-convai"]{
+    bottom:20px !important;
+    right:20px !important;
+  }
 }
 
 /* ── Footer ── */
