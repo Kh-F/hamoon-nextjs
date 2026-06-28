@@ -12,41 +12,24 @@ const AGENT_MAP: Record<string, string> = {
 };
 
 const FALLBACK_AGENT = AGENT_MAP['/'];
-const STYLE_ID = 'hamoon-el-pos';
+const STYLE_ID = 'hamoon-el-mobile';
 
-// Inject CSS into the shadow root so :host overrides the widget's internal position.
-function injectShadowStyle(sr: ShadowRoot) {
+// Inject a <style> into the shadow root so the widget's own cascade
+// cannot hide itself on small screens.
+function injectMobileStyle(sr: ShadowRoot) {
   if (sr.querySelector(`#${STYLE_ID}`)) return;
   const s = document.createElement('style');
   s.id = STYLE_ID;
   s.textContent = `
     :host {
-      position: fixed !important;
-      bottom: 32px !important;
-      right: 32px !important;
-      left: unset !important;
-      z-index: 10000 !important;
       display: block !important;
       visibility: visible !important;
-    }
-    @media (max-width: 640px) {
-      :host { bottom: 20px !important; right: 20px !important; }
+      opacity: 1 !important;
+      z-index: 2147483647 !important;
+      pointer-events: auto !important;
     }
   `;
   sr.appendChild(s);
-}
-
-// Force inline !important on any element — defeats widget-set inline styles.
-function forcePosition(el: HTMLElement) {
-  const small = window.innerWidth <= 640;
-  const offset = small ? '20px' : '32px';
-  el.style.setProperty('position', 'fixed',  'important');
-  el.style.setProperty('bottom',   offset,   'important');
-  el.style.setProperty('right',    offset,   'important');
-  el.style.setProperty('left',     'unset',  'important');
-  el.style.setProperty('z-index',  '10000',  'important');
-  el.style.setProperty('display',  'block',  'important');
-  el.style.setProperty('visibility', 'visible', 'important');
 }
 
 export default function ElevenLabsWidget() {
@@ -64,49 +47,41 @@ export default function ElevenLabsWidget() {
     }
   }, []);
 
-  // ── Position override (runs per agentId / route change) ──────────────────
+  // ── Mobile visibility (re-runs on each route / agent change) ─────────────
   useEffect(() => {
-    const shadowObs = new MutationObserver(applyAll);
-    const bodyObs   = new MutationObserver(applyAll);
+    const shadowObs = new MutationObserver(applyVisibility);
 
-    function applyAll() {
-      // 1. Host element — inline !important overrides any widget-set inline styles
+    function applyVisibility() {
       const host = document.querySelector('elevenlabs-convai') as HTMLElement | null;
-      if (host) {
-        forcePosition(host);
+      if (!host) return;
 
-        // 2. Shadow root — inject :host CSS so internal fixed elements move too
-        if (host.shadowRoot) {
-          injectShadowStyle(host.shadowRoot);
-          // Watch for late-rendered shadow DOM content
-          shadowObs.observe(host.shadowRoot, { childList: true, subtree: true });
-        }
+      // Force host element visible via inline important
+      host.style.setProperty('display',     'block',       'important');
+      host.style.setProperty('visibility',  'visible',     'important');
+      host.style.setProperty('opacity',     '1',           'important');
+      host.style.setProperty('z-index',     '2147483647',  'important');
+      host.style.setProperty('pointer-events', 'auto',     'important');
+
+      // Inject into shadow root so widget's internal CSS cannot hide itself
+      if (host.shadowRoot) {
+        injectMobileStyle(host.shadowRoot);
+        // Keep watching for late-added shadow content
+        shadowObs.observe(host.shadowRoot, { childList: true, subtree: true });
       }
-
-      // 3. Portaled element — some widget versions append a container to <body>
-      document.querySelectorAll<HTMLElement>(
-        '[id*="elevenlabs"],[id*="convai"],[class*="elevenlabs"],[class*="convai"]'
-      ).forEach(forcePosition);
     }
 
-    // Watch for portaled elements added to body
-    bodyObs.observe(document.body, { childList: true });
-
-    // Poll for the first 20 s in case the widget initializes asynchronously
-    applyAll();
-    const iv = setInterval(applyAll, 500);
-    const to = setTimeout(() => clearInterval(iv), 20_000);
+    applyVisibility();
+    const iv  = setInterval(applyVisibility, 400);
+    const to  = setTimeout(() => clearInterval(iv), 20_000);
 
     return () => {
       clearInterval(iv);
       clearTimeout(to);
       shadowObs.disconnect();
-      bodyObs.disconnect();
     };
   }, [agentId]);
 
-  // key={agentId} forces a full unmount/remount of the custom element
-  // whenever the route changes to a different agent.
+  // key={agentId} remounts the custom element on every agent/route change.
   return (
     <div key={agentId}>
       <elevenlabs-convai agent-id={agentId} />
