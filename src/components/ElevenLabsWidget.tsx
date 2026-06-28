@@ -4,11 +4,11 @@ import { useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
 
 const AGENT_MAP: Record<string, string> = {
-  '/':                'agent_6901kvx2pxa4evqsz6bfm578n0a0',
-  '/courses/english': 'agent_1001kw4vb0hjf45ayky9a9js9hnv',
-  '/courses/math':    'agent_0001kw4wt7v5f6v80qda85r31pv8',
-  '/courses/ai':      'agent_7301kw4x38zyeektfz5jez981720',
-  '/workshops':       'agent_9301kw4xp6sjf9h8p82vh766myv6',
+  '/':                        'agent_6901kvx2pxa4evqsz6bfm578n0a0',
+  '/departments/english':     'agent_1001kw4vb0hjf45ayky9a9js9hnv',
+  '/departments/mathematics': 'agent_0001kw4wt7v5f6v80qda85r31pv8',
+  '/departments/ai':          'agent_7301kw4x38zyeektfz5jez981720',
+  '/workshops':               'agent_9301kw4xp6sjf9h8p82vh766myv6',
 };
 
 const FALLBACK_AGENT = AGENT_MAP['/'];
