@@ -8,7 +8,7 @@ const AGENT_MAP: Record<string, string> = {
   '/departments/english':     'agent_1001kw4vb0hjf45ayky9a9js9hnv',
   '/departments/mathematics': 'agent_0001kw4wt7v5f6v80qda85r31pv8',
   '/departments/ai':          'agent_7301kw4x38zyeektfz5jez981720',
-  '/workshops':               'agent_9301kw4xp6sjf9h8p82vh766myv6',
+  '/workshops':               'agent_9301kw4xp6sj9h8p82vh766myv6',
 };
 
 const FALLBACK_AGENT = AGENT_MAP['/'];
@@ -84,7 +84,7 @@ export default function ElevenLabsWidget() {
   // key={agentId} remounts the custom element on every agent/route change.
   return (
     <div key={agentId}>
-      <elevenlabs-convai agent-id={agentId} />
+      <elevenlabs-convai agent-id={agentId} text-mode-default="true" />
     </div>
   );
 }

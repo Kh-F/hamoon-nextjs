@@ -5,6 +5,7 @@ declare module 'react' {
     interface IntrinsicElements {
       'elevenlabs-convai': HTMLAttributes<HTMLElement> & {
         'agent-id'?: string;
+        'text-mode-default'?: string;
       };
     }
   }
