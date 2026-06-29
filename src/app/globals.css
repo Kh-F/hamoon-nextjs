@@ -349,25 +349,6 @@ input,textarea{font-family:inherit;}
 .dept-curriculum-tag{display:inline-block;padding:4px 10px;border-radius:var(--radius-pill);background:rgba(255,255,255,.1);color:#fff;font-size:var(--fs-xs);font-weight:600;border:1px solid rgba(255,255,255,.15);}
 @media(max-width:600px){.dept-curriculum-inner{grid-template-columns:1fr;}.dept-curriculum-icon{display:none;}}
 
-/* ── ElevenLabs convai widget ── */
-/* No positioning overrides — widget uses its own default bottom-left.
-   Only ensure it is always visible and above every mobile overlay. */
-elevenlabs-convai{
-  display:block !important;
-  visibility:visible !important;
-  pointer-events:auto !important;
-  z-index:2147483647 !important;
-}
-@media(max-width:640px){
-  elevenlabs-convai{
-    display:block !important;
-    visibility:visible !important;
-    opacity:1 !important;
-    z-index:2147483647 !important;
-    pointer-events:auto !important;
-  }
-}
-
 /* ── Footer ── */
 .footer{background:var(--surface-card);border-top:1px solid var(--border-subtle);}
 .footer-grid{max-width:var(--container-xl);margin-inline:auto;padding-inline:var(--gutter);padding-block:var(--space-12);display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:var(--space-8);}

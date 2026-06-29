@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import PageShell from '@/components/PageShell';
 import WorkshopsContent from './Content';
-import ElevenLabsWidget from '@/components/ElevenLabsWidget';
 
 export const metadata: Metadata = {
   title: 'کارگاه‌های ویژه | Workshops — Hamoon Academy',
@@ -10,11 +9,8 @@ export const metadata: Metadata = {
 
 export default function WorkshopsPage() {
   return (
-    <>
-      <PageShell>
-        <WorkshopsContent />
-      </PageShell>
-      <ElevenLabsWidget />
-    </>
+    <PageShell>
+      <WorkshopsContent />
+    </PageShell>
   );
 }

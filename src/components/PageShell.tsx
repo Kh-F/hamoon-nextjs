@@ -3,7 +3,6 @@
 import { LangProvider } from '@/context/LangContext';
 import Navbar from './Navbar';
 import Footer from './Footer';
-import ElevenLabsWidget from './ElevenLabsWidget';
 
 export default function PageShell({ children }: { children: React.ReactNode }) {
   return (
@@ -11,7 +10,6 @@ export default function PageShell({ children }: { children: React.ReactNode }) {
       <Navbar />
       <main id="top">{children}</main>
       <Footer />
-      <ElevenLabsWidget />
     </LangProvider>
   );
 }

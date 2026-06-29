@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import PageShell from '@/components/PageShell';
 import EnglishContent from './Content';
-import ElevenLabsWidget from '@/components/ElevenLabsWidget';
 
 export const metadata: Metadata = {
   title: 'بخش زبان انگلیسی | English Department — Hamoon Academy',
@@ -10,11 +9,8 @@ export const metadata: Metadata = {
 
 export default function EnglishDepartmentPage() {
   return (
-    <>
-      <PageShell>
-        <EnglishContent />
-      </PageShell>
-      <ElevenLabsWidget />
-    </>
+    <PageShell>
+      <EnglishContent />
+    </PageShell>
   );
 }
