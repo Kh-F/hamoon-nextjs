@@ -76,7 +76,7 @@ export default function ElevenLabsWidget() {
   return (
     <>
       <Script
-        src="https://unpkg.com/@elevenlabs/convai-widget-embed"
+        src="https://elevenlabsproxy.fathalikhani-kh.workers.dev/unpkg.com/@elevenlabs/convai-widget-embed"
         strategy="afterInteractive"
       />
       <div key={agentId}>
