@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import PageShell from '@/components/PageShell';
 import MathContent from './Content';
+import ElevenLabsWidget from '@/components/ElevenLabsWidget';
 
 export const metadata: Metadata = {
   title: 'بخش ریاضی | Mathematics Department — Hamoon Academy',
@@ -9,8 +10,11 @@ export const metadata: Metadata = {
 
 export default function MathDepartmentPage() {
   return (
-    <PageShell>
-      <MathContent />
-    </PageShell>
+    <>
+      <PageShell>
+        <MathContent />
+      </PageShell>
+      <ElevenLabsWidget />
+    </>
   );
 }
