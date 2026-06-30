@@ -8,6 +8,10 @@
     "start": "next start"
   },
   "dependencies": {
+    "@ai-sdk/openai": "^4.0.4",
+    "@ai-sdk/react": "^4.0.9",
+    "ai": "^7.0.8",
+    "lucide-react": "^1.22.0",
     "next": "^15.1.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
