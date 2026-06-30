@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import { Vazirmatn, Lexend } from 'next/font/google';
-import Script from 'next/script';
 import './globals.css';
 
 const vazirmatn = Vazirmatn({
@@ -28,9 +27,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="fa" dir="rtl">
       <body className={`${vazirmatn.variable} ${lexend.variable}`}>
         {children}
-        <Script id="raychat-widget" strategy="afterInteractive">
-          {`window.RAYCHAT_TOKEN="0600cb81-098e-4155-8492-4e2e46820d5c";(function(){d=document;s=d.createElement("script");s.src="https://widget-react.raychat.io/install/widget.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();`}
-        </Script>
       </body>
     </html>
   );
