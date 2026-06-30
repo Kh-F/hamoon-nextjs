@@ -15,5 +15,5 @@ Reply in the same language the user writes in (Persian or English).`,
     messages,
   });
 
-  return result.toDataStreamResponse();
+  return result.toTextStreamResponse();
 }

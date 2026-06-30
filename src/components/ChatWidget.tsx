@@ -1,23 +1,32 @@
 'use client';
 
 import { useChat } from '@ai-sdk/react';
+import { TextStreamChatTransport } from 'ai';
 import { useEffect, useRef, useState } from 'react';
 import { MessageCircle, X, Send, Bot, User, Loader2 } from 'lucide-react';
 
+const transport = new TextStreamChatTransport({ api: '/api/chat' });
+
 export default function ChatWidget() {
   const [open, setOpen] = useState(false);
+  const [input, setInput] = useState('');
   const bottomRef = useRef<HTMLDivElement>(null);
 
-  const { messages, input, handleInputChange, handleSubmit, status } = useChat({
-    api: '/api/chat',
-  });
+  const { messages, sendMessage, status } = useChat({ transport });
 
   const isLoading = status === 'streaming' || status === 'submitted';
 
-  // Auto-scroll to latest message
   useEffect(() => {
     if (open) bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, open]);
+
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    const text = input.trim();
+    if (!text || isLoading) return;
+    sendMessage({ text });
+    setInput('');
+  }
 
   return (
     <div style={{ position: 'fixed', bottom: '1.5rem', right: '1.5rem', zIndex: 9999, display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '0.75rem' }}>
@@ -38,23 +47,10 @@ export default function ChatWidget() {
 
           {/* Header */}
           <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.625rem',
-            padding: '0.875rem 1rem',
-            background: 'var(--blue-900)',
-            flexShrink: 0,
+            display: 'flex', alignItems: 'center', gap: '0.625rem',
+            padding: '0.875rem 1rem', background: 'var(--blue-900)', flexShrink: 0,
           }}>
-            <div style={{
-              width: 36,
-              height: 36,
-              borderRadius: '50%',
-              background: 'var(--blue-600)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              flexShrink: 0,
-            }}>
+            <div style={{ width: 36, height: 36, borderRadius: '50%', background: 'var(--blue-600)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
               <Bot size={18} color="#fff" />
             </div>
             <div style={{ flex: 1, minWidth: 0 }}>
@@ -64,19 +60,7 @@ export default function ChatWidget() {
             <button
               onClick={() => setOpen(false)}
               aria-label="Close chat"
-              style={{
-                background: 'rgba(255,255,255,.12)',
-                border: 'none',
-                borderRadius: 'var(--radius-sm)',
-                width: 30,
-                height: 30,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                cursor: 'pointer',
-                flexShrink: 0,
-                transition: 'background .15s',
-              }}
+              style={{ background: 'rgba(255,255,255,.12)', border: 'none', borderRadius: 'var(--radius-sm)', width: 30, height: 30, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', flexShrink: 0, transition: 'background .15s' }}
               onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,255,255,.22)')}
               onMouseLeave={e => (e.currentTarget.style.background = 'rgba(255,255,255,.12)')}
             >
@@ -85,14 +69,7 @@ export default function ChatWidget() {
           </div>
 
           {/* Messages */}
-          <div style={{
-            flex: 1,
-            overflowY: 'auto',
-            padding: '1rem',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '0.75rem',
-          }}>
+          <div style={{ flex: 1, overflowY: 'auto', padding: '1rem', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
             {messages.length === 0 && (
               <div style={{ textAlign: 'center', marginTop: '2rem', color: 'var(--text-muted)' }}>
                 <Bot size={36} style={{ margin: '0 auto 0.5rem', opacity: 0.4 }} />
@@ -103,44 +80,25 @@ export default function ChatWidget() {
 
             {messages.map(msg => {
               const isUser = msg.role === 'user';
+              const text = msg.parts
+                .filter((p): p is { type: 'text'; text: string } => p.type === 'text')
+                .map(p => p.text)
+                .join('');
               return (
-                <div key={msg.id} style={{
-                  display: 'flex',
-                  gap: '0.5rem',
-                  flexDirection: isUser ? 'row-reverse' : 'row',
-                  alignItems: 'flex-end',
-                }}>
-                  {/* Avatar */}
-                  <div style={{
-                    width: 28,
-                    height: 28,
-                    borderRadius: '50%',
-                    background: isUser ? 'var(--color-accent)' : 'var(--blue-100)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    flexShrink: 0,
-                  }}>
-                    {isUser
-                      ? <User size={14} color="#fff" />
-                      : <Bot size={14} color="var(--blue-700)" />
-                    }
+                <div key={msg.id} style={{ display: 'flex', gap: '0.5rem', flexDirection: isUser ? 'row-reverse' : 'row', alignItems: 'flex-end' }}>
+                  <div style={{ width: 28, height: 28, borderRadius: '50%', background: isUser ? 'var(--color-accent)' : 'var(--blue-100)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                    {isUser ? <User size={14} color="#fff" /> : <Bot size={14} color="var(--blue-700)" />}
                   </div>
-
-                  {/* Bubble */}
                   <div style={{
-                    maxWidth: '75%',
-                    padding: '0.5rem 0.75rem',
+                    maxWidth: '75%', padding: '0.5rem 0.75rem',
                     borderRadius: isUser
                       ? 'var(--radius-lg) var(--radius-md) var(--radius-xs) var(--radius-lg)'
                       : 'var(--radius-lg) var(--radius-md) var(--radius-lg) var(--radius-xs)',
                     background: isUser ? 'var(--blue-600)' : 'var(--surface-sunken)',
                     color: isUser ? '#fff' : 'var(--text-body)',
-                    fontSize: 'var(--fs-sm)',
-                    lineHeight: 'var(--lh-relaxed)',
-                    wordBreak: 'break-word',
+                    fontSize: 'var(--fs-sm)', lineHeight: 'var(--lh-relaxed)', wordBreak: 'break-word',
                   }}>
-                    {msg.content}
+                    {text}
                   </div>
                 </div>
               );
@@ -152,23 +110,9 @@ export default function ChatWidget() {
                 <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'var(--blue-100)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                   <Bot size={14} color="var(--blue-700)" />
                 </div>
-                <div style={{
-                  padding: '0.5rem 0.75rem',
-                  borderRadius: 'var(--radius-lg) var(--radius-md) var(--radius-lg) var(--radius-xs)',
-                  background: 'var(--surface-sunken)',
-                  display: 'flex',
-                  gap: '4px',
-                  alignItems: 'center',
-                }}>
+                <div style={{ padding: '0.5rem 0.75rem', borderRadius: 'var(--radius-lg) var(--radius-md) var(--radius-lg) var(--radius-xs)', background: 'var(--surface-sunken)', display: 'flex', gap: '4px', alignItems: 'center' }}>
                   {[0, 1, 2].map(i => (
-                    <span key={i} style={{
-                      width: 6, height: 6,
-                      borderRadius: '50%',
-                      background: 'var(--text-muted)',
-                      display: 'inline-block',
-                      animation: 'hmPulse 1.2s ease-in-out infinite',
-                      animationDelay: `${i * 0.2}s`,
-                    }} />
+                    <span key={i} style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--text-muted)', display: 'inline-block', animation: 'hmPulse 1.2s ease-in-out infinite', animationDelay: `${i * 0.2}s` }} />
                   ))}
                 </div>
               </div>
@@ -178,33 +122,13 @@ export default function ChatWidget() {
           </div>
 
           {/* Input */}
-          <form
-            onSubmit={handleSubmit}
-            style={{
-              display: 'flex',
-              gap: '0.5rem',
-              padding: '0.75rem 1rem',
-              borderTop: '1px solid var(--border-subtle)',
-              background: 'var(--surface-card)',
-              flexShrink: 0,
-            }}
-          >
+          <form onSubmit={handleSubmit} style={{ display: 'flex', gap: '0.5rem', padding: '0.75rem 1rem', borderTop: '1px solid var(--border-subtle)', background: 'var(--surface-card)', flexShrink: 0 }}>
             <input
               value={input}
-              onChange={handleInputChange}
+              onChange={e => setInput(e.target.value)}
               placeholder="پیام خود را بنویسید… / Type your message…"
               disabled={isLoading}
-              style={{
-                flex: 1,
-                padding: '0.5rem 0.75rem',
-                border: '1.5px solid var(--border-default)',
-                borderRadius: 'var(--radius-pill)',
-                fontSize: 'var(--fs-sm)',
-                color: 'var(--text-body)',
-                background: 'var(--surface-sunken)',
-                outline: 'none',
-                transition: 'border-color .15s',
-              }}
+              style={{ flex: 1, padding: '0.5rem 0.75rem', border: '1.5px solid var(--border-default)', borderRadius: 'var(--radius-pill)', fontSize: 'var(--fs-sm)', color: 'var(--text-body)', background: 'var(--surface-sunken)', outline: 'none', transition: 'border-color .15s' }}
               onFocus={e => (e.currentTarget.style.borderColor = 'var(--color-primary)')}
               onBlur={e => (e.currentTarget.style.borderColor = 'var(--border-default)')}
             />
@@ -212,19 +136,7 @@ export default function ChatWidget() {
               type="submit"
               disabled={isLoading || !input.trim()}
               aria-label="Send"
-              style={{
-                width: 38,
-                height: 38,
-                borderRadius: '50%',
-                background: isLoading || !input.trim() ? 'var(--slate-200)' : 'var(--color-primary)',
-                border: 'none',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                cursor: isLoading || !input.trim() ? 'not-allowed' : 'pointer',
-                flexShrink: 0,
-                transition: 'background .15s',
-              }}
+              style={{ width: 38, height: 38, borderRadius: '50%', background: isLoading || !input.trim() ? 'var(--slate-200)' : 'var(--color-primary)', border: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: isLoading || !input.trim() ? 'not-allowed' : 'pointer', flexShrink: 0, transition: 'background .15s' }}
             >
               {isLoading
                 ? <Loader2 size={16} color="var(--text-muted)" style={{ animation: 'spin 1s linear infinite' }} />
@@ -239,29 +151,13 @@ export default function ChatWidget() {
       <button
         onClick={() => setOpen(o => !o)}
         aria-label={open ? 'Close chat' : 'Open chat'}
-        style={{
-          width: 56,
-          height: 56,
-          borderRadius: '50%',
-          background: 'var(--blue-600)',
-          border: 'none',
-          boxShadow: 'var(--shadow-lg)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          cursor: 'pointer',
-          transition: 'background .15s, transform .15s',
-          flexShrink: 0,
-        }}
+        style={{ width: 56, height: 56, borderRadius: '50%', background: 'var(--blue-600)', border: 'none', boxShadow: 'var(--shadow-lg)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', transition: 'background .15s, transform .15s', flexShrink: 0 }}
         onMouseEnter={e => (e.currentTarget.style.background = 'var(--blue-700)')}
         onMouseLeave={e => (e.currentTarget.style.background = 'var(--blue-600)')}
         onMouseDown={e => (e.currentTarget.style.transform = 'scale(.94)')}
         onMouseUp={e => (e.currentTarget.style.transform = 'scale(1)')}
       >
-        {open
-          ? <X size={24} color="#fff" />
-          : <MessageCircle size={24} color="#fff" />
-        }
+        {open ? <X size={24} color="#fff" /> : <MessageCircle size={24} color="#fff" />}
       </button>
 
       <style>{`@keyframes spin{to{transform:rotate(360deg)}}`}</style>
