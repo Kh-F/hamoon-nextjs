@@ -132,9 +132,10 @@ export default function WorkshopsContent() {
               <Image
                 src="/Workshop.png"
                 alt="Workshops — Hamoon Academy"
-                width={600} height={400}
+                width={600} height={280}
                 sizes="(max-width: 860px) 100vw, 50vw"
                 className="dept-hero-series-img"
+                style={{ height: '280px', objectFit: 'cover', objectPosition: 'center' }}
                 priority
               />
             </div>
