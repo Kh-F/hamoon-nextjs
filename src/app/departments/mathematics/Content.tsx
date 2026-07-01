@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { useLang } from '@/context/LangContext';
 import Icon from '@/components/Icon';
@@ -62,22 +63,36 @@ const DEPT = {
 } as const;
 
 export default function MathContent() {
-  const { c } = useLang();
-  const d = DEPT[c.lang as 'fa' | 'en'];
+  const { lang } = useLang();
+  const d = DEPT[lang];
 
   return (
     <>
       {/* ── Hero ── */}
       <section className="dept-hero">
         <div className="dept-hero-inner">
-          <div className="dept-badge-row">
-            <Link href="/" className="dept-back"><Icon name="arrowleft" size={16} />{d.back}</Link>
-            <span className="dept-badge">{d.badge}</span>
-          </div>
-          <h1 className="dept-title" style={{ whiteSpace: 'pre-line' }}>{d.title}</h1>
-          <p className="dept-lead">{d.lead}</p>
-          <div className="dept-btns">
-            <Link href="/#consult" className="btn-primary">{d.cta}</Link>
+          <div className="dept-hero-grid">
+            <div>
+              <div className="dept-badge-row">
+                <Link href="/" className="dept-back"><Icon name="arrowleft" size={16} />{d.back}</Link>
+                <span className="dept-badge">{d.badge}</span>
+              </div>
+              <h1 className="dept-title" style={{ whiteSpace: 'pre-line' }}>{d.title}</h1>
+              <p className="dept-lead">{d.lead}</p>
+              <div className="dept-btns">
+                <Link href="/#consult" className="btn-primary">{d.cta}</Link>
+              </div>
+            </div>
+            <div className="dept-hero-img-col">
+              <Image
+                src="/math.png"
+                alt="Mathematics Department — Hamoon Academy"
+                width={600} height={400}
+                sizes="(max-width: 860px) 100vw, 50vw"
+                className="dept-hero-series-img"
+                priority
+              />
+            </div>
           </div>
         </div>
       </section>
