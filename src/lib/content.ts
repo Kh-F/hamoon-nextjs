@@ -65,7 +65,7 @@ export const CONTENT: Record<Lang, PageContent> = {
       { label: 'هوش مصنوعی',   id: 'dept-ai',       href: '/departments/ai' },
       { label: 'کارگاه‌ها',    id: 'workshops',     href: '/workshops' },
     ],
-    cta: 'رزرو مشاوره رایگان',
+    cta: 'رزرو مشاوره عمومی',
     switchLabel: 'EN',
     hero: {
       badge: 'آکادمی آنلاین کودک و نوجوان',
@@ -169,7 +169,7 @@ export const CONTENT: Record<Lang, PageContent> = {
       { label: 'AI',           id: 'dept-ai',       href: '/departments/ai' },
       { label: 'Workshops',    id: 'workshops',     href: '/workshops' },
     ],
-    cta: 'Book a free consultation',
+    cta: 'Book a general consultation',
     switchLabel: 'فا',
     hero: {
       badge: 'Online academy for kids & teens',

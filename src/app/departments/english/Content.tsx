@@ -131,6 +131,7 @@ const DEPT = {
     manager: 'مدیریت دپارتمان زبان انگلیسی: سعید موسی‌وند',
     back: 'بازگشت به صفحه اصلی',
     cta: 'رزرو مشاوره رایگان',
+    consultCta: 'رزرو مشاوره اختصاصی زبان انگلیسی',
     ctaLead: 'برای انتخاب بهترین دوره با مشاوران ما صحبت کنید.',
     ctaTitle: 'شروع سفر یادگیری زبان انگلیسی',
     featuresTitle: 'رویکرد آموزشی ما',
@@ -206,6 +207,7 @@ const DEPT = {
     manager: 'English Department Head: Saeid Moosivand',
     back: 'Back to home',
     cta: 'Book a free consultation',
+    consultCta: 'Book an English consultation',
     ctaLead: 'Talk to our advisors to find the right English course for you.',
     ctaTitle: 'Begin your English language journey',
     featuresTitle: 'Our teaching approach',
@@ -277,6 +279,10 @@ const DEPT = {
 } as const;
 
 /* ── Component ───────────────────────────────────────────────────────────── */
+function scrollToConsult() {
+  document.getElementById('consult')?.scrollIntoView({ behavior: 'smooth' });
+}
+
 export default function EnglishContent() {
   const { lang } = useLang();
   const d = DEPT[lang];
@@ -303,7 +309,7 @@ export default function EnglishContent() {
                 {d.manager}
               </p>
               <div className="dept-btns">
-                <Link href="/#consult" className="btn-primary">{d.cta}</Link>
+                <button type="button" className="btn-primary" onClick={scrollToConsult}>{d.consultCta}</button>
               </div>
             </div>
             <div className="dept-hero-img-col">

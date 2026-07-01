@@ -13,6 +13,7 @@ const DEPT = {
     lead: 'از منطق ریاضی و حل خلاقانه مسئله تا ترکیبیات پیشرفته و ساختارهای گسسته — دوره‌هایی برای کودکان، نوجوانان و یادگیرندگان کنجکاو.',
     back: 'بازگشت به صفحه اصلی',
     cta: 'رزرو مشاوره رایگان',
+    consultCta: 'رزرو مشاوره اختصاصی ریاضی',
     ctaLead: 'با مشاوران ما برای انتخاب بهترین دوره صحبت کنید.',
     ctaTitle: 'شروع ماجراجویی ریاضی',
     featuresTitle: 'رویکرد آموزشی ما',
@@ -40,6 +41,7 @@ const DEPT = {
     lead: 'From mathematical logic and creative problem-solving to advanced discrete structures and combinatorics — courses for curious kids, teens, and adult learners.',
     back: 'Back to home',
     cta: 'Book a free consultation',
+    consultCta: 'Book a Mathematics consultation',
     ctaLead: 'Talk to our advisors to find the right course for your child.',
     ctaTitle: 'Begin your mathematics adventure',
     featuresTitle: 'Our teaching approach',
@@ -63,6 +65,10 @@ const DEPT = {
   },
 } as const;
 
+function scrollToConsult() {
+  document.getElementById('consult')?.scrollIntoView({ behavior: 'smooth' });
+}
+
 export default function MathContent() {
   const { lang } = useLang();
   const d = DEPT[lang];
@@ -81,7 +87,7 @@ export default function MathContent() {
               <h1 className="dept-title" style={{ whiteSpace: 'pre-line' }}>{d.title}</h1>
               <p className="dept-lead">{d.lead}</p>
               <div className="dept-btns">
-                <Link href="/#consult" className="btn-primary">{d.cta}</Link>
+                <button type="button" className="btn-primary" onClick={scrollToConsult}>{d.consultCta}</button>
               </div>
             </div>
             <div className="dept-hero-img-col">

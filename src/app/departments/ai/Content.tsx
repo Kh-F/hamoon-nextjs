@@ -13,6 +13,7 @@ const DEPT = {
     lead: 'درک عمیق مفاهیم هوش مصنوعی، تحلیل داده، و معماری AI عاملی — با برنامه درسی سفارشی که دقت ریاضی را با استقرار عملی در کنار هم قرار می‌دهد.',
     back: 'بازگشت به صفحه اصلی',
     cta: 'رزرو مشاوره رایگان',
+    consultCta: 'رزرو مشاوره اختصاصی هوش مصنوعی',
     ctaLead: 'برای انتخاب بهترین مسیر یادگیری با مشاوران ما صحبت کنید.',
     ctaTitle: 'آماده‌سازی برای دنیای هوش مصنوعی',
     featuresTitle: 'سه محور اصلی برنامه',
@@ -51,6 +52,7 @@ const DEPT = {
     lead: 'A deep grasp of AI concepts, data analytics, and agentic AI architecture — through a custom curriculum that unites mathematical rigour with real-world deployment.',
     back: 'Back to home',
     cta: 'Book a free consultation',
+    consultCta: 'Book an AI consultation',
     ctaLead: 'Talk to our advisors to find the right AI learning path for you.',
     ctaTitle: 'Get ready for the AI-powered world',
     featuresTitle: 'Three core pillars',
@@ -85,6 +87,10 @@ const DEPT = {
   },
 } as const;
 
+function scrollToConsult() {
+  document.getElementById('consult')?.scrollIntoView({ behavior: 'smooth' });
+}
+
 export default function AIContent() {
   const { lang, c } = useLang();
   const d = DEPT[lang];
@@ -103,7 +109,7 @@ export default function AIContent() {
               <h1 className="dept-title" style={{ whiteSpace: 'pre-line' }}>{d.title}</h1>
               <p className="dept-lead">{d.lead}</p>
               <div className="dept-btns">
-                <Link href="/#consult" className="btn-primary">{d.cta}</Link>
+                <button type="button" className="btn-primary" onClick={scrollToConsult}>{d.consultCta}</button>
               </div>
             </div>
             <div className="dept-hero-img-col">

@@ -26,6 +26,7 @@ const WS = {
     lead: 'فراتر از دوره‌های منظم — کارگاه‌های فشرده و کاربردی برای رشد مهارت‌های عملی در حوزه‌های فناوری، آموزش و توسعه فردی.',
     back: 'بازگشت به صفحه اصلی',
     cta: 'ثبت‌نام در کارگاه',
+    consultCta: 'رزرو مشاوره اختصاصی کارگاه‌ها',
     ctaTitle: 'در کارگاه بعدی شرکت کنید',
     ctaLead: 'کارگاه‌های هامون با ظرفیت محدود برگزار می‌شوند. همین حالا جای خود را رزرو کنید.',
     upcomingLabel: 'کارگاه‌های پیش رو',
@@ -64,6 +65,7 @@ const WS = {
     lead: 'Beyond regular courses — intensive, hands-on workshops for practical skill growth in technology, education, and academic literacy.',
     back: 'Back to home',
     cta: 'Register for a workshop',
+    consultCta: 'Book a Workshops consultation',
     ctaTitle: 'Join our next workshop',
     ctaLead: 'Hamoon workshops run with limited capacity. Reserve your spot now.',
     upcomingLabel: 'Upcoming workshops',
@@ -104,6 +106,10 @@ const STATUS_CLASS: Record<StatusKey, string> = {
   recurring:'ws-status ws-status--recurring',
 };
 
+function scrollToConsult() {
+  document.getElementById('consult')?.scrollIntoView({ behavior: 'smooth' });
+}
+
 export default function WorkshopsContent() {
   const { c } = useLang();
   const d = WS[c.lang as 'fa' | 'en'];
@@ -125,7 +131,7 @@ export default function WorkshopsContent() {
               <h1 className="dept-title" style={{ whiteSpace: 'pre-line' }}>{d.title}</h1>
               <p className="dept-lead">{d.lead}</p>
               <div className="dept-btns">
-                <Link href="#consult" className="btn-primary">{d.cta}</Link>
+                <button type="button" className="btn-primary" onClick={scrollToConsult}>{d.consultCta}</button>
               </div>
             </div>
             <div className="dept-hero-img-col">

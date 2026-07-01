@@ -20,6 +20,8 @@ export default function Navbar() {
     }
   }
 
+  const isDeptPage = pathname.startsWith('/departments') || pathname === '/workshops';
+
   return (
     <header className="navbar">
       <div className="navbar-inner">
@@ -50,7 +52,9 @@ export default function Navbar() {
           <button type="button" className="btn-lang" onClick={toggle} aria-label={c.switchLabel}>
             {c.switchLabel}
           </button>
-          <button type="button" className="btn-cta" onClick={handleConsult}>{c.cta}</button>
+          {!isDeptPage && (
+            <button type="button" className="btn-cta" onClick={handleConsult}>{c.cta}</button>
+          )}
         </div>
       </div>
     </header>
