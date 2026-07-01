@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useLang } from '@/context/LangContext';
 import Icon from '@/components/Icon';
+import Consultation from '@/components/Consultation';
 
 /* ── Shared general-info sections (shown in every accordion panel) ───────── */
 type GenSection = { icon: string; title: string; text?: string; items?: string[] };
@@ -467,14 +468,8 @@ export default function EnglishContent() {
         </div>
       </section>
 
-      {/* ── CTA ── */}
-      <section className="dept-cta">
-        <div className="dept-cta-inner">
-          <h2 className="dept-cta-title">{d.ctaTitle}</h2>
-          <p className="dept-cta-lead">{d.ctaLead}</p>
-          <Link href="/#consult" className="btn-primary">{d.cta}</Link>
-        </div>
-      </section>
+      {/* ── Consultation form ── */}
+      <Consultation department="English" />
     </>
   );
 }

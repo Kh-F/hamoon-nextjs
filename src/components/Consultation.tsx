@@ -1,26 +1,58 @@
 'use client';
 
-import { useState, FormEvent } from 'react';
+import { useRef, useState, FormEvent } from 'react';
 import Image from 'next/image';
 import { useLang } from '@/context/LangContext';
 import Icon from './Icon';
 
-export default function Consultation() {
+interface Props {
+  /** Pass the department name to tag this booking (e.g. 'English', 'Mathematics', 'AI'). */
+  department?: string;
+}
+
+export default function Consultation({ department = 'General' }: Props) {
   const { c } = useLang();
   const { formTitle, formLead, contact, form, ages } = c;
 
   const [sent, setSent] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [age, setAge] = useState<number | null>(null);
 
-  function handleSubmit(e: FormEvent) {
+  const nameRef  = useRef<HTMLInputElement>(null);
+  const phoneRef = useRef<HTMLInputElement>(null);
+  const msgRef   = useRef<HTMLTextAreaElement>(null);
+
+  async function handleSubmit(e: FormEvent) {
     e.preventDefault();
-    setSent(true);
+    setLoading(true);
+    try {
+      await fetch('/api/consult', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name:       nameRef.current?.value  ?? '',
+          phone:      phoneRef.current?.value ?? '',
+          ageGroup:   age !== null ? ages[age] : '',
+          message:    msgRef.current?.value   ?? '',
+          department,
+        }),
+      });
+    } finally {
+      setLoading(false);
+      setSent(true);
+    }
   }
 
   function handleReset() {
     setSent(false);
     setAge(null);
   }
+
+  // Success message includes the department name so the user sees which
+  // department their request was submitted to.
+  const successMsg = department !== 'General'
+    ? `${form.success.replace(/[.!]$/, '')} (${department}).`
+    : form.success;
 
   return (
     <section id="consult">
@@ -58,12 +90,30 @@ export default function Consultation() {
           {/* Right: form panel */}
           <div className="consult-form-wrap">
             <div className="form-card">
+
+              {/* Department tag — visible when browsing a specific dept page */}
+              {department !== 'General' && (
+                <div style={{
+                  display: 'inline-flex', alignItems: 'center', gap: '6px',
+                  marginBottom: 'var(--space-4)',
+                  padding: '4px 12px',
+                  borderRadius: 'var(--radius-pill)',
+                  background: 'var(--blue-50)',
+                  border: '1px solid var(--blue-200)',
+                  fontSize: 'var(--fs-xs)', fontWeight: 700,
+                  color: 'var(--blue-700)',
+                }}>
+                  <Icon name="graduation" size={13} />
+                  {department}
+                </div>
+              )}
+
               {sent ? (
                 <div className="form-success">
                   <span className="success-icon">
                     <Icon name="check" size={34} />
                   </span>
-                  <p className="success-msg">{form.success}</p>
+                  <p className="success-msg">{successMsg}</p>
                   <button type="button" className="btn-reset" onClick={handleReset}>
                     {form.reset}
                   </button>
@@ -74,6 +124,7 @@ export default function Consultation() {
                     <label htmlFor="hm-name" className="form-label">{form.name}</label>
                     <input
                       id="hm-name"
+                      ref={nameRef}
                       type="text"
                       required
                       placeholder={form.namePh}
@@ -85,6 +136,7 @@ export default function Consultation() {
                     <label htmlFor="hm-phone" className="form-label">{form.phone}</label>
                     <input
                       id="hm-phone"
+                      ref={phoneRef}
                       type="text"
                       required
                       placeholder={form.phonePh}
@@ -114,13 +166,16 @@ export default function Consultation() {
                     <label htmlFor="hm-msg" className="form-label">{form.msg}</label>
                     <textarea
                       id="hm-msg"
+                      ref={msgRef}
                       rows={3}
                       placeholder={form.msgPh}
                       className="form-textarea"
                     />
                   </div>
 
-                  <button type="submit" className="btn-submit">{form.submit}</button>
+                  <button type="submit" className="btn-submit" disabled={loading}>
+                    {loading ? '…' : form.submit}
+                  </button>
                 </form>
               )}
             </div>
