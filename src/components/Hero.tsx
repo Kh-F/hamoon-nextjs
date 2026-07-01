@@ -35,10 +35,6 @@ export default function Hero() {
           <h1 className="hero-title">{hero.title}</h1>
           <p className="hero-lead">{hero.lead}</p>
 
-          <div className="hero-btns">
-            <a href="#consult" className="btn-primary">{hero.primary}</a>
-          </div>
-
         </div>
 
       </div>
