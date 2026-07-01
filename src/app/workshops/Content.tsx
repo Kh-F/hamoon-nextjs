@@ -129,16 +129,14 @@ export default function WorkshopsContent() {
               </div>
             </div>
             <div className="dept-hero-img-col">
-              <div style={{ width: '100%', maxWidth: '560px', height: '280px', position: 'relative', borderRadius: 'var(--radius-2xl)', overflow: 'hidden', boxShadow: 'var(--shadow-xl)' }}>
-                <Image
-                  src="/Workshop.png"
-                  alt="Workshops — Hamoon Academy"
-                  fill
-                  sizes="(max-width: 860px) 100vw, 50vw"
-                  style={{ objectFit: 'cover', objectPosition: 'center' }}
-                  priority
-                />
-              </div>
+              <Image
+                src="/Workshop.png"
+                alt="Workshops — Hamoon Academy"
+                width={600} height={400}
+                sizes="(max-width: 860px) 100vw, 50vw"
+                className="dept-hero-series-img"
+                priority
+              />
             </div>
           </div>
         </div>
