@@ -2,10 +2,15 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { useLang } from '@/context/LangContext';
 
 export default function Navbar() {
   const { c, toggle } = useLang();
+  const pathname = usePathname();
+  // On the homepage the form is at /#consult; on every other page the
+  // Consultation component is embedded directly so #consult works in-page.
+  const consultHref = pathname === '/' ? '/#consult' : '#consult';
 
   return (
     <header className="navbar">
@@ -37,7 +42,7 @@ export default function Navbar() {
           <button type="button" className="btn-lang" onClick={toggle} aria-label={c.switchLabel}>
             {c.switchLabel}
           </button>
-          <Link href="/#consult" className="btn-cta">{c.cta}</Link>
+          <Link href={consultHref} className="btn-cta">{c.cta}</Link>
         </div>
       </div>
     </header>
