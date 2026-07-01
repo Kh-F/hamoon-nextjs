@@ -53,9 +53,9 @@ export default function ChatWidget() {
             <div style={{ width: 36, height: 36, borderRadius: '50%', background: 'var(--blue-600)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
               <Bot size={18} color="#fff" />
             </div>
-            <div style={{ flex: 1, minWidth: 0 }}>
-              <p style={{ margin: 0, fontSize: 'var(--fs-sm)', fontWeight: 700, color: '#fff', lineHeight: 1.2 }}>دستیار هامون</p>
-              <p style={{ margin: 0, fontSize: 'var(--fs-xs)', color: 'var(--blue-200)', lineHeight: 1.4 }}>Hamoon Academy Assistant</p>
+            <div style={{ flex: 1, minWidth: 0, overflow: 'hidden' }}>
+              <p style={{ margin: 0, fontSize: 'var(--fs-sm)', fontWeight: 700, color: '#fff', lineHeight: 1.2, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>دستیار هامون</p>
+              <p style={{ margin: 0, fontSize: 'var(--fs-xs)', color: 'var(--blue-200)', lineHeight: 1.4, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>Hamoon Academy Assistant</p>
             </div>
             <button
               onClick={() => setOpen(false)}
