@@ -130,7 +130,7 @@ export default function WorkshopsContent() {
             </div>
             <div className="dept-hero-img-col">
               <Image
-                src="/Workshop.png"
+                src="/Workshops.png"
                 alt="Workshops — Hamoon Academy"
                 width={600} height={400}
                 sizes="(max-width: 860px) 100vw, 50vw"
