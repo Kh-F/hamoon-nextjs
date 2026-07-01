@@ -2,15 +2,23 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useLang } from '@/context/LangContext';
 
 export default function Navbar() {
   const { c, toggle } = useLang();
   const pathname = usePathname();
-  // On the homepage the form is at /#consult; on every other page the
-  // Consultation component is embedded directly so #consult works in-page.
-  const consultHref = pathname === '/' ? '/#consult' : '#consult';
+  const router = useRouter();
+
+  function handleConsult() {
+    const section = document.getElementById('consult');
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      // No in-page form (e.g. 404 page) — fall back to homepage form
+      router.push('/#consult');
+    }
+  }
 
   return (
     <header className="navbar">
@@ -42,7 +50,7 @@ export default function Navbar() {
           <button type="button" className="btn-lang" onClick={toggle} aria-label={c.switchLabel}>
             {c.switchLabel}
           </button>
-          <Link href={consultHref} className="btn-cta">{c.cta}</Link>
+          <button type="button" className="btn-cta" onClick={handleConsult}>{c.cta}</button>
         </div>
       </div>
     </header>
