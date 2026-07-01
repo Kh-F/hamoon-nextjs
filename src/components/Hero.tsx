@@ -39,14 +39,6 @@ export default function Hero() {
             <a href="#consult" className="btn-primary">{hero.primary}</a>
           </div>
 
-          <div className="hero-stats">
-            {hero.stats.map(s => (
-              <div key={s.l}>
-                <div className="hero-stat-n">{s.n}</div>
-                <div className="hero-stat-l">{s.l}</div>
-              </div>
-            ))}
-          </div>
         </div>
 
       </div>
