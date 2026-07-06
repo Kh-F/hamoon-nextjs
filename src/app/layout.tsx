@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { Vazirmatn, Lexend } from 'next/font/google';
 import './globals.css';
-import ChatWidget from '@/components/ChatWidget';
 
 const vazirmatn = Vazirmatn({
   subsets: ['arabic'],
@@ -28,7 +27,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="fa" dir="rtl">
       <body className={`${vazirmatn.variable} ${lexend.variable}`}>
         {children}
-        <ChatWidget />
       </body>
     </html>
   );
