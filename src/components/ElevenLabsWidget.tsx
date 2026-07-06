@@ -6,6 +6,7 @@ import {
   useConversationControls,
   useConversationStatus,
 } from '@elevenlabs/react';
+import { MessageCircle } from 'lucide-react';
 
 function ChatBubble({ agentId }: { agentId: string }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -37,12 +38,43 @@ function ChatBubble({ agentId }: { agentId: string }) {
           color: 'white',
           border: 'none',
           cursor: 'pointer',
-          boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
+          boxShadow: isConnected
+            ? '0 4px 15px rgba(225, 29, 72, 0.35)'
+            : '0 4px 15px rgba(37, 99, 235, 0.4)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          fontSize: '28px',
           zIndex: 9999,
+          transition: 'transform 0.2s',
+        }}
+        onMouseOver={(e) => {
+          e.currentTarget.style.transform = 'scale(1.1)';
+        }}
+        onMouseOut={(e) => {
+          e.currentTarget.style.transform = 'scale(1)';
         }}
       >
-        {isOpen ? '✕' : ''}
+        {isOpen ? '✕' : <MessageCircle size={28} color="white" />}
       </button>
+
+      {!isOpen && (
+        <span style={{
+          position: 'fixed',
+          bottom: '45px',
+          right: '100px',
+          backgroundColor: 'white',
+          padding: '8px 15px',
+          borderRadius: '20px',
+          boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
+          fontSize: '14px',
+          fontWeight: 'bold',
+          color: '#333',
+          zIndex: 9999,
+        }}>
+          پشتیبان هامون
+        </span>
+      )}
 
       {isOpen && (
         <div style={{
@@ -91,6 +123,8 @@ function ChatBubble({ agentId }: { agentId: string }) {
 }
 
 export default function ElevenLabsWidget({ agentId }: { agentId: string }) {
+  if (!agentId) return null;
+
   return (
     <ConversationProvider textOnly={true}>
       <ChatBubble agentId={agentId} />
