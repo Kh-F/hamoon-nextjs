@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import PageShell from '@/components/PageShell';
+import ElevenLabsWidget from '@/components/ElevenLabsWidget';
 import AIContent from './Content';
 
 export const metadata: Metadata = {
@@ -11,6 +12,7 @@ export default function AIDepartmentPage() {
   return (
     <PageShell>
       <AIContent />
+      <ElevenLabsWidget agentId="agent_7301kw4x38zyeektfz5jez981720" />
     </PageShell>
   );
 }
