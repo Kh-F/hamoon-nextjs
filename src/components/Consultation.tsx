@@ -63,7 +63,7 @@ export default function Consultation({ department = 'General' }: Props) {
           {/* Left: info panel */}
           <div className="consult-info">
             <Image
-              src="/logo.png.png"
+              src="/logo.png"
               alt=""
               width={80}
               height={80}

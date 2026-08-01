@@ -27,8 +27,8 @@ export default function Navbar() {
       <div className="navbar-inner">
         <Link href="/" className="nav-brand">
           <Image
-            src="/logo.png.png"
-            alt="Hamoon Academy"
+            src="/logo.png"
+            alt="Hamoon Institute"
             width={46}
             height={46}
             className="img-logo-nav"

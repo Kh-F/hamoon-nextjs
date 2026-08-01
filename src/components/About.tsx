@@ -15,7 +15,7 @@ export default function About() {
         <div className="about-img-wrap">
           <div className="about-img-frame">
             <Image
-              src="/logo.png.png"
+              src="/logo.png"
               alt=""
               width={160}
               height={160}
