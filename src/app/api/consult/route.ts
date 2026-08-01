@@ -31,7 +31,7 @@ export async function POST(req: NextRequest) {
   // const resend = new Resend(process.env.RESEND_API_KEY);
   // await resend.emails.send({
   //   from: 'noreply@hamooninstitute.com',
-  //   to: 'info@hamooninstitute.com',
+  //   to: 'hamooninstitute.info@gmail.com',
   //   subject: `[${department}] New consultation request — ${name}`,
   //   text: `Department: ${department}\nName: ${name}\nPhone: ${phone}\nAge group: ${ageGroup}\nMessage: ${message}`,
   // });
