@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { usePathname } from 'next/navigation';
 import {
   ConversationProvider,
   useConversationControls,
@@ -8,12 +9,20 @@ import {
 } from '@elevenlabs/react';
 import { MessageCircle } from 'lucide-react';
 
+const agentMapping: Record<string, string> = {
+  '/': 'agent_6901kvx2pxa4evqsz6bfm578n0a0',
+  '/departments/english': 'agent_1001kw4vb0hjf45ayky9a9js9hnv',
+  '/departments/math': 'agent_0001kw4wt7v5f6v80qda85r31pv8',
+  '/departments/mathematics': 'agent_0001kw4wt7v5f6v80qda85r31pv8',
+  '/departments/workshops': 'agent_9301kw4xp6sjf9h8p82vh766myv6',
+  '/workshops': 'agent_9301kw4xp6sjf9h8p82vh766myv6',
+  '/departments/ai': 'agent_7301kw4x38zyeektfz5jez981720',
+};
+
 function ChatBubble({ agentId }: { agentId: string }) {
   const [isOpen, setIsOpen] = useState(false);
   const { startSession, endSession } = useConversationControls();
   const { status } = useConversationStatus();
-
-  const isConnected = status === 'connected';
 
   return (
     <>
@@ -21,7 +30,7 @@ function ChatBubble({ agentId }: { agentId: string }) {
         onClick={() => {
           if (!isOpen) {
             setIsOpen(true);
-            startSession({ agentId });
+            startSession({ agentId: agentId });
           } else {
             setIsOpen(false);
             endSession();
@@ -34,17 +43,15 @@ function ChatBubble({ agentId }: { agentId: string }) {
           width: '60px',
           height: '60px',
           borderRadius: '50%',
-          backgroundColor: isConnected ? '#e11d48' : '#2563eb',
+          backgroundColor: '#2563eb',
           color: 'white',
           border: 'none',
           cursor: 'pointer',
-          boxShadow: isConnected
-            ? '0 4px 15px rgba(225, 29, 72, 0.35)'
-            : '0 4px 15px rgba(37, 99, 235, 0.4)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           fontSize: '28px',
+          boxShadow: '0 4px 15px rgba(37, 99, 235, 0.4)',
           zIndex: 9999,
           transition: 'transform 0.2s',
         }}
@@ -58,42 +65,33 @@ function ChatBubble({ agentId }: { agentId: string }) {
         {isOpen ? '✕' : <MessageCircle size={28} color="white" />}
       </button>
 
-      {!isOpen && (
-        <span style={{
-          position: 'fixed',
-          bottom: '45px',
-          right: '100px',
-          backgroundColor: 'white',
-          padding: '8px 15px',
-          borderRadius: '20px',
-          boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
-          fontSize: '14px',
-          fontWeight: 'bold',
-          color: '#333',
-          zIndex: 9999,
-        }}>
-          پشتیبان هامون
-        </span>
-      )}
-
       {isOpen && (
-        <div style={{
-          position: 'fixed',
-          bottom: '100px',
-          right: '30px',
-          width: '320px',
-          height: '450px',
-          backgroundColor: '#ffffff',
-          border: '1px solid #e2e8f0',
-          borderRadius: '16px',
-          boxShadow: '0 10px 25px rgba(0,0,0,0.1)',
-          display: 'flex',
-          flexDirection: 'column',
-          overflow: 'hidden',
-          zIndex: 9998,
-        }}>
-          <div style={{ padding: '15px', borderBottom: '1px solid #eee', fontWeight: 'bold' }}>
-            پشتیبان هامون
+        <div
+          style={{
+            position: 'fixed',
+            bottom: '100px',
+            right: '30px',
+            width: '320px',
+            height: '450px',
+            backgroundColor: '#ffffff',
+            border: '1px solid #e2e8f0',
+            borderRadius: '16px',
+            boxShadow: '0 10px 25px rgba(0,0,0,0.1)',
+            display: 'flex',
+            flexDirection: 'column',
+            overflow: 'hidden',
+          }}
+        >
+          <div
+            style={{
+              padding: '15px',
+              borderBottom: '1px solid #eee',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <MessageCircle size={18} color="#2563eb" />
           </div>
 
           <div style={{ flex: 1, padding: '15px', overflowY: 'auto' }}>
@@ -123,11 +121,14 @@ function ChatBubble({ agentId }: { agentId: string }) {
 }
 
 export default function ElevenLabsWidget({ agentId }: { agentId: string }) {
-  if (!agentId) return null;
+  const pathname = usePathname();
+  const resolvedAgentId = agentMapping[pathname] ?? agentId;
+
+  if (!resolvedAgentId) return null;
 
   return (
     <ConversationProvider textOnly={true}>
-      <ChatBubble agentId={agentId} />
+      <ChatBubble agentId={resolvedAgentId} />
     </ConversationProvider>
   );
 }
