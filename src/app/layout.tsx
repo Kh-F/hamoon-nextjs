@@ -17,7 +17,7 @@ const lexend = Lexend({
 });
 
 export const metadata: Metadata = {
-  title: 'آکادمی هامون | Hamoon Academy',
+  title: 'مؤسسه هامون | Hamoon Academy',
   description: 'یادگیری هوشمند برای نسل آینده — Smart learning for the next generation',
   icons: { icon: '/icon.png' },
 };

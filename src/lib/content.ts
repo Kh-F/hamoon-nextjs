@@ -4,8 +4,8 @@ export type Dir = 'rtl' | 'ltr';
 export interface Stat       { n: string; l: string; }
 export interface NavItem    { label: string; id: string; href?: string; }
 export interface Founder    { name: string; role: string; bio: string; linkedin: string; cv: string; initials: string; bg: string; ink: string; }
-export interface HeroData   { badge: string; title: string; lead: string; primary: string; secondary: string; liveLabel: string; cardTitle: string; cardTeacher: string; cardMeta: string; cardInitials: string; stats: Stat[]; }
-export interface AboutData  { badge: string; title: string; body: string; body2: string; }
+export interface HeroData   { title: string; lead: string; primary: string; secondary: string; liveLabel: string; cardTitle: string; cardTeacher: string; cardMeta: string; cardInitials: string; stats: Stat[]; }
+export interface AboutData  { badge: string; title: string; body: string; body2: string; note: string; }
 export interface Pillar     { ic: string; title: string; desc: string; }
 export interface Course     { ic: string; title: string; desc: string; soft: string; ink: string; badge: string; meta: string[]; }
 export interface Instructor { name: string; role: string; bio: string; bg: string; ink: string; initials: string; }
@@ -57,7 +57,7 @@ export interface PageContent {
 export const CONTENT: Record<Lang, PageContent> = {
   fa: {
     dir: 'rtl', lang: 'fa',
-    brand: 'آکادمی هامون', brandSub: 'یادگیری هوشمند برای نسل آینده',
+    brand: 'مؤسسه هامون', brandSub: 'یادگیری هوشمند برای نسل آینده',
     nav: [
       { label: 'درباره ما',    id: 'about',        href: '/#about' },
       { label: 'زبان انگلیسی', id: 'dept-english',  href: '/departments/english' },
@@ -68,7 +68,6 @@ export const CONTENT: Record<Lang, PageContent> = {
     cta: 'رزرو مشاوره عمومی',
     switchLabel: 'EN',
     hero: {
-      badge: 'آکادمی آنلاین کودک و نوجوان',
       title: 'یادگیری هوشمند،\nبرای نسل آینده',
       lead: 'آموزش فردمحور با بازخورد اختصاصی برای هر دانش‌آموز؛ کلاس‌های تعاملی و مدرن برای کودکان، نوجوانان و بزرگسالان.',
       primary: 'رزرو مشاوره رایگان', secondary: 'مشاهده برنامه‌ها', liveLabel: 'زنده',
@@ -79,8 +78,9 @@ export const CONTENT: Record<Lang, PageContent> = {
     about: {
       badge: 'درباره ما',
       title: 'جایی که یادگیری معنا پیدا می‌کند',
-      body: 'آکادمی هامون از یک باور ساده آغاز شد: هر کودک استعدادی بی‌نظیر دارد که با آموزش درست شکوفا می‌شود. ما محیطی علمی و در عین حال صمیمی ساختیم تا یادگیری برای نسل آینده، لذت‌بخش و معنادار باشد.',
-      body2: 'رسالت ما در آکادمی هامون، ایجاد تحولی بنیادین در مسیر رشد دانش‌آموزان است؛ بستری که در آن کودکان و نوجوانان با کشف و شکوفایی استعدادهای پنهان خود، هویتی مثبت، پویا و سرشار از خودباوری پیدا می‌کنند.',
+      body: 'مؤسسه هامون از یک باور ساده آغاز شد: هر کودک استعدادی بی‌نظیر دارد که با آموزش درست شکوفا می‌شود. ما محیطی علمی و در عین حال صمیمی ساختیم تا یادگیری برای نسل آینده، لذت‌بخش و معنادار باشد.',
+      body2: 'رسالت ما در مؤسسه هامون، ایجاد تحولی بنیادین در مسیر رشد دانش‌آموزان است؛ بستری که در آن کودکان و نوجوانان با کشف و شکوفایی استعدادهای پنهان خود، هویتی مثبت، پویا و سرشار از خودباوری پیدا می‌کنند.',
+      note: 'مؤسسه‌ی هامون متعلق به فرزندان ایران زمین است، اگر در پرداخت هزینه مشکل دارید با ما تماس بگیرید.',
     },
     pillars: [
       { ic: 'graduation', title: 'متد روز دنیا', desc: 'برنامه‌ی درسی به‌روز و مبتنی بر پژوهش‌های آموزشی نوین.' },
@@ -104,12 +104,12 @@ export const CONTENT: Record<Lang, PageContent> = {
       { name: 'رضا تهرانی', role: 'مهارت‌های دیجیتال', bio: 'متخصص ابزارهای نوین یادگیری و سواد دیجیتال.', bg: 'var(--blue-100)', ink: 'var(--blue-700)', initials: 'ر ت' },
     ],
     foundersTitle: 'بنیان‌گذاران و اساتید ارشد',
-    foundersLead: 'آشنایی با پایه‌گذاران آکادمی هامون',
+    foundersLead: 'آشنایی با پایه‌گذاران مؤسسه هامون',
     founders: [
       {
         name: 'سعید موسی‌وند',
         role: '',
-        bio: 'سعید موسی‌وند با سال‌ها تجربه در مدیریت آموزش و توسعه محصولات یادگیری، بینش راهبردی و مسیر رشد آکادمی هامون را شکل داده است. تخصص او در طراحی سیستم‌های آموزشی مؤثر و ایجاد محیط‌های یادگیری پویا، سنگ بنای موفقیت هامون است.',
+        bio: 'سعید موسی‌وند با سال‌ها تجربه در مدیریت آموزش و توسعه محصولات یادگیری، بینش راهبردی و مسیر رشد مؤسسه هامون را شکل داده است. تخصص او در طراحی سیستم‌های آموزشی مؤثر و ایجاد محیط‌های یادگیری پویا، سنگ بنای موفقیت هامون است.',
         linkedin: '#', cv: '#',
         initials: 'س م', bg: 'var(--blue-100)', ink: 'var(--blue-700)',
       },
@@ -121,7 +121,7 @@ export const CONTENT: Record<Lang, PageContent> = {
         initials: 'خ ف', bg: 'var(--amber-100)', ink: 'var(--amber-700)',
       },
     ],
-    galleryTitle: 'لحظه‌هایی از آکادمی هامون',
+    galleryTitle: 'لحظه‌هایی از مؤسسه هامون',
     galleryLead: 'نگاهی به کلاس‌های زنده، تعامل دانش‌آموزان و منابع آموزشی پیشرو.',
     gallery: [
       { caption: 'تعامل و کار گروهی', ic: 'users', g: 'linear-gradient(135deg,var(--amber-400),var(--amber-700))', span: 1 },
@@ -149,11 +149,11 @@ export const CONTENT: Record<Lang, PageContent> = {
     social: [{ ic: 'instagram', label: 'اینستاگرام' }, { ic: 'telegram', label: 'تلگرام' }],
     footer: {
       tagline: 'یادگیری هوشمند و فردمحور برای کودکان، نوجوانان و بزرگسالان.',
-      rights: '© ۲۰۲۶ آکادمی آنلاین هامون. تمامی حقوق محفوظ است.',
+      rights: '© ۲۰۲۶ مؤسسه آنلاین هامون. تمامی حقوق محفوظ است.',
       rightsEn: '© 2026 Hamoon Online Academy.',
       cols: [
         { h: 'دوره‌ها', items: ['زبان انگلیسی', 'ریاضی هوشمند', 'علوم و کاوش', 'مهارت دیجیتال'] },
-        { h: 'آکادمی', items: ['درباره ما', 'اساتید', 'روش آموزش', 'گالری'] },
+        { h: 'مؤسسه', items: ['درباره ما', 'اساتید', 'روش آموزش', 'گالری'] },
         { h: 'پشتیبانی', items: ['تماس با ما', 'سؤالات متداول', 'قوانین', 'حریم خصوصی'] },
       ],
     },
@@ -172,7 +172,6 @@ export const CONTENT: Record<Lang, PageContent> = {
     cta: 'Book a general consultation',
     switchLabel: 'فا',
     hero: {
-      badge: 'Online academy for kids & teens',
       title: 'Smart learning,\nfor the next generation',
       lead: 'Personalized teaching with dedicated feedback for every student — interactive, modern classes for children, teens, and adults.',
       primary: 'Book a free consultation', secondary: 'See programs', liveLabel: 'LIVE',
@@ -185,6 +184,7 @@ export const CONTENT: Record<Lang, PageContent> = {
       title: 'Where learning finds its meaning',
       body: 'Hamoon Academy began with one simple belief: every child holds a unique talent that blossoms with the right teaching. We built a space that is scientific yet warm — so learning for the next generation feels joyful and meaningful.',
       body2: 'Drawing on modern world-class methods and a student-centered approach, we design a dedicated path for every learner and give precise, constructive feedback at every step.',
+      note: 'Hamoon Institute belongs to the children of Iran — if you have trouble affording tuition, please get in touch with us.',
     },
     pillars: [
       { ic: 'graduation', title: 'World-class methods', desc: 'An up-to-date curriculum grounded in modern educational research.' },

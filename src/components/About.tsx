@@ -41,6 +41,7 @@ export default function About() {
           <h2 className="section-title">{about.title}</h2>
           <p className="section-lead">{about.body}</p>
           <p className="section-body">{about.body2}</p>
+          <p className="section-note">{about.note}</p>
 
           <div className="pillars">
             {pillars.map(p => (
