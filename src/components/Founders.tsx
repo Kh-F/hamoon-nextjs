@@ -24,8 +24,8 @@ export default function Founders() {
                 <Image
                   src={f.photo}
                   alt={f.name}
-                  width={88}
-                  height={88}
+                  width={160}
+                  height={160}
                   className="founder-avatar-lg founder-avatar-photo"
                 />
               ) : (
