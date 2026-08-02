@@ -257,6 +257,7 @@ input,textarea{font-family:inherit;}
 .founder-card{display:flex;gap:var(--space-6);align-items:flex-start;background:var(--surface-card);border:1px solid var(--border-subtle);border-radius:var(--radius-xl);padding:clamp(1.5rem,4vw,2.25rem);box-shadow:var(--shadow-md);transition:box-shadow .22s,transform .22s;}
 .founder-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);}
 .founder-avatar-lg{width:88px;height:88px;flex:none;border-radius:var(--radius-xl);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:var(--fs-h3);}
+.founder-avatar-photo{object-fit:cover;}
 .founder-info{flex:1;min-width:0;display:flex;flex-direction:column;gap:var(--space-3);}
 .founder-name{font-size:var(--fs-h4);font-weight:800;color:var(--text-strong);margin:0;}
 .founder-role{font-size:var(--fs-sm);font-weight:700;color:var(--color-primary);}

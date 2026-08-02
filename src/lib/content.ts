@@ -3,7 +3,7 @@ export type Dir = 'rtl' | 'ltr';
 
 export interface Stat       { n: string; l: string; }
 export interface NavItem    { label: string; id: string; href?: string; }
-export interface Founder    { name: string; role: string; bio: string; linkedin: string; cv: string; initials: string; bg: string; ink: string; }
+export interface Founder    { name: string; role: string; bio: string; linkedin: string; cv: string; initials: string; bg: string; ink: string; photo?: string; }
 export interface HeroData   { title: string; lead: string; primary: string; secondary: string; liveLabel: string; cardTitle: string; cardTeacher: string; cardMeta: string; cardInitials: string; stats: Stat[]; }
 export interface AboutData  { badge: string; title: string; body: string; body2: string; note: string; }
 export interface Pillar     { ic: string; title: string; desc: string; }
@@ -111,14 +111,14 @@ export const CONTENT: Record<Lang, PageContent> = {
         role: '',
         bio: 'سعید موسی‌وند با سال‌ها تجربه در مدیریت آموزش و توسعه محصولات یادگیری، بینش راهبردی و مسیر رشد مؤسسه هامون را شکل داده است. تخصص او در طراحی سیستم‌های آموزشی مؤثر و ایجاد محیط‌های یادگیری پویا، سنگ بنای موفقیت هامون است.',
         linkedin: '#', cv: '#',
-        initials: 'س م', bg: 'var(--blue-100)', ink: 'var(--blue-700)',
+        initials: 'س م', bg: 'var(--blue-100)', ink: 'var(--blue-700)', photo: '/mousavand.png',
       },
       {
         name: 'خدیجه فتحعلیخانی',
         role: '',
         bio: 'خدیجه فتحعلیخانی دارای دکترای ریاضیات با تخصص در ترکیبیات و نظریه گراف است که اکنون در حوزه هوش مصنوعی کاربردی و مهندسی زیرساخت DevOps فعالیت می‌کند. او سابقه تدریس گسترده‌ای در دانشگاه‌های مختلف از جمله الزهرا و فرهنگیان دارد و پژوهش‌های بین‌المللی متعددی را در اسپانیا و اسلوونی به سرانجام رسانده است.',
         linkedin: 'https://www.linkedin.com/in/khadijeh-fathalikhani-405b0627', cv: '#',
-        initials: 'خ ف', bg: 'var(--amber-100)', ink: 'var(--amber-700)',
+        initials: 'خ ف', bg: 'var(--amber-100)', ink: 'var(--amber-700)', photo: '/Fathalikhani.png',
       },
     ],
     galleryTitle: 'لحظه‌هایی از مؤسسه هامون',
@@ -215,14 +215,14 @@ export const CONTENT: Record<Lang, PageContent> = {
         role: '',
         bio: 'Saeid Mousavandrani brings years of experience in education management and learning product development, defining the strategic vision and growth path of Hamoon Academy. His expertise in designing effective educational systems and dynamic learning environments is the cornerstone of Hamoon\'s success.',
         linkedin: '#', cv: '#',
-        initials: 'SM', bg: 'var(--blue-100)', ink: 'var(--blue-700)',
+        initials: 'SM', bg: 'var(--blue-100)', ink: 'var(--blue-700)', photo: '/mousavand.png',
       },
       {
         name: 'Dr. Khadijeh Fathalikhani',
         role: '',
         bio: 'Dr. Khadijeh Fathalikhani holds a Ph.D. in Mathematics specializing in Combinatorics and Graph Theory, now active in Applied AI and DevOps Infrastructure Engineering. Her extensive university-level teaching across multiple institutions, combined with international research in Spain and Slovenia, reflects her broad academic track record.',
         linkedin: 'https://www.linkedin.com/in/khadijeh-fathalikhani-405b0627', cv: '#',
-        initials: 'KF', bg: 'var(--amber-100)', ink: 'var(--amber-700)',
+        initials: 'KF', bg: 'var(--amber-100)', ink: 'var(--amber-700)', photo: '/Fathalikhani.png',
       },
     ],
     galleryTitle: 'Moments from Hamoon Academy',

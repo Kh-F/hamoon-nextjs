@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { useLang } from '@/context/LangContext';
 import Icon from './Icon';
@@ -19,12 +20,22 @@ export default function Founders() {
         <div className="founders-grid">
           {founders.map(f => (
             <div key={f.name} className="founder-card">
-              <div
-                className="founder-avatar-lg"
-                style={{ background: f.bg, color: f.ink }}
-              >
-                {f.initials}
-              </div>
+              {f.photo ? (
+                <Image
+                  src={f.photo}
+                  alt={f.name}
+                  width={88}
+                  height={88}
+                  className="founder-avatar-lg founder-avatar-photo"
+                />
+              ) : (
+                <div
+                  className="founder-avatar-lg"
+                  style={{ background: f.bg, color: f.ink }}
+                >
+                  {f.initials}
+                </div>
+              )}
               <div className="founder-info">
                 <h3 className="founder-name">{f.name}</h3>
                 {f.role && <div className="founder-role">{f.role}</div>}
