@@ -17,7 +17,6 @@ const DEPT = {
     ctaLead: 'برای انتخاب بهترین مسیر یادگیری با مشاوران ما صحبت کنید.',
     ctaTitle: 'آماده‌سازی برای دنیای هوش مصنوعی',
     featuresTitle: 'رویکرد آموزشی ما',
-    coursesTitle: 'دوره‌های بخش هوش مصنوعی',
     features: [
       {
         ic: 'graduation', soft: 'var(--blue-50)', ink: 'var(--blue-600)',
@@ -36,15 +35,30 @@ const DEPT = {
       },
     ],
     curriculum: {
-      badge: 'برنامه درسی سفارشی',
-      title: 'تدریس با دقت ریاضی، استقرار با فناوری روز',
-      body: 'برنامه درسی هوش مصنوعی هامون توسط دکتر خدیجه فتحعلی‌خانی — ریاضیدان و متخصص AI — طراحی و تألیف شده است. این برنامه با ترکیب بهترین مفاهیم جهانی از جمله Stempedia و زیرساخت‌های پیشرفته اتوماسیون AI، دقت ریاضی را با مهارت‌های استقرار عملی در هم می‌آمیزد.',
+      badge: 'برنامه درسی اختصاصی هوش مصنوعی هامون',
+      title: 'از یادگیری مفاهیم تا ساختن آینده',
+      body: 'آموزش هوش مصنوعی نیازمند یک مسیر منظم و مرحله‌به‌مرحله است. بسیاری از منابع آموزشی موجود، اگرچه مطالب ارزشمندی ارائه می‌دهند، اما گاهی بدون یک ساختار پیوسته و مسیر یادگیری مشخص هستند. در هامون، برنامه آموزشی هوش مصنوعی پس از بررسی و مطالعه دوره‌ها و منابع آموزشی بین‌المللی در کشورهای مختلف از جمله ایران، کانادا و هند طراحی شده است. با تحلیل روش‌های آموزشی موجود و بررسی منابع تخصصی، تلاش کرده‌ایم یک مسیر منسجم و قابل فهم برای یادگیرندگان ایجاد کنیم.',
     },
-    courses: [
-      { ic: 'laptop',   title: 'مقدمه هوش مصنوعی',      desc: 'مفاهیم پایه AI، یادگیری ماشین و کاربرد ابزارهای هوشمند در پروژه‌های واقعی.', meta: ['۸ جلسه', '۱۲–۱۳ سال'], badge: 'جدید',    soft: 'var(--blue-50)',  ink: 'var(--blue-600)' },
-      { ic: 'bulb',     title: 'هوش مصنوعی و خلاقیت',   desc: 'ابزارهای تولید محتوا، طراحی تصویر و موسیقی با AI — برای نوجوانان خلاق.', meta: ['۱۰ جلسه', '۱۴–۱۶ سال'], badge: 'STEM',    soft: 'var(--amber-50)', ink: 'var(--amber-600)' },
-      { ic: 'trending', title: 'اتوماسیون با هوش مصنوعی',desc: 'طراحی پایپلاین‌های اتوماسیون با n8n و Dify — از صفر تا استقرار در محیط تولید.', meta: ['۱۲ جلسه', 'بزرگسال'],   badge: 'پیشرفته', soft: 'var(--mint-50)',  ink: 'var(--mint-600)' },
-    ],
+    approach: {
+      title: 'رویکرد آموزشی ما',
+      lead: 'مسیر یادگیری هوش مصنوعی در هامون از پایه‌های تفکر محاسباتی آغاز می‌شود و به سمت مفاهیم پیشرفته‌تر حرکت می‌کند:',
+      steps: [
+        { title: 'تفکر الگوریتمی و حل مسئله', desc: 'دانش‌آموزان ابتدا یاد می‌گیرند چگونه مسائل را تحلیل کنند، مراحل حل مسئله را طراحی کنند و مانند یک دانشمند کامپیوتر فکر کنند.' },
+        { title: 'شناخت کامپیوتر و دنیای دیجیتال', desc: 'درک نحوه کار ماشین‌ها، سیستم‌های کامپیوتری، داده‌ها و نقش فناوری در زندگی روزمره، پایه‌ای برای ورود به دنیای هوش مصنوعی است.' },
+        { title: 'الگوریتم‌ها و برنامه‌نویسی', desc: 'یادگیری دستورها، توالی‌ها، الگوریتم‌ها، الگوها، حلقه‌ها و مفاهیم برنامه‌نویسی از طریق فعالیت‌های عملی و پروژه‌محور.' },
+        { title: 'ورود به دنیای هوش مصنوعی', desc: 'آشنایی با مفاهیم اصلی هوش مصنوعی، یادگیری ماشین، داده‌ها و کاربردهای واقعی AI در دنیای امروز.' },
+      ],
+    },
+    books: {
+      title: 'کتاب‌های آموزشی اختصاصی هامون',
+      body: 'برای ایجاد یک مسیر آموزشی منسجم، مجموعه کتاب‌های اختصاصی هوش مصنوعی هامون در حال تألیف است. این کتاب‌ها با ترکیب منابع آموزشی معتبر بین‌المللی، تجربه تدریس، و نیازهای واقعی دانش‌آموزان طراحی شده‌اند تا یادگیری هوش مصنوعی از سطح مقدماتی تا پیشرفته به صورت ساختاریافته انجام شود. کتاب‌های هامون در دو نسخه فارسی و انگلیسی تهیه می‌شوند. نسخه انگلیسی با هدف آماده‌سازی دانش‌آموزان برای مسیرهای آموزشی و رقابت‌های بین‌المللی طراحی شده است. در کنار آموزش مفاهیم، هر فصل شامل:',
+      bullets: ['اهداف یادگیری مشخص', 'مثال‌های کاربردی', 'فعالیت‌های عملی', 'تمرین‌های تحلیلی', 'پروژه‌های آزمایشگاهی'],
+      closing: 'است تا دانش‌آموز تنها مصرف‌کننده فناوری نباشد، بلکه توانایی ساخت و خلق با فناوری را پیدا کند.',
+    },
+    projectBased: {
+      title: 'یادگیری پروژه‌محور',
+      body: 'در هامون، هوش مصنوعی فقط با توضیح مفاهیم آموزش داده نمی‌شود؛ یادگیرندگان با انجام فعالیت‌های عملی، ساخت پروژه و تجربه مستقیم، مفاهیم را عمیق‌تر یاد می‌گیرند. هدف ما تربیت نسلی است که بتواند فناوری‌های آینده را درک کند، از آن‌ها استفاده کند و در آینده خود به سازنده این فناوری‌ها تبدیل شود.',
+    },
   },
   en: {
     badge: 'AI Department',
@@ -56,7 +70,6 @@ const DEPT = {
     ctaLead: 'Talk to our advisors to find the right AI learning path for you.',
     ctaTitle: 'Get ready for the AI-powered world',
     featuresTitle: 'Three core pillars',
-    coursesTitle: 'AI Department Courses',
     features: [
       {
         ic: 'graduation', soft: 'var(--blue-50)', ink: 'var(--blue-600)',
@@ -75,15 +88,30 @@ const DEPT = {
       },
     ],
     curriculum: {
-      badge: 'Custom curriculum',
-      title: 'Mathematical rigour meets practical deployment',
-      body: 'The Hamoon AI curriculum is custom-tailored and authored by Dr. Khadijeh Fathalikhani — mathematician and AI specialist. By synthesising the best global frameworks including Stempedia and advanced AI automation infrastructure, it ensures strict mathematical rigour is paired with the practical deployment skills the industry demands.',
+      badge: "Hamoon's Dedicated AI Curriculum",
+      title: 'From Learning Concepts to Building the Future',
+      body: "Learning AI requires a structured, step-by-step path. Many existing educational resources — while valuable — often lack a coherent structure and a clear learning path. At Hamoon, our AI curriculum was designed after studying international courses and resources from several countries, including Iran, Canada, and India. By analyzing existing teaching methods and specialized resources, we've worked to build a coherent, understandable path for learners.",
     },
-    courses: [
-      { ic: 'laptop',   title: 'Intro to AI',         desc: 'Core AI concepts, machine learning and practical use of intelligent tools in real projects.',           meta: ['8 sessions', 'Ages 12–13'],  badge: 'New',      soft: 'var(--blue-50)',  ink: 'var(--blue-600)' },
-      { ic: 'bulb',     title: 'AI & Creativity',     desc: 'Content generation, AI image and music tools — designed for creative teens who want to build.',         meta: ['10 sessions', 'Ages 14–16'], badge: 'STEM',     soft: 'var(--amber-50)', ink: 'var(--amber-600)' },
-      { ic: 'trending', title: 'AI Automation',       desc: 'Build production-grade automation pipelines with n8n and Dify — from zero to live deployment.',         meta: ['12 sessions', 'Adult'],      badge: 'Advanced', soft: 'var(--mint-50)',  ink: 'var(--mint-600)' },
-    ],
+    approach: {
+      title: 'Our Teaching Approach',
+      lead: "The AI learning path at Hamoon begins with the foundations of computational thinking and moves toward more advanced concepts:",
+      steps: [
+        { title: 'Algorithmic Thinking & Problem Solving', desc: 'Students first learn how to analyze problems, design solution steps, and think like a computer scientist.' },
+        { title: 'Understanding Computers & the Digital World', desc: "Understanding how machines and computer systems work, what data is, and technology's role in daily life — the foundation for entering the world of AI." },
+        { title: 'Algorithms & Programming', desc: 'Learning commands, sequences, algorithms, patterns, loops, and programming concepts through hands-on, project-based activities.' },
+        { title: 'Entering the World of AI', desc: 'Introducing core AI concepts, machine learning, data, and real-world AI applications today.' },
+      ],
+    },
+    books: {
+      title: "Hamoon's Dedicated AI Textbooks",
+      body: "To build a coherent learning path, Hamoon's dedicated AI textbook series is currently being authored. These books combine credible international resources, real teaching experience, and students' actual needs to deliver structured AI learning from beginner to advanced level. Hamoon's books are produced in both Persian and English editions. The English edition is designed to prepare students for international learning paths and competitions. Alongside the core concepts, every chapter includes:",
+      bullets: ['Clear learning objectives', 'Practical examples', 'Hands-on activities', 'Analytical exercises', 'Lab projects'],
+      closing: "— so students aren't just consumers of technology, but gain the ability to build and create with it.",
+    },
+    projectBased: {
+      title: 'Project-Based Learning',
+      body: "At Hamoon, AI isn't taught through explanation alone; learners deepen their understanding through hands-on activities, building projects, and direct experience. Our goal is to raise a generation that can understand tomorrow's technologies, use them, and one day become the creators of those technologies.",
+    },
   },
 } as const;
 
@@ -160,31 +188,44 @@ export default function AIContent() {
         </div>
       </section>
 
-      {/* ── Courses ── */}
+      {/* ── Curriculum detail ── */}
       <section>
-        <div className="dept-courses-inner">
-          <div className="section-center" style={{ marginBottom: 'var(--space-10)' }}>
-            <h2 className="section-title">{d.coursesTitle}</h2>
-          </div>
-          <div className="courses-grid">
-            {d.courses.map(co => (
-              <article key={co.title} className="course-card">
-                <div className="course-header" style={{ background: co.soft }}>
-                  <span className="course-icon" style={{ color: co.ink }}><Icon name={co.ic} size={28} /></span>
-                  <span className="course-badge" style={{ color: co.ink, border: `1px solid ${co.ink}22` }}>{co.badge}</span>
-                </div>
-                <div className="course-body">
-                  <h3 className="course-title">{co.title}</h3>
-                  <p className="course-desc">{co.desc}</p>
-                  <div className="course-metas">
-                    {co.meta.map(m => <span key={m} className="course-meta-item">{m}</span>)}
-                  </div>
-                  <Link href="/#consult" className="course-link">
-                    {c.detailsLabel}<Icon name="chevron" size={16} />
-                  </Link>
-                </div>
-              </article>
-            ))}
+        <div className="section">
+          <div className="ai-curriculum-detail">
+            <div className="ai-curriculum-block">
+              <h3 className="ai-curriculum-block-title">{d.approach.title}</h3>
+              <p className="section-body">{d.approach.lead}</p>
+              <ol className="ai-step-list">
+                {d.approach.steps.map((s, i) => (
+                  <li key={s.title} className="ai-step">
+                    <span className="ai-step-num">{i + 1}</span>
+                    <div className="ai-step-body">
+                      <div className="ai-step-title">{s.title}</div>
+                      <p className="ai-step-desc">{s.desc}</p>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            </div>
+
+            <div className="ai-curriculum-block">
+              <h3 className="ai-curriculum-block-title">{d.books.title}</h3>
+              <p className="section-body">{d.books.body}</p>
+              <ul className="cdp-bullets">
+                {d.books.bullets.map(b => (
+                  <li key={b} className="cdp-bullet">
+                    <span className="cdp-bullet-dot" />
+                    <span>{b}</span>
+                  </li>
+                ))}
+              </ul>
+              <p className="section-body">{d.books.closing}</p>
+            </div>
+
+            <div className="ai-curriculum-block">
+              <h3 className="ai-curriculum-block-title">{d.projectBased.title}</h3>
+              <p className="section-body">{d.projectBased.body}</p>
+            </div>
           </div>
         </div>
       </section>
