@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import { useLang } from '@/context/LangContext';
 import Icon from './Icon';
 
@@ -14,12 +13,13 @@ export default function About() {
         {/* Image column */}
         <div className="about-img-wrap">
           <div className="about-img-frame">
-            <Image
-              src="/logo.png"
-              alt=""
-              width={160}
-              height={160}
-              className="img-logo-about"
+            <video
+              src="/Logo-Motion.mp4"
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="about-video"
             />
             <span className="about-img-overlay" />
           </div>

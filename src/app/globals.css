@@ -36,7 +36,7 @@ input,textarea{font-family:inherit;}
 /* ── Logo images ── */
 .img-logo-nav    {border-radius:50%;object-fit:cover;box-shadow:var(--shadow-sm);}
 .img-logo-hero   {border-radius:50%;object-fit:cover;opacity:.96;}
-.img-logo-about  {border-radius:50%;object-fit:cover;}
+.about-video{width:100%;height:100%;object-fit:cover;display:block;}
 .img-logo-consult{border-radius:50%;object-fit:cover;box-shadow:var(--shadow-md);}
 .img-logo-footer {border-radius:50%;object-fit:cover;}
 
