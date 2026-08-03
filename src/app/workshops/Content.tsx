@@ -33,22 +33,6 @@ const WS = {
     status: { upcoming: 'پیش رو' } as Record<StatusKey, string>,
     events: [
       {
-        ic: 'laptop', soft: 'var(--blue-50)', ink: 'var(--blue-600)',
-        badge: 'فناوری',
-        statusKey: 'upcoming' as StatusKey,
-        title: 'طراحی وب و اتوماسیون گردش کار',
-        desc: 'از HTML و CSS پایه تا اتوماسیون گردش کار با ابزارهای مدرن — یک کارگاه فشرده که شما را از ایده تا محصول واقعی می‌برد.',
-        meta: ['۲ روزه', 'آنلاین و حضوری'],
-      },
-      {
-        ic: 'graduation', soft: 'var(--amber-50)', ink: 'var(--amber-600)',
-        badge: 'آموزش',
-        statusKey: 'upcoming' as StatusKey,
-        title: 'آموزش مبتنی بر AI: برنامه‌های تربیت مربی',
-        desc: 'برای معلمان، مربیان و علاقه‌مندان به تدریس — چگونه از ابزارهای هوش مصنوعی برای شخصی‌سازی تجربه یادگیری و ارتقای کیفیت تدریس استفاده کنیم.',
-        meta: ['۳ روزه', 'حضوری'],
-      },
-      {
         ic: 'laptop', soft: 'var(--mint-50)', ink: 'var(--mint-600)',
         badge: 'فناوری',
         statusKey: 'upcoming' as StatusKey,
