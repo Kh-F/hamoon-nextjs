@@ -27,4 +27,6 @@ export const ICONS: Record<string, string> = {
   linkedin:   '<path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6Z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>',
   download:   '<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>',
   arrowleft:  '<path d="M15 18l-6-6 6-6"/>',
+  volume:     '<path d="M4 9v6h4l5 4V5L8 9H4Z"/><path d="M17 8.5a5.5 5.5 0 0 1 0 7"/><path d="M19.5 6a9 9 0 0 1 0 12"/>',
+  volumeoff:  '<path d="M4 9v6h4l5 4V5L8 9H4Z"/><path d="M17.5 9.5l5 5"/><path d="M22.5 9.5l-5 5"/>',
 };
