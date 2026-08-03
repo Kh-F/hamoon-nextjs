@@ -6,7 +6,7 @@ import { useLang } from '@/context/LangContext';
 import Icon from '@/components/Icon';
 import Consultation from '@/components/Consultation';
 
-type StatusKey = 'upcoming' | 'past' | 'recurring';
+type StatusKey = 'upcoming';
 
 interface WsEvent {
   ic: string;
@@ -30,8 +30,7 @@ const WS = {
     ctaTitle: 'در کارگاه بعدی شرکت کنید',
     ctaLead: 'کارگاه‌های هامون با ظرفیت محدود برگزار می‌شوند. همین حالا جای خود را رزرو کنید.',
     upcomingLabel: 'کارگاه‌های پیش رو',
-    pastLabel: 'برگزارشده / دوره‌ای',
-    status: { upcoming: 'پیش رو', past: 'برگزارشده', recurring: 'دوره‌ای' } as Record<StatusKey, string>,
+    status: { upcoming: 'پیش رو' } as Record<StatusKey, string>,
     events: [
       {
         ic: 'laptop', soft: 'var(--blue-50)', ink: 'var(--blue-600)',
@@ -49,14 +48,6 @@ const WS = {
         desc: 'برای معلمان، مربیان و علاقه‌مندان به تدریس — چگونه از ابزارهای هوش مصنوعی برای شخصی‌سازی تجربه یادگیری و ارتقای کیفیت تدریس استفاده کنیم.',
         meta: ['۳ روزه', 'حضوری'],
       },
-      {
-        ic: 'book', soft: 'var(--mint-50)', ink: 'var(--mint-600)',
-        badge: 'سواد علمی',
-        statusKey: 'recurring' as StatusKey,
-        title: 'معرفی کتاب و سواد علمی',
-        desc: 'انتخاب، معرفی و بررسی کتاب‌های برتر حوزه آموزش، روان‌شناسی شناختی، ریاضیات و هوش مصنوعی در قالب گفت‌وگوی گروهی.',
-        meta: ['ماهانه', 'آنلاین'],
-      },
     ] as WsEvent[],
   },
   en: {
@@ -69,8 +60,7 @@ const WS = {
     ctaTitle: 'Join our next workshop',
     ctaLead: 'Hamoon workshops run with limited capacity. Reserve your spot now.',
     upcomingLabel: 'Upcoming workshops',
-    pastLabel: 'Past / recurring',
-    status: { upcoming: 'Upcoming', past: 'Past', recurring: 'Recurring' } as Record<StatusKey, string>,
+    status: { upcoming: 'Upcoming' } as Record<StatusKey, string>,
     events: [
       {
         ic: 'laptop', soft: 'var(--blue-50)', ink: 'var(--blue-600)',
@@ -88,22 +78,12 @@ const WS = {
         desc: 'For educators, mentors and teaching enthusiasts — how to use AI tools to personalise the learning experience and elevate teaching quality.',
         meta: ['3 days', 'In-person'],
       },
-      {
-        ic: 'book', soft: 'var(--mint-50)', ink: 'var(--mint-600)',
-        badge: 'Academic Literacy',
-        statusKey: 'recurring' as StatusKey,
-        title: 'Book Introductions & Academic Literacy',
-        desc: 'Selecting, presenting and critically discussing leading books in education, cognitive psychology, mathematics and AI — in a group dialogue format.',
-        meta: ['Monthly', 'Online'],
-      },
     ] as WsEvent[],
   },
 } as const;
 
 const STATUS_CLASS: Record<StatusKey, string> = {
   upcoming: 'ws-status ws-status--upcoming',
-  past:     'ws-status ws-status--past',
-  recurring:'ws-status ws-status--recurring',
 };
 
 function scrollToConsult() {
@@ -114,8 +94,7 @@ export default function WorkshopsContent() {
   const { c } = useLang();
   const d = WS[c.lang as 'fa' | 'en'];
 
-  const upcoming  = d.events.filter(e => e.statusKey === 'upcoming');
-  const recurring = d.events.filter(e => e.statusKey !== 'upcoming');
+  const upcoming = d.events;
 
   return (
     <>
@@ -158,19 +137,6 @@ export default function WorkshopsContent() {
               <h2 className="ws-section-h">{d.upcomingLabel}</h2>
               <div className="ws-grid">
                 {upcoming.map(ev => (
-                  <EventCard key={ev.title} ev={ev} statusLabel={d.status[ev.statusKey]} cta={d.cta} detailsLabel={c.detailsLabel} />
-                ))}
-              </div>
-            </>
-          )}
-
-          {/* Recurring / past */}
-          {recurring.length > 0 && (
-            <>
-              <hr className="ws-divider" />
-              <h2 className="ws-section-h">{d.pastLabel}</h2>
-              <div className="ws-grid">
-                {recurring.map(ev => (
                   <EventCard key={ev.title} ev={ev} statusLabel={d.status[ev.statusKey]} cta={d.cta} detailsLabel={c.detailsLabel} />
                 ))}
               </div>

@@ -317,11 +317,8 @@ input,textarea{font-family:inherit;}
 .ws-note{text-align:center;margin-top:var(--space-10);font-size:var(--fs-sm);color:var(--text-muted);}
 .ws-status{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:var(--radius-pill);font-size:var(--fs-xs);font-weight:700;}
 .ws-status--upcoming{background:var(--green-50);color:var(--green-500);}
-.ws-status--past{background:var(--surface-sunken);color:var(--text-muted);}
-.ws-status--recurring{background:var(--blue-50);color:var(--blue-700);}
 .ws-status-dot{width:6px;height:6px;border-radius:50%;background:currentColor;flex:none;}
 .ws-section-h{font-size:var(--fs-h3);font-weight:800;color:var(--text-strong);margin:0 0 var(--space-6) 0;}
-.ws-divider{border:none;border-top:1px solid var(--border-subtle);margin-block:var(--space-12);}
 
 /* ── Dept instructor profile ── */
 .dept-instructor-wrap{max-width:var(--container-xl);margin-inline:auto;padding-inline:var(--gutter);padding-block:var(--section-y);}
