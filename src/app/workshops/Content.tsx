@@ -6,7 +6,7 @@ import { useLang } from '@/context/LangContext';
 import Icon from '@/components/Icon';
 import Consultation from '@/components/Consultation';
 
-type StatusKey = 'upcoming';
+type StatusKey = 'upcoming' | 'free';
 
 interface WsEvent {
   ic: string;
@@ -17,6 +17,11 @@ interface WsEvent {
   title: string;
   desc: string;
   meta: string[];
+  /** External registration link — when set, a primary "register" button is shown. */
+  registerHref?: string;
+  registerLabel?: string;
+  /** In-site details page — when set, the details link points here instead of #consult. */
+  detailHref?: string;
 }
 
 const WS = {
@@ -30,7 +35,7 @@ const WS = {
     ctaTitle: 'در کارگاه بعدی شرکت کنید',
     ctaLead: 'کارگاه‌های هامون با ظرفیت محدود برگزار می‌شوند. همین حالا جای خود را رزرو کنید.',
     upcomingLabel: 'کارگاه‌های پیش رو',
-    status: { upcoming: 'پیش رو' } as Record<StatusKey, string>,
+    status: { upcoming: 'پیش رو', free: 'رایگان' } as Record<StatusKey, string>,
     events: [
       {
         ic: 'laptop', soft: 'var(--mint-50)', ink: 'var(--mint-600)',
@@ -39,6 +44,17 @@ const WS = {
         title: 'طراحی وب‌سایت با هوش مصنوعی و اتوماسیون هوشمند',
         desc: 'در این کارگاه یاد می‌گیرید چگونه با کمک ابزارهای هوش مصنوعی یک وب‌سایت حرفه‌ای طراحی کنید و فرآیندهای کاری را با اتوماسیون‌های هوشمند ساده‌تر و سریع‌تر کنید. شرکت‌کنندگان با مفاهیم طراحی وب، ساخت صفحات مدرن، ابزارهای AI در توسعه وب و ایجاد گردش‌کارهای خودکار با ابزارهایی مانند n8n آشنا می‌شوند.',
         meta: ['۵ جلسه', 'آنلاین', 'سطح: مقدماتی تا متوسط'],
+      },
+      {
+        ic: 'target', soft: 'var(--blue-50)', ink: 'var(--blue-600)',
+        badge: 'هوش مصنوعی',
+        statusKey: 'free' as StatusKey,
+        title: 'آشنایی با دنیای هوش مصنوعی؛ از ریاضیات تا AI مدرن',
+        desc: 'در این کارگاه با مفاهیم پایه و کاربردی هوش مصنوعی، یادگیری ماشین و تحلیل داده‌ها آشنا می‌شویم و بررسی می‌کنیم که چگونه تفکر ریاضی به درک بهتر فناوری‌های نوین کمک می‌کند. شرکت‌کنندگان با ایده‌های اصلی داده، مدل‌های یادگیری ماشین و عامل‌های هوشمند (AI Agents) آشنا خواهند شد.',
+        meta: ['یک جلسه', 'آنلاین', 'سطح: مقدماتی'],
+        registerHref: '/#consult',
+        registerLabel: 'ثبت‌نام رایگان',
+        detailHref: '/workshops/ai-intro',
       },
     ] as WsEvent[],
   },
@@ -76,6 +92,7 @@ const WS = {
 
 const STATUS_CLASS: Record<StatusKey, string> = {
   upcoming: 'ws-status ws-status--upcoming',
+  free: 'ws-status ws-status--free',
 };
 
 function scrollToConsult() {
@@ -169,9 +186,16 @@ function EventCard({ ev, statusLabel, cta, detailsLabel }: {
       <div className="ws-meta">
         {ev.meta.map(m => <span key={m} className="course-meta-item">{m}</span>)}
       </div>
-      <Link href="/#consult" className="ws-cta-link">
-        {detailsLabel} <Icon name="chevron" size={15} />
-      </Link>
+      <div className="ws-ctas">
+        {ev.registerHref && (
+          <Link href={ev.registerHref} className="ws-btn-primary">
+            {ev.registerLabel ?? cta}
+          </Link>
+        )}
+        <Link href={ev.detailHref ?? '/#consult'} className="ws-cta-link">
+          {detailsLabel} <Icon name="chevron" size={15} />
+        </Link>
+      </div>
     </div>
   );
 }
