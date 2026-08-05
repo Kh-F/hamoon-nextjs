@@ -1,12 +1,28 @@
 'use client';
 
+import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useLang } from '@/context/LangContext';
 import Icon from '@/components/Icon';
 import Consultation from '@/components/Consultation';
+import WorkshopRegisterForm from '@/components/WorkshopRegisterForm';
 
 type StatusKey = 'upcoming' | 'free';
+
+interface WsPresenter {
+  sectionLabel: string;
+  name: string;
+  role: string;
+  bio: string;
+  creds: string[];
+  skills: string[];
+  linkedin: string;
+  linkedinLabel: string;
+  initials: string;
+  bg: string;
+  ink: string;
+}
 
 interface WsEvent {
   ic: string;
@@ -17,11 +33,12 @@ interface WsEvent {
   title: string;
   desc: string;
   meta: string[];
-  /** External registration link — when set, a primary "register" button is shown. */
+  /** External/anchor registration link — used only when no inline register form is defined. */
   registerHref?: string;
   registerLabel?: string;
-  /** In-site details page — when set, the details link points here instead of #consult. */
-  detailHref?: string;
+  /** When set (with `presenter`), the card renders an inline expandable details panel. */
+  topics?: string[];
+  presenter?: WsPresenter;
 }
 
 const WS = {
@@ -52,9 +69,25 @@ const WS = {
         title: 'آشنایی با دنیای هوش مصنوعی؛ از ریاضیات تا AI مدرن',
         desc: 'در این کارگاه با مفاهیم پایه و کاربردی هوش مصنوعی، یادگیری ماشین و تحلیل داده‌ها آشنا می‌شویم و بررسی می‌کنیم که چگونه تفکر ریاضی به درک بهتر فناوری‌های نوین کمک می‌کند. شرکت‌کنندگان با ایده‌های اصلی داده، مدل‌های یادگیری ماشین و عامل‌های هوشمند (AI Agents) آشنا خواهند شد.',
         meta: ['یک جلسه', 'آنلاین', 'سطح: مقدماتی'],
-        registerHref: '/#consult',
-        registerLabel: 'ثبت‌نام رایگان',
-        detailHref: '/workshops/ai-intro',
+        registerLabel: 'ثبت‌نام',
+        topics: [
+          'ارتباط ریاضیات با هوش مصنوعی',
+          'آشنایی با Data Analytics و نقش داده‌ها در تصمیم‌گیری',
+          'مفاهیم پایه Machine Learning',
+          'آشنایی با AI Agents و کاربردهای آن‌ها',
+          'مسیر یادگیری برای ورود به حوزه هوش مصنوعی',
+        ],
+        presenter: {
+          sectionLabel: 'مدرس کارگاه',
+          name: 'دکتر خدیجه فتحعلی‌خانی',
+          role: 'متخصص ریاضیات و هوش مصنوعی',
+          bio: 'دکترای ریاضیات با تخصص در ترکیبیات و نظریه گراف؛ اکنون در حوزه هوش مصنوعی کاربردی و مهندسی زیرساخت DevOps فعالیت می‌کند و سابقه تدریس گسترده‌ای در دانشگاه‌های مختلف دارد.',
+          creds: ['دکترای ریاضیات', 'متخصص هوش مصنوعی'],
+          skills: ['یادگیری ماشین', 'تحلیل داده', 'AI Agents'],
+          linkedin: 'https://www.linkedin.com/in/khadijeh-fathalikhani-405b0627',
+          linkedinLabel: 'مشاهده لینکدین',
+          initials: 'خ ف', bg: 'var(--amber-100)', ink: 'var(--amber-700)',
+        },
       },
     ] as WsEvent[],
   },
@@ -167,6 +200,11 @@ function EventCard({ ev, statusLabel, cta, detailsLabel }: {
   cta: string;
   detailsLabel: string;
 }) {
+  const [detailsOpen, setDetailsOpen] = useState(false);
+  const [registerOpen, setRegisterOpen] = useState(false);
+  const expandable = !!(ev.topics && ev.presenter);
+  const p = ev.presenter;
+
   return (
     <div className="ws-card">
       <div className="ws-card-top">
@@ -186,16 +224,114 @@ function EventCard({ ev, statusLabel, cta, detailsLabel }: {
       <div className="ws-meta">
         {ev.meta.map(m => <span key={m} className="course-meta-item">{m}</span>)}
       </div>
+
       <div className="ws-ctas">
-        {ev.registerHref && (
-          <Link href={ev.registerHref} className="ws-btn-primary">
+        {expandable ? (
+          <button type="button" className="ws-btn-primary" onClick={() => setRegisterOpen(o => !o)}>
             {ev.registerLabel ?? cta}
+          </button>
+        ) : (
+          ev.registerHref && (
+            <Link href={ev.registerHref} className="ws-btn-primary">
+              {ev.registerLabel ?? cta}
+            </Link>
+          )
+        )}
+
+        {expandable ? (
+          <button
+            type="button"
+            className="course-toggle"
+            aria-expanded={detailsOpen}
+            onClick={() => setDetailsOpen(o => !o)}
+          >
+            {detailsLabel}
+            <Icon
+              name="chevron"
+              size={15}
+              className={`course-toggle-icon${detailsOpen ? ' course-toggle-icon--open' : ''}`}
+            />
+          </button>
+        ) : (
+          <Link href="/#consult" className="ws-cta-link">
+            {detailsLabel} <Icon name="chevron" size={15} />
           </Link>
         )}
-        <Link href={ev.detailHref ?? '/#consult'} className="ws-cta-link">
-          {detailsLabel} <Icon name="chevron" size={15} />
-        </Link>
       </div>
+
+      {/* ── Inline details accordion ── */}
+      {expandable && p && (
+        <div className={`cdp-wrap${detailsOpen ? ' cdp-wrap--open' : ''}`}>
+          <div className="cdp-inner">
+            <div className="cdp-panel">
+              <div className="cdp-section">
+                <div className="cdp-section-head">
+                  <span className="cdp-section-icon"><Icon name="target" size={14} /></span>
+                  <span className="cdp-section-title">سرفصل‌های این کارگاه</span>
+                </div>
+                <ul className="cdp-bullets">
+                  {ev.topics!.map(t => (
+                    <li key={t} className="cdp-bullet">
+                      <span className="cdp-bullet-dot" />
+                      <span>{t}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="cdp-section">
+                <div className="cdp-section-head">
+                  <span className="cdp-section-icon"><Icon name="graduation" size={14} /></span>
+                  <span className="cdp-section-title">{p.sectionLabel}</span>
+                </div>
+                <div className="instructor-profile">
+                  <div className="ip-avatar" style={{ background: p.bg, color: p.ink }}>{p.initials}</div>
+                  <div className="ip-body">
+                    <h4 className="ip-name">{p.name}</h4>
+                    <div className="ip-role">{p.role}</div>
+                    {p.creds.length > 0 && (
+                      <div className="ip-creds">
+                        {p.creds.map(cr => <span key={cr} className="ip-cred">{cr}</span>)}
+                      </div>
+                    )}
+                    <p className="ip-bio">{p.bio}</p>
+                    {p.skills.length > 0 && (
+                      <div className="ip-skills">
+                        {p.skills.map(s => <span key={s} className="ip-skill">{s}</span>)}
+                      </div>
+                    )}
+                    {p.linkedin && (
+                      <div className="ip-actions">
+                        <Link href={p.linkedin} target="_blank" rel="noopener noreferrer" className="founder-link founder-link--linkedin">
+                          <Icon name="linkedin" size={14} />
+                          {p.linkedinLabel}
+                        </Link>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── Inline registration form ── */}
+      {expandable && (
+        <div className={`cdp-wrap${registerOpen ? ' cdp-wrap--open' : ''}`}>
+          <div className="cdp-inner">
+            <div className="cdp-panel">
+              <div className="cdp-section">
+                <div className="cdp-section-head">
+                  <span className="cdp-section-icon"><Icon name="pen" size={14} /></span>
+                  <span className="cdp-section-title">{ev.registerLabel ?? cta}</span>
+                </div>
+                <WorkshopRegisterForm workshopTitle={ev.title} />
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

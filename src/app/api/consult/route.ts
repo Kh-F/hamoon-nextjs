@@ -2,12 +2,14 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(req: NextRequest) {
   const body = await req.json();
-  const { name, phone, ageGroup, message, department } = body as {
+  const { name, phone, email, ageGroup, message, department, workshopTitle } = body as {
     name: string;
     phone: string;
+    email?: string;
     ageGroup: string;
     message: string;
     department: string;
+    workshopTitle?: string;
   };
 
   if (!name || !phone) {
@@ -17,8 +19,10 @@ export async function POST(req: NextRequest) {
   // Log the submission — wire an email provider (e.g. Resend) here when ready
   console.log('[Consult] New booking request', {
     department,
+    workshopTitle,
     name,
     phone,
+    email,
     ageGroup,
     message,
     receivedAt: new Date().toISOString(),
