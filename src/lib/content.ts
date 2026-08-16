@@ -12,8 +12,7 @@ export interface Instructor { name: string; role: string; bio: string; bg: strin
 export interface GalleryTile { caption: string; ic: string; g: string; span: number; }
 export interface ContactItem  { ic: string; label: string; value: string; }
 export interface FormData     { name: string; namePh: string; phone: string; phonePh: string; age: string; msg: string; msgPh: string; submit: string; success: string; reset: string; }
-export interface FooterCol    { h: string; items: string[]; }
-export interface FooterData   { tagline: string; rights: string; rightsEn: string; cols: FooterCol[]; }
+export interface FooterData   { tagline: string; linksTitle: string; rights: string; }
 export interface SocialItem   { ic: string; label: string; }
 export interface Testimonial  { name: string; role: string; body: string; initials: string; bg: string; ink: string; stars: number; }
 
@@ -149,13 +148,8 @@ export const CONTENT: Record<Lang, PageContent> = {
     social: [{ ic: 'instagram', label: 'اینستاگرام' }, { ic: 'telegram', label: 'تلگرام' }],
     footer: {
       tagline: 'یادگیری هوشمند و فردمحور برای کودکان، نوجوانان و بزرگسالان.',
-      rights: '© ۲۰۲۶ مؤسسه آنلاین هامون. تمامی حقوق محفوظ است.',
-      rightsEn: '© 2026 Hamoon Online Academy.',
-      cols: [
-        { h: 'دوره‌ها', items: ['زبان انگلیسی', 'ریاضی هوشمند', 'علوم و کاوش', 'مهارت دیجیتال'] },
-        { h: 'مؤسسه', items: ['درباره ما', 'اساتید', 'روش آموزش', 'گالری'] },
-        { h: 'پشتیبانی', items: ['تماس با ما', 'سؤالات متداول', 'قوانین', 'حریم خصوصی'] },
-      ],
+      linksTitle: 'دسترسی سریع',
+      rights: 'تمامی حقوق این وب‌سایت متعلق به مؤسسه هامون است.',
     },
   },
 
@@ -253,13 +247,8 @@ export const CONTENT: Record<Lang, PageContent> = {
     social: [{ ic: 'instagram', label: 'Instagram' }, { ic: 'telegram', label: 'Telegram' }],
     footer: {
       tagline: 'Smart, personalized learning for children, teens, and adults.',
-      rights: '© 2026 Hamoon Online Academy. All rights reserved.',
-      rightsEn: 'یادگیری هوشمند برای نسل آینده',
-      cols: [
-        { h: 'Courses', items: ['English', 'Smart Math', 'Science', 'Digital skills'] },
-        { h: 'Academy', items: ['About us', 'Instructors', 'Our method', 'Gallery'] },
-        { h: 'Support', items: ['Contact', 'FAQ', 'Terms', 'Privacy'] },
-      ],
+      linksTitle: 'Quick Links',
+      rights: 'All rights to this website belong to Hamoon Academy.',
     },
   },
 };

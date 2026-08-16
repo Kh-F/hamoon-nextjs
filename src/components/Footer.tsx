@@ -1,17 +1,17 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import { useLang } from '@/context/LangContext';
 import Icon from './Icon';
 
 export default function Footer() {
   const { c } = useLang();
-  const { brand, social, footer } = c;
+  const { brand, social, nav, footer } = c;
 
   return (
     <footer className="footer">
       <div className="footer-grid">
-        {/* Brand column — spans full width */}
         <div className="footer-brand">
           <a href="#top" className="footer-logo-link">
             <Image
@@ -33,21 +33,20 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Link columns */}
-        {footer.cols.map(col => (
-          <div key={col.h} className="footer-col">
-            <div className="footer-col-h">{col.h}</div>
-            {col.items.map(it => (
-              <a key={it} href="#" className="footer-col-link">{it}</a>
-            ))}
-          </div>
-        ))}
+        <div className="footer-col">
+          <div className="footer-col-h">{footer.linksTitle}</div>
+          {nav.map(item => (
+            <Link key={item.id} href={item.href ?? `#${item.id}`} className="footer-col-link">
+              {item.label}
+            </Link>
+          ))}
+        </div>
       </div>
 
       <div className="footer-bottom">
         <div className="footer-bottom-inner">
           <span>{footer.rights}</span>
-          <span>{footer.rightsEn}</span>
+          <span>{brand}</span>
         </div>
       </div>
     </footer>
