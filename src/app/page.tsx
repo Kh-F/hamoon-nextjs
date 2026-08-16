@@ -7,6 +7,7 @@ import Gallery from '@/components/Gallery';
 import Testimonials from '@/components/Testimonials';
 import Consultation from '@/components/Consultation';
 import Footer from '@/components/Footer';
+import ElevenLabsWidget from '@/components/ElevenLabsWidget';
 
 export default function Home() {
   return (
@@ -21,6 +22,7 @@ export default function Home() {
         <Consultation />
       </main>
       <Footer />
+      <ElevenLabsWidget agentId="agent_6901kvx2pxa4evqsz6bfm578n0a0" />
     </LangProvider>
   );
 }
