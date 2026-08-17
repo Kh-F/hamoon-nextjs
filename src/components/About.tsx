@@ -1,13 +1,19 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useLang } from '@/context/LangContext';
 import Icon from './Icon';
+
+// The source clip has a built-in fade-to-black outro after this point,
+// so we freeze on the last fully-lit frame instead of the true last frame.
+const VIDEO_FREEZE_TIME = 9;
 
 export default function About() {
   const { c } = useLang();
   const { about, aboutStat, pillars } = c;
   const videoRef = useRef<HTMLVideoElement>(null);
+  const frozenRef = useRef(false);
+  const rafRef = useRef<number | null>(null);
   const [muted, setMuted] = useState(true);
 
   function toggleSound() {
@@ -17,12 +23,30 @@ export default function About() {
     setMuted(video.muted);
   }
 
-  function handleVideoEnded() {
+  function freezeVideo() {
     const video = videoRef.current;
-    if (!video) return;
+    if (!video || frozenRef.current) return;
+    frozenRef.current = true;
+    if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
     video.pause();
-    video.currentTime = video.duration;
+    video.currentTime = VIDEO_FREEZE_TIME;
   }
+
+  function watchPlayback() {
+    const video = videoRef.current;
+    if (!video || frozenRef.current) return;
+    if (video.currentTime >= VIDEO_FREEZE_TIME) {
+      freezeVideo();
+      return;
+    }
+    rafRef.current = requestAnimationFrame(watchPlayback);
+  }
+
+  useEffect(() => {
+    return () => {
+      if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
+    };
+  }, []);
 
   return (
     <section id="about">
@@ -36,7 +60,8 @@ export default function About() {
               autoPlay
               muted
               playsInline
-              onEnded={handleVideoEnded}
+              onPlay={watchPlayback}
+              onEnded={freezeVideo}
               className="about-video"
             />
             <button
