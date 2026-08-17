@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type MouseEvent as ReactMouseEvent } from 'react';
 import { useLang } from '@/context/LangContext';
 import Icon from './Icon';
 
@@ -11,12 +11,14 @@ const VIDEO_FREEZE_TIME = 9;
 export default function About() {
   const { c } = useLang();
   const { about, aboutStat, pillars } = c;
+  const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const frozenRef = useRef(false);
   const rafRef = useRef<number | null>(null);
   const [muted, setMuted] = useState(true);
 
-  function toggleSound() {
+  function toggleSound(e: ReactMouseEvent) {
+    e.stopPropagation();
     const video = videoRef.current;
     if (!video) return;
     video.muted = !video.muted;
@@ -42,6 +44,41 @@ export default function About() {
     rafRef.current = requestAnimationFrame(watchPlayback);
   }
 
+  function replayVideo() {
+    const video = videoRef.current;
+    if (!video) return;
+    if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
+    frozenRef.current = false;
+    video.currentTime = 0;
+    video.play().catch(() => {});
+  }
+
+  // Replay whenever the section scrolls into view, in either direction.
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) replayVideo();
+        });
+      },
+      { threshold: 0.3 }
+    );
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
+
+  // Replay whenever an "About us" nav link is clicked, even if the section is already in view.
+  useEffect(() => {
+    function handleDocumentClick(e: MouseEvent) {
+      const link = (e.target as HTMLElement).closest('a[href="#about"], a[href="/#about"]');
+      if (link) replayVideo();
+    }
+    document.addEventListener('click', handleDocumentClick);
+    return () => document.removeEventListener('click', handleDocumentClick);
+  }, []);
+
   useEffect(() => {
     return () => {
       if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
@@ -49,7 +86,7 @@ export default function About() {
   }, []);
 
   return (
-    <section id="about">
+    <section id="about" ref={sectionRef} onClick={() => replayVideo()}>
       <div className="section about-grid">
         {/* Image column */}
         <div className="about-img-wrap">
@@ -57,7 +94,6 @@ export default function About() {
             <video
               ref={videoRef}
               src="/Logo-Motion.mp4"
-              autoPlay
               muted
               playsInline
               onPlay={watchPlayback}
