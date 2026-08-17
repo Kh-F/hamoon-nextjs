@@ -17,6 +17,13 @@ export default function About() {
     setMuted(video.muted);
   }
 
+  function handleVideoEnded() {
+    const video = videoRef.current;
+    if (!video) return;
+    video.pause();
+    video.currentTime = video.duration;
+  }
+
   return (
     <section id="about">
       <div className="section about-grid">
@@ -27,9 +34,9 @@ export default function About() {
               ref={videoRef}
               src="/Logo-Motion.mp4"
               autoPlay
-              loop
               muted
               playsInline
+              onEnded={handleVideoEnded}
               className="about-video"
             />
             <button
