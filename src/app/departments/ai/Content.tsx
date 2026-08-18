@@ -231,7 +231,7 @@ export default function AIContent() {
       </section>
 
       {/* ── Consultation form ── */}
-      <Consultation department="Artificial Intelligence" />
+      <Consultation department="AI" />
     </>
   );
 }

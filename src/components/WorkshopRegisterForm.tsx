@@ -50,6 +50,11 @@ export default function WorkshopRegisterForm({ workshopTitle }: Props) {
     e.preventDefault();
     setLoading(true);
     try {
+      // The Workshops sheet has no dedicated "workshop" column, so fold the
+      // workshop title into the message field to keep it from getting lost.
+      const userMsg = msgRef.current?.value ?? '';
+      const message = `کارگاه: ${workshopTitle}${userMsg ? `\n\n${userMsg}` : ''}`;
+
       await fetch('/api/consult', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -59,10 +64,10 @@ export default function WorkshopRegisterForm({ workshopTitle }: Props) {
           gender,
           phone:         phoneRef.current?.value    ?? '',
           email:         emailRef.current?.value    ?? '',
-          ageGroup:      age !== null ? c.ages[age] : '',
-          message:       msgRef.current?.value      ?? '',
+          ageCategory:   age !== null ? c.ages[age] : '',
+          message,
           workshopTitle,
-          department: `Workshop: ${workshopTitle}`,
+          sourcePage: 'Workshops',
         }),
       });
     } finally {

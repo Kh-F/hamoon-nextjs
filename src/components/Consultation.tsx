@@ -7,11 +7,11 @@ import Icon from './Icon';
 import PersonalInfoFields from './PersonalInfoFields';
 
 interface Props {
-  /** Pass the department name to tag this booking (e.g. 'English', 'Mathematics', 'AI'). */
+  /** Source page label sent to the automation workflow (e.g. 'English', 'Math', 'AI', 'Workshops'). */
   department?: string;
 }
 
-export default function Consultation({ department = 'General' }: Props) {
+export default function Consultation({ department = 'Home Page' }: Props) {
   const { c } = useLang();
   const { formTitle, formLead, contact, form, ages } = c;
 
@@ -34,14 +34,14 @@ export default function Consultation({ department = 'General' }: Props) {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          name:       nameRef.current?.value     ?? '',
-          lastName:   lastNameRef.current?.value ?? '',
+          name:        nameRef.current?.value     ?? '',
+          lastName:    lastNameRef.current?.value ?? '',
           gender,
-          phone:      phoneRef.current?.value    ?? '',
-          email:      emailRef.current?.value    ?? '',
-          ageGroup:   age !== null ? ages[age] : '',
-          message:    msgRef.current?.value      ?? '',
-          department,
+          phone:       phoneRef.current?.value    ?? '',
+          email:       emailRef.current?.value    ?? '',
+          ageCategory: age !== null ? ages[age] : '',
+          message:     msgRef.current?.value      ?? '',
+          sourcePage:  department,
         }),
       });
     } finally {
@@ -58,7 +58,7 @@ export default function Consultation({ department = 'General' }: Props) {
 
   // Success message includes the department name so the user sees which
   // department their request was submitted to.
-  const successMsg = department !== 'General'
+  const successMsg = department !== 'Home Page'
     ? `${form.success.replace(/[.!]$/, '')} (${department}).`
     : form.success;
 
@@ -100,7 +100,7 @@ export default function Consultation({ department = 'General' }: Props) {
             <div className="form-card">
 
               {/* Department tag — visible when browsing a specific dept page */}
-              {department !== 'General' && (
+              {department !== 'Home Page' && (
                 <div style={{
                   display: 'inline-flex', alignItems: 'center', gap: '6px',
                   marginBottom: 'var(--space-4)',

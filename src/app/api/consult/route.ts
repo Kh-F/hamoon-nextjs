@@ -2,49 +2,50 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(req: NextRequest) {
   const body = await req.json();
-  const { name, lastName, gender, phone, email, ageGroup, message, department, workshopTitle } = body as {
+  const { name, lastName, gender, phone, email, ageCategory, message, sourcePage, workshopTitle } = body as {
     name: string;
     lastName: string;
     gender: string;
     phone: string;
     email?: string;
-    ageGroup: string;
+    ageCategory: string;
     message: string;
-    department: string;
+    sourcePage: string;
     workshopTitle?: string;
   };
 
-  if (!name || !lastName || !gender || !phone || !ageGroup) {
+  if (!name || !lastName || !gender || !phone || !ageCategory) {
     return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
   }
 
-  // Log the submission — wire an email provider (e.g. Resend) here when ready
   console.log('[Consult] New booking request', {
-    department,
+    sourcePage,
     workshopTitle,
     name,
     lastName,
     gender,
     phone,
     email,
-    ageGroup,
+    ageCategory,
     message,
     receivedAt: new Date().toISOString(),
   });
 
-  /*
-  // ── Example: send via Resend ────────────────────────────────────────────
-  // npm install resend
-  // import { Resend } from 'resend';
-  // const resend = new Resend(process.env.RESEND_API_KEY);
-  // await resend.emails.send({
-  //   from: 'noreply@hamooninstitute.com',
-  //   to: 'hamooninstitute.info@gmail.com',
-  //   subject: `[${department}] New consultation request — ${name}`,
-  //   text: `Department: ${department}\nName: ${name}\nPhone: ${phone}\nAge group: ${ageGroup}\nMessage: ${message}`,
-  // });
-  // ────────────────────────────────────────────────────────────────────────
-  */
+  // Forward to the n8n automation workflow (Google Sheets append + confirmation
+  // email). Skipped when unset so local/dev submissions don't need it configured.
+  const webhookUrl = process.env.N8N_WEBHOOK_URL;
+  if (webhookUrl) {
+    try {
+      await fetch(webhookUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, lastName, gender, phone, email: email ?? '', ageCategory, message: message ?? '', sourcePage }),
+      });
+    } catch (err) {
+      // Never fail the user's submission because the automation backend is down.
+      console.error('[Consult] Failed to forward to n8n webhook', err);
+    }
+  }
 
   return NextResponse.json({ ok: true });
 }

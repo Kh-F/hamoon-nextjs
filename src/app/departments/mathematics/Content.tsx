@@ -125,7 +125,7 @@ export default function MathContent() {
       </section>
 
       {/* ── Consultation form ── */}
-      <Consultation department="Mathematics" />
+      <Consultation department="Math" />
     </>
   );
 }
