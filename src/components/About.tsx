@@ -15,7 +15,7 @@ export default function About() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const frozenRef = useRef(false);
   const rafRef = useRef<number | null>(null);
-  const [muted, setMuted] = useState(true);
+  const [muted, setMuted] = useState(false);
 
   function toggleSound(e: ReactMouseEvent) {
     e.stopPropagation();
@@ -50,7 +50,18 @@ export default function About() {
     if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
     frozenRef.current = false;
     video.currentTime = 0;
-    video.play().catch(() => {});
+
+    // Try to play with sound; browsers that block unmuted autoplay (e.g. on
+    // the scroll trigger, which isn't a user gesture) fall back to muted
+    // playback so the video still plays once and the user can unmute manually.
+    video.muted = false;
+    video.play()
+      .then(() => setMuted(false))
+      .catch(() => {
+        video.muted = true;
+        setMuted(true);
+        video.play().catch(() => {});
+      });
   }
 
   // Replay whenever the section scrolls into view, in either direction.
@@ -94,7 +105,7 @@ export default function About() {
             <video
               ref={videoRef}
               src="/Logo-Motion.mp4"
-              muted
+              muted={muted}
               playsInline
               onPlay={watchPlayback}
               onEnded={freezeVideo}
