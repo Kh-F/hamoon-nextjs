@@ -3,7 +3,7 @@ export type Dir = 'rtl' | 'ltr';
 
 export interface Stat       { n: string; l: string; }
 export interface NavItem    { label: string; id: string; href?: string; }
-export interface Founder    { name: string; role: string; bio: string; linkedin: string; cv: string; initials: string; bg: string; ink: string; photo?: string; }
+export interface Founder    { name: string; role: string; bio: string; linkedin: string; scholar?: string; cv: string; initials: string; bg: string; ink: string; photo?: string; }
 export interface HeroData   { title: string; lead: string; primary: string; secondary: string; liveLabel: string; cardTitle: string; cardTeacher: string; cardMeta: string; cardInitials: string; stats: Stat[]; }
 export interface AboutData  { badge: string; title: string; body: string; body2: string; note: string; }
 export interface Pillar     { ic: string; title: string; desc: string; }
@@ -125,7 +125,9 @@ export const CONTENT: Record<Lang, PageContent> = {
         name: 'خدیجه فتحعلیخانی',
         role: '',
         bio: 'خدیجه فتحعلیخانی دارای دکترای ریاضیات با تخصص در ترکیبیات و نظریه گراف است که اکنون در حوزه هوش مصنوعی کاربردی و مهندسی زیرساخت DevOps فعالیت می‌کند. او سابقه تدریس گسترده‌ای در دانشگاه‌های مختلف از جمله الزهرا و فرهنگیان دارد و پژوهش‌های بین‌المللی متعددی را در اسپانیا و اسلوونی به سرانجام رسانده است.',
-        linkedin: 'https://www.linkedin.com/in/khadijeh-fathalikhani-405b0627', cv: '#',
+        linkedin: 'https://www.linkedin.com/in/khadijeh-fathalikhani-405b0627',
+        scholar: 'https://scholar.google.com/citations?user=vNX16Z4AAAAJ&hl=en',
+        cv: '#',
         initials: 'خ ف', bg: 'var(--amber-100)', ink: 'var(--amber-700)', photo: '/Fathalikhani.png',
       },
     ],
@@ -233,7 +235,9 @@ export const CONTENT: Record<Lang, PageContent> = {
         name: 'Dr. Khadijeh Fathalikhani',
         role: '',
         bio: 'Dr. Khadijeh Fathalikhani holds a Ph.D. in Mathematics specializing in Combinatorics and Graph Theory, now active in Applied AI and DevOps Infrastructure Engineering. Her extensive university-level teaching across multiple institutions, combined with international research in Spain and Slovenia, reflects her broad academic track record.',
-        linkedin: 'https://www.linkedin.com/in/khadijeh-fathalikhani-405b0627', cv: '#',
+        linkedin: 'https://www.linkedin.com/in/khadijeh-fathalikhani-405b0627',
+        scholar: 'https://scholar.google.com/citations?user=vNX16Z4AAAAJ&hl=en',
+        cv: '#',
         initials: 'KF', bg: 'var(--amber-100)', ink: 'var(--amber-700)', photo: '/Fathalikhani.png',
       },
     ],

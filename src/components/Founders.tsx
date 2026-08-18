@@ -40,7 +40,7 @@ export default function Founders() {
                 <h3 className="founder-name">{f.name}</h3>
                 {f.role && <div className="founder-role">{f.role}</div>}
                 <p className="founder-bio">{f.bio}</p>
-                {(f.linkedin !== '#' || f.cv !== '#') && (
+                {(f.linkedin !== '#' || !!f.scholar || f.cv !== '#') && (
                   <div className="founder-actions">
                     {f.linkedin !== '#' && (
                       <Link
@@ -51,6 +51,17 @@ export default function Founders() {
                       >
                         <Icon name="linkedin" size={14} />
                         LinkedIn
+                      </Link>
+                    )}
+                    {f.scholar && (
+                      <Link
+                        href={f.scholar}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="founder-link founder-link--scholar"
+                      >
+                        <Icon name="graduation" size={14} />
+                        Google Scholar
                       </Link>
                     )}
                     {f.cv !== '#' && (
