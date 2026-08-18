@@ -4,6 +4,7 @@ import { useRef, useState, FormEvent } from 'react';
 import Image from 'next/image';
 import { useLang } from '@/context/LangContext';
 import Icon from './Icon';
+import PersonalInfoFields from './PersonalInfoFields';
 
 interface Props {
   /** Pass the department name to tag this booking (e.g. 'English', 'Mathematics', 'AI'). */
@@ -17,10 +18,13 @@ export default function Consultation({ department = 'General' }: Props) {
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
   const [age, setAge] = useState<number | null>(null);
+  const [gender, setGender] = useState('');
 
-  const nameRef  = useRef<HTMLInputElement>(null);
-  const phoneRef = useRef<HTMLInputElement>(null);
-  const msgRef   = useRef<HTMLTextAreaElement>(null);
+  const nameRef     = useRef<HTMLInputElement>(null);
+  const lastNameRef = useRef<HTMLInputElement>(null);
+  const phoneRef    = useRef<HTMLInputElement>(null);
+  const emailRef    = useRef<HTMLInputElement>(null);
+  const msgRef      = useRef<HTMLTextAreaElement>(null);
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
@@ -30,10 +34,13 @@ export default function Consultation({ department = 'General' }: Props) {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          name:       nameRef.current?.value  ?? '',
-          phone:      phoneRef.current?.value ?? '',
+          name:       nameRef.current?.value     ?? '',
+          lastName:   lastNameRef.current?.value ?? '',
+          gender,
+          phone:      phoneRef.current?.value    ?? '',
+          email:      emailRef.current?.value    ?? '',
           ageGroup:   age !== null ? ages[age] : '',
-          message:    msgRef.current?.value   ?? '',
+          message:    msgRef.current?.value      ?? '',
           department,
         }),
       });
@@ -46,6 +53,7 @@ export default function Consultation({ department = 'General' }: Props) {
   function handleReset() {
     setSent(false);
     setAge(null);
+    setGender('');
   }
 
   // Success message includes the department name so the user sees which
@@ -120,58 +128,20 @@ export default function Consultation({ department = 'General' }: Props) {
                 </div>
               ) : (
                 <form className="form-fields" onSubmit={handleSubmit}>
-                  <div className="form-group">
-                    <label htmlFor="hm-name" className="form-label">{form.name}</label>
-                    <input
-                      id="hm-name"
-                      ref={nameRef}
-                      type="text"
-                      required
-                      placeholder={form.namePh}
-                      className="form-input"
-                    />
-                  </div>
-
-                  <div className="form-group">
-                    <label htmlFor="hm-phone" className="form-label">{form.phone}</label>
-                    <input
-                      id="hm-phone"
-                      ref={phoneRef}
-                      type="text"
-                      required
-                      placeholder={form.phonePh}
-                      className="form-input"
-                    />
-                  </div>
-
-                  <div className="age-group">
-                    <span className="age-label">{form.age}</span>
-                    <div className="age-btns" role="radiogroup" aria-label={form.age}>
-                      {ages.map((label, i) => (
-                        <button
-                          key={label}
-                          type="button"
-                          role="radio"
-                          aria-checked={age === i}
-                          className={`age-btn${age === i ? ' active' : ''}`}
-                          onClick={() => setAge(i)}
-                        >
-                          {label}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="form-group">
-                    <label htmlFor="hm-msg" className="form-label">{form.msg}</label>
-                    <textarea
-                      id="hm-msg"
-                      ref={msgRef}
-                      rows={3}
-                      placeholder={form.msgPh}
-                      className="form-textarea"
-                    />
-                  </div>
+                  <PersonalInfoFields
+                    idPrefix="hm"
+                    labels={form}
+                    ages={ages}
+                    nameRef={nameRef}
+                    lastNameRef={lastNameRef}
+                    phoneRef={phoneRef}
+                    emailRef={emailRef}
+                    messageRef={msgRef}
+                    gender={gender}
+                    onGenderChange={setGender}
+                    ageIndex={age}
+                    onAgeChange={setAge}
+                  />
 
                   <button type="submit" className="btn-submit" disabled={loading}>
                     {loading ? '…' : form.submit}

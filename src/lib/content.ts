@@ -11,7 +11,16 @@ export interface Course     { ic: string; title: string; desc: string; soft: str
 export interface Instructor { name: string; role: string; bio: string; bg: string; ink: string; initials: string; }
 export interface GalleryTile { caption: string; ic: string; g: string; span: number; }
 export interface ContactItem  { ic: string; label: string; value: string; }
-export interface FormData     { name: string; namePh: string; phone: string; phonePh: string; age: string; msg: string; msgPh: string; submit: string; success: string; reset: string; }
+export interface FormData     {
+  name: string; namePh: string;
+  lastName: string; lastNamePh: string;
+  gender: string; genderPh: string; genderFemale: string; genderMale: string;
+  phone: string; phonePh: string;
+  email: string; emailPh: string;
+  age: string; agePh: string;
+  msg: string; msgPh: string;
+  submit: string; success: string; reset: string;
+}
 export interface FooterData   { tagline: string; linksTitle: string; rights: string; }
 export interface SocialItem   { ic: string; label: string; }
 export interface Testimonial  { name: string; role: string; body: string; initials: string; bg: string; ink: string; stars: number; }
@@ -134,7 +143,16 @@ export const CONTENT: Record<Lang, PageContent> = {
       { ic: 'clock', label: 'ساعات پاسخگویی', value: 'شنبه تا پنجشنبه · ۹ تا ۱۹' },
       { ic: 'globe', label: 'وب‌سایت', value: 'www.hamooninstitute.com\nwww.hamooninstitute.ir' },
     ],
-    form: { name: 'نام و نام خانوادگی', namePh: 'مثلاً سارا محمدی', phone: 'شماره تماس / ایمیل', phonePh: '۰۹۱۲ ۳۴۵ ۶۷۸۹', age: 'رده سنی دانش‌آموز', msg: 'پیام (اختیاری)', msgPh: 'علاقه‌مندی یا سؤال شما…', submit: 'ارسال درخواست مشاوره', success: 'درخواست شما ثبت شد! به‌زودی برای رزرو مشاوره با شما تماس می‌گیریم.', reset: 'ثبت درخواست جدید' },
+    form: {
+      name: 'نام', namePh: 'مثلاً سارا',
+      lastName: 'نام خانوادگی', lastNamePh: 'مثلاً محمدی',
+      gender: 'جنسیت', genderPh: 'انتخاب کنید', genderFemale: 'خانم', genderMale: 'آقا',
+      phone: 'شماره تماس', phonePh: '۰۹۱۲ ۳۴۵ ۶۷۸۹',
+      email: 'ایمیل', emailPh: 'example@email.com',
+      age: 'رده سنی', agePh: 'انتخاب کنید',
+      msg: 'پیام (اختیاری)', msgPh: 'علاقه‌مندی یا سؤال شما…',
+      submit: 'ارسال درخواست مشاوره', success: 'درخواست شما ثبت شد! به‌زودی برای رزرو مشاوره با شما تماس می‌گیریم.', reset: 'ثبت درخواست جدید',
+    },
     ages: ['۱۰–۱۱ سال', '۱۲–۱۳ سال', '۱۴–۱۶ سال', 'بزرگسال'],
     testimonialsTitle: 'نظرات خانواده‌ها',
     testimonialsLead: 'آنچه والدین و دانش‌آموزان درباره هامون می‌گویند',
@@ -233,7 +251,16 @@ export const CONTENT: Record<Lang, PageContent> = {
       { ic: 'clock', label: 'Support hours', value: 'Sat–Thu · 9:00 to 19:00' },
       { ic: 'globe', label: 'Website', value: 'www.hamooninstitute.com\nwww.hamooninstitute.ir' },
     ],
-    form: { name: 'Full name', namePh: 'e.g. Sara M.', phone: 'Phone / email', phonePh: '+98 912 345 6789', age: 'Student age group', msg: 'Message (optional)', msgPh: 'Your interest or question…', submit: 'Send consultation request', success: "Your request was submitted! We'll be in touch shortly to book your consultation.", reset: 'Send another request' },
+    form: {
+      name: 'First name', namePh: 'e.g. Sara',
+      lastName: 'Last name', lastNamePh: 'e.g. Mohammadi',
+      gender: 'Gender', genderPh: 'Select', genderFemale: 'Female', genderMale: 'Male',
+      phone: 'Phone number', phonePh: '+98 912 345 6789',
+      email: 'Email', emailPh: 'example@email.com',
+      age: 'Age category', agePh: 'Select',
+      msg: 'Message (optional)', msgPh: 'Your interest or question…',
+      submit: 'Send consultation request', success: "Your request was submitted! We'll be in touch shortly to book your consultation.", reset: 'Send another request',
+    },
     ages: ['Ages 10–11', 'Ages 12–13', 'Ages 14–16', 'Adult'],
     testimonialsTitle: 'Testimonials',
     testimonialsLead: 'What families and students say about Hamoon',

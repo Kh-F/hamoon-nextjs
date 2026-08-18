@@ -3,6 +3,7 @@
 import { useRef, useState, FormEvent } from 'react';
 import { useLang } from '@/context/LangContext';
 import Icon from './Icon';
+import PersonalInfoFields from './PersonalInfoFields';
 
 interface Props {
   workshopTitle: string;
@@ -10,13 +11,20 @@ interface Props {
 
 const L = {
   workshopLabel: 'نام کارگاه',
-  name: 'نام و نام خانوادگی',
-  namePh: 'مثلاً سارا محمدی',
+  name: 'نام',
+  namePh: 'مثلاً سارا',
+  lastName: 'نام خانوادگی',
+  lastNamePh: 'مثلاً محمدی',
+  gender: 'جنسیت',
+  genderPh: 'انتخاب کنید',
+  genderFemale: 'خانم',
+  genderMale: 'آقا',
   phone: 'شماره تماس',
   phonePh: '۰۹۱۲ ۳۴۵ ۶۷۸۹',
-  email: 'ایمیل (اختیاری)',
+  email: 'ایمیل',
   emailPh: 'example@email.com',
-  age: 'سن / رده سنی',
+  age: 'رده سنی',
+  agePh: 'انتخاب کنید',
   msg: 'پیام (اختیاری)',
   msgPh: 'سؤال یا نکته‌ای برای ما دارید؟',
   submit: 'ثبت‌نام در کارگاه',
@@ -30,11 +38,13 @@ export default function WorkshopRegisterForm({ workshopTitle }: Props) {
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
   const [age, setAge] = useState<number | null>(null);
+  const [gender, setGender] = useState('');
 
-  const nameRef  = useRef<HTMLInputElement>(null);
-  const phoneRef = useRef<HTMLInputElement>(null);
-  const emailRef = useRef<HTMLInputElement>(null);
-  const msgRef   = useRef<HTMLTextAreaElement>(null);
+  const nameRef     = useRef<HTMLInputElement>(null);
+  const lastNameRef = useRef<HTMLInputElement>(null);
+  const phoneRef    = useRef<HTMLInputElement>(null);
+  const emailRef    = useRef<HTMLInputElement>(null);
+  const msgRef      = useRef<HTMLTextAreaElement>(null);
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
@@ -44,11 +54,13 @@ export default function WorkshopRegisterForm({ workshopTitle }: Props) {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          name:          nameRef.current?.value  ?? '',
-          phone:         phoneRef.current?.value ?? '',
-          email:         emailRef.current?.value ?? '',
+          name:          nameRef.current?.value     ?? '',
+          lastName:      lastNameRef.current?.value ?? '',
+          gender,
+          phone:         phoneRef.current?.value    ?? '',
+          email:         emailRef.current?.value    ?? '',
           ageGroup:      age !== null ? c.ages[age] : '',
-          message:       msgRef.current?.value   ?? '',
+          message:       msgRef.current?.value      ?? '',
           workshopTitle,
           department: `Workshop: ${workshopTitle}`,
         }),
@@ -62,6 +74,7 @@ export default function WorkshopRegisterForm({ workshopTitle }: Props) {
   function handleReset() {
     setSent(false);
     setAge(null);
+    setGender('');
   }
 
   return (
@@ -89,69 +102,20 @@ export default function WorkshopRegisterForm({ workshopTitle }: Props) {
             />
           </div>
 
-          <div className="form-group">
-            <label htmlFor="wr-name" className="form-label">{L.name}</label>
-            <input
-              id="wr-name"
-              ref={nameRef}
-              type="text"
-              required
-              placeholder={L.namePh}
-              className="form-input"
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="wr-phone" className="form-label">{L.phone}</label>
-            <input
-              id="wr-phone"
-              ref={phoneRef}
-              type="text"
-              required
-              placeholder={L.phonePh}
-              className="form-input"
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="wr-email" className="form-label">{L.email}</label>
-            <input
-              id="wr-email"
-              ref={emailRef}
-              type="email"
-              placeholder={L.emailPh}
-              className="form-input"
-            />
-          </div>
-
-          <div className="age-group">
-            <span className="age-label">{L.age}</span>
-            <div className="age-btns" role="radiogroup" aria-label={L.age}>
-              {c.ages.map((label, i) => (
-                <button
-                  key={label}
-                  type="button"
-                  role="radio"
-                  aria-checked={age === i}
-                  className={`age-btn${age === i ? ' active' : ''}`}
-                  onClick={() => setAge(i)}
-                >
-                  {label}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="wr-msg" className="form-label">{L.msg}</label>
-            <textarea
-              id="wr-msg"
-              ref={msgRef}
-              rows={3}
-              placeholder={L.msgPh}
-              className="form-textarea"
-            />
-          </div>
+          <PersonalInfoFields
+            idPrefix="wr"
+            labels={L}
+            ages={c.ages}
+            nameRef={nameRef}
+            lastNameRef={lastNameRef}
+            phoneRef={phoneRef}
+            emailRef={emailRef}
+            messageRef={msgRef}
+            gender={gender}
+            onGenderChange={setGender}
+            ageIndex={age}
+            onAgeChange={setAge}
+          />
 
           <button type="submit" className="btn-submit" disabled={loading}>
             {loading ? '…' : L.submit}

@@ -2,8 +2,10 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(req: NextRequest) {
   const body = await req.json();
-  const { name, phone, email, ageGroup, message, department, workshopTitle } = body as {
+  const { name, lastName, gender, phone, email, ageGroup, message, department, workshopTitle } = body as {
     name: string;
+    lastName: string;
+    gender: string;
     phone: string;
     email?: string;
     ageGroup: string;
@@ -12,7 +14,7 @@ export async function POST(req: NextRequest) {
     workshopTitle?: string;
   };
 
-  if (!name || !phone) {
+  if (!name || !lastName || !gender || !phone || !ageGroup) {
     return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
   }
 
@@ -21,6 +23,8 @@ export async function POST(req: NextRequest) {
     department,
     workshopTitle,
     name,
+    lastName,
+    gender,
     phone,
     email,
     ageGroup,
