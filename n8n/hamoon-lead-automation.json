@@ -1,0 +1,415 @@
+{
+  "name": "Hamoon — Lead Intake & Scoring",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "hamoon-lead-intake",
+        "authentication": "headerAuth",
+        "responseMode": "onReceived",
+        "responseData": "{\"ok\":true}",
+        "options": {}
+      },
+      "id": "webhook-intake",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [-40, 200],
+      "webhookId": "hamoon-lead-intake",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "REPLACE_WITH_CREDENTIAL_ID",
+          "name": "Hamoon Webhook Secret"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const b = $json.body ?? $json;\n\nconst trim = (v) => (typeof v === 'string' ? v.trim().replace(/\\s+/g, ' ') : '');\n\nconst digitMap = {\n  '۰':'0','۱':'1','۲':'2','۳':'3','۴':'4','۵':'5','۶':'6','۷':'7','۸':'8','۹':'9',\n  '٠':'0','١':'1','٢':'2','٣':'3','٤':'4','٥':'5','٦':'6','٧':'7','٨':'8','٩':'9',\n};\nconst normalizePhone = (v) => trim(v).replace(/[۰-۹٠-٩]/g, (d) => digitMap[d] ?? d);\n\nconst name = trim(b.name);\nconst lastName = trim(b.lastName);\nconst gender = trim(b.gender);\nconst phone = normalizePhone(b.phone);\nconst email = trim(b.email);\nconst ageCategory = trim(b.ageCategory);\nconst message = trim(b.message);\nconst rawSourcePage = trim(b.sourcePage);\nconst workshopTitle = trim(b.workshopTitle);\n\nconst requiredFields = { name, lastName, gender, phone, ageCategory };\nconst missingFields = Object.entries(requiredFields)\n  .filter(([, v]) => !v)\n  .map(([k]) => k);\n\nreturn {\n  json: {\n    name, lastName, gender, phone, email, ageCategory, message,\n    rawSourcePage, workshopTitle, missingFields,\n  },\n};"
+      },
+      "id": "code-normalize",
+      "name": "Normalize Input",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [180, 200]
+    },
+    {
+      "parameters": {
+        "jsCode": "const pageMap = {\n  'math': 'math', 'ریاضی': 'math',\n  'english': 'english', 'انگلیسی': 'english',\n  'ai': 'ai', 'هوش مصنوعی': 'ai',\n  'workshops': 'workshop', 'workshop': 'workshop', 'کارگاه': 'workshop', 'کارگاه‌ها': 'workshop',\n  'home page': 'homepage', 'homepage': 'homepage', 'home': 'homepage',\n};\n\nconst raw = $json.rawSourcePage || '';\nconst key = raw.trim().toLowerCase();\nconst matched = pageMap[key] ?? null;\n\n// Anything we don't recognize goes to a dedicated 'unknown' bucket — it must\n// NOT silently fall into Homepage or any other real page's sheet.\nconst canonicalPage = matched ?? 'unknown';\n\n// If a workshop title was actually submitted, use it verbatim — regardless\n// of which page it came from. Only fall back to the generic-interest label\n// when there's no title AND this is recognizably the workshop page (the\n// dedicated 'I'm interested in workshops' form has no title field at all).\nlet workshopName = '';\nif ($json.workshopTitle) {\n  workshopName = $json.workshopTitle;\n} else if (canonicalPage === 'workshop') {\n  workshopName = 'علاقه‌مندی عمومی به کارگاه‌ها (بدون انتخاب کارگاه مشخص)';\n}\n\nreturn {\n  json: {\n    ...$json,\n    canonicalPage,\n    isUnknownSource: matched === null,\n    workshopName,\n  },\n};"
+      },
+      "id": "code-detect",
+      "name": "Detect Source & Workshop",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [400, 200]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://openrouter.ai/api/v1/chat/completions",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBearerAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "content-type", "value": "application/json" },
+            { "name": "HTTP-Referer", "value": "https://hamooninstitute.com" },
+            { "name": "X-Title", "value": "Hamoon Lead Scoring" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({\n  model: \"meta-llama/llama-3.3-70b-instruct:free\",\n  temperature: 0,\n  max_tokens: 300,\n  messages: [\n    {\n      role: \"system\",\n      content: `شما یک دستیار Lead Scoring برای مؤسسه آموزشی هامون هستید. وظیفه شما فقط این است: به هر Submission یک امتیاز صحیح بین ۱ تا ۵ (lead_score) و یک دلیل کوتاه (score_reason) بدهید. شما هرگز تصمیم نمی‌گیرید Submission ذخیره شود یا نه — همه Submissionها همیشه ذخیره می‌شوند، صرف‌نظر از امتیاز.\\n\\nمعنای امتیازها:\\n۵ = اطلاعات کامل و معتبر، پیام مشخص با قصد جدی مشاوره یا ثبت‌نام.\\n۴ = اطلاعات مناسب، نشانه‌های کمتر از قصد جدی نسبت به ۵.\\n۳ = اطلاعات ناقص یا پیام کوتاه/عمومی، وضعیت نامشخص.\\n۲ = اطلاعات کم یا غیرعادی، احتمال Lead واقعی پایین اما نه قطعاً Spam.\\n۱ = بسیار شبیه Spam، تست، یا اطلاعات بی‌معنی/ساختگی.\\n\\nقوانین سخت‌گیرانه:\\n۱. خالی‌بودن فیلد پیام (که اختیاری است) طبیعی است و به‌تنهایی هرگز نباید امتیاز را کاهش دهد.\\n۲. مقدار جنسیت یا رده سنی هرگز در امتیازدهی نقشی ندارد؛ این‌ها گزینه‌های عادی فرم هستند، نه نشانه کیفیت Lead.\\n۳. فقط ناقص‌بودن فیلدهای الزامی (نام، نام‌خانوادگی، تلفن، رده سنی) یا محتوای واقعاً بی‌معنی، نامرتبط یا Spam-مانند باید امتیاز را پایین بیاورد.\\n۴. هرگز نام، نام‌خانوادگی، شماره تماس، ایمیل یا سایر اطلاعات اصلی را تغییر یا اصلاح نکنید.\\n۵. در متن score_reason هرگز شماره تماس، ایمیل یا سایر اطلاعات تماس را عیناً تکرار نکنید؛ فقط درباره کامل‌بودن یا کیفیت آن‌ها به‌صورت کلی توضیح دهید.\\n۶. score_reason باید کوتاه (حداکثر یک یا دو جمله)، تحلیلی و صرفاً بر پایه واقعیت Submission باشد؛ هیچ اطلاعات جدیدی حدس یا اختراع نکنید.\\n۷. خروجی شما باید دقیقاً و فقط یک شیء JSON معتبر با دو کلید باشد: lead_score (عدد صحیح ۱ تا ۵) و score_reason (رشته کوتاه فارسی). هیچ متن اضافه، توضیح، یا markdown fence ننویسید.`,\n    },\n    {\n      role: \"user\",\n      content: `اطلاعات Submission:\\nصفحه منبع: ${$json.canonicalPage}${$json.workshopName ? ' | نام کارگاه: ' + $json.workshopName : ''}\\nنام: ${$json.name}\\nنام خانوادگی: ${$json.lastName}\\nجنسیت: ${$json.gender}\\nشماره تماس: ${$json.phone}\\nایمیل: ${$json.email || '(ثبت نشده)'}\\nرده سنی: ${$json.ageCategory}\\nپیام: ${$json.message || '(ثبت نشده — این فیلد اختیاری است)'}\\nفیلدهای الزامی ناقص: ${($json.missingFields && $json.missingFields.length) ? $json.missingFields.join(', ') : 'هیچ‌کدام'}\\n\\nبر اساس این اطلاعات و قوانین بالا، فقط یک شیء JSON با کلیدهای lead_score و score_reason برگردانید.`,\n    },\n  ],\n}) }}",
+        "options": {}
+      },
+      "id": "http-ai-score",
+      "name": "AI Lead Scoring",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [620, 200],
+      "onError": "continueRegularOutput",
+      "retryOnFail": true,
+      "maxTries": 2,
+      "waitBetweenTries": 2000,
+      "credentials": {
+        "httpBearerAuth": {
+          "id": "REPLACE_WITH_CREDENTIAL_ID",
+          "name": "OpenRouter API Key"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const src = $('Detect Source & Workshop').item.json;\n\n// Fixed fallback — used whenever the AI call fails or returns something\n// that isn't valid { lead_score: 1-5 int, score_reason: non-empty string }.\nlet score = 3;\nlet reason = 'امتیازدهی خودکار انجام نشد؛ نیاز به بررسی دستی';\n\ntry {\n  if ($json.error) throw new Error('AI request failed');\n  const raw = $json.choices?.[0]?.message?.content ?? '';\n  const cleaned = raw.trim()\n    .replace(/^```json\\s*/i, '')\n    .replace(/^```\\s*/i, '')\n    .replace(/```\\s*$/i, '');\n  const parsed = JSON.parse(cleaned);\n  const s = Number(parsed.lead_score);\n  const r = parsed.score_reason;\n  if (Number.isInteger(s) && s >= 1 && s <= 5 && typeof r === 'string' && r.trim()) {\n    score = s;\n    reason = r.trim();\n  }\n} catch (e) {\n  // keep the fixed fallback score/reason set above — the submission is still saved\n}\n\n// Defensive redaction — even if the model ignored the system prompt, never\n// let the phone number or email leak into the human-readable reason text.\nconst redact = (text, value) => {\n  if (!value) return text;\n  const escaped = String(value).replace(/[.*+?^${}()|[\\]\\\\]/g, '\\\\$&');\n  return text.replace(new RegExp(escaped, 'gi'), '[اطلاعات تماس حذف شد]');\n};\nreason = redact(reason, src.phone);\nreason = redact(reason, src.email);\n\nif (src.isUnknownSource) {\n  reason = `⚠️ صفحه منبع نامشخص بود (\"${src.rawSourcePage}\") — برای بررسی دستی به مسیر Error/Review فرستاده شد. ${reason}`;\n}\n\nreturn {\n  json: {\n    ...src,\n    leadScore: score,\n    scoreReason: reason,\n  },\n};"
+      },
+      "id": "code-parse-ai",
+      "name": "Parse AI Output",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [840, 200]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            { "conditions": { "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" }, "conditions": [{ "leftValue": "={{$json.canonicalPage}}", "rightValue": "math", "operator": { "type": "string", "operation": "equals" } }], "combinator": "and" }, "outputKey": "Math" },
+            { "conditions": { "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" }, "conditions": [{ "leftValue": "={{$json.canonicalPage}}", "rightValue": "english", "operator": { "type": "string", "operation": "equals" } }], "combinator": "and" }, "outputKey": "English" },
+            { "conditions": { "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" }, "conditions": [{ "leftValue": "={{$json.canonicalPage}}", "rightValue": "ai", "operator": { "type": "string", "operation": "equals" } }], "combinator": "and" }, "outputKey": "AI" },
+            { "conditions": { "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" }, "conditions": [{ "leftValue": "={{$json.canonicalPage}}", "rightValue": "workshop", "operator": { "type": "string", "operation": "equals" } }], "combinator": "and" }, "outputKey": "Workshop" },
+            { "conditions": { "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" }, "conditions": [{ "leftValue": "={{$json.canonicalPage}}", "rightValue": "homepage", "operator": { "type": "string", "operation": "equals" } }], "combinator": "and" }, "outputKey": "Homepage" },
+            { "conditions": { "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" }, "conditions": [{ "leftValue": "={{$json.canonicalPage}}", "rightValue": "unknown", "operator": { "type": "string", "operation": "equals" } }], "combinator": "and" }, "outputKey": "Error_Review" }
+          ]
+        },
+        "options": { "fallbackOutput": "Error_Review" }
+      },
+      "id": "switch-route",
+      "name": "Route by Page",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [1060, 200]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": { "__rl": true, "mode": "list", "value": "REPLACE_WITH_SPREADSHEET_ID" },
+        "sheetName": { "__rl": true, "mode": "list", "value": "Math" },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "نام": "={{$json.name}}",
+            "نام خانوادگی": "={{$json.lastName}}",
+            "جنسیت": "={{$json.gender}}",
+            "شماره تماس": "={{$json.phone}}",
+            "ایمیل": "={{$json.email}}",
+            "رده سنی": "={{$json.ageCategory}}",
+            "پیام (اختیاری)": "={{$json.message}}",
+            "sourcePage": "={{$json.rawSourcePage}}",
+            "امتیاز مشتری بالقوه": "={{$json.leadScore}}",
+            "دلیل امتیاز": "={{$json.scoreReason}}"
+          }
+        },
+        "options": {}
+      },
+      "id": "sheets-math",
+      "name": "Append — Math",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [1320, -320],
+      "onError": "continueErrorOutput",
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 3000,
+      "credentials": { "googleSheetsOAuth2Api": { "id": "REPLACE_WITH_CREDENTIAL_ID", "name": "Google Sheets account" } }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": { "__rl": true, "mode": "list", "value": "REPLACE_WITH_SPREADSHEET_ID" },
+        "sheetName": { "__rl": true, "mode": "list", "value": "English" },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "نام": "={{$json.name}}",
+            "نام خانوادگی": "={{$json.lastName}}",
+            "جنسیت": "={{$json.gender}}",
+            "شماره تماس": "={{$json.phone}}",
+            "ایمیل": "={{$json.email}}",
+            "رده سنی": "={{$json.ageCategory}}",
+            "پیام (اختیاری)": "={{$json.message}}",
+            "sourcePage": "={{$json.rawSourcePage}}",
+            "امتیاز مشتری بالقوه": "={{$json.leadScore}}",
+            "دلیل امتیاز": "={{$json.scoreReason}}"
+          }
+        },
+        "options": {}
+      },
+      "id": "sheets-english",
+      "name": "Append — English",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [1320, -190],
+      "onError": "continueErrorOutput",
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 3000,
+      "credentials": { "googleSheetsOAuth2Api": { "id": "REPLACE_WITH_CREDENTIAL_ID", "name": "Google Sheets account" } }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": { "__rl": true, "mode": "list", "value": "REPLACE_WITH_SPREADSHEET_ID" },
+        "sheetName": { "__rl": true, "mode": "list", "value": "AI" },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "نام": "={{$json.name}}",
+            "نام خانوادگی": "={{$json.lastName}}",
+            "جنسیت": "={{$json.gender}}",
+            "شماره تماس": "={{$json.phone}}",
+            "ایمیل": "={{$json.email}}",
+            "رده سنی": "={{$json.ageCategory}}",
+            "پیام (اختیاری)": "={{$json.message}}",
+            "sourcePage": "={{$json.rawSourcePage}}",
+            "امتیاز مشتری بالقوه": "={{$json.leadScore}}",
+            "دلیل امتیاز": "={{$json.scoreReason}}"
+          }
+        },
+        "options": {}
+      },
+      "id": "sheets-ai",
+      "name": "Append — AI",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [1320, -60],
+      "onError": "continueErrorOutput",
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 3000,
+      "credentials": { "googleSheetsOAuth2Api": { "id": "REPLACE_WITH_CREDENTIAL_ID", "name": "Google Sheets account" } }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": { "__rl": true, "mode": "list", "value": "REPLACE_WITH_SPREADSHEET_ID" },
+        "sheetName": { "__rl": true, "mode": "list", "value": "Workshop" },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "نام": "={{$json.name}}",
+            "نام خانوادگی": "={{$json.lastName}}",
+            "جنسیت": "={{$json.gender}}",
+            "شماره تماس": "={{$json.phone}}",
+            "ایمیل": "={{$json.email}}",
+            "رده سنی": "={{$json.ageCategory}}",
+            "پیام (اختیاری)": "={{$json.message}}",
+            "sourcePage": "={{$json.rawSourcePage}}",
+            "نام کارگاه": "={{$json.workshopName}}",
+            "امتیاز مشتری بالقوه": "={{$json.leadScore}}",
+            "دلیل امتیاز": "={{$json.scoreReason}}"
+          }
+        },
+        "options": {}
+      },
+      "id": "sheets-workshop",
+      "name": "Append — Workshop",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [1320, 70],
+      "onError": "continueErrorOutput",
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 3000,
+      "credentials": { "googleSheetsOAuth2Api": { "id": "REPLACE_WITH_CREDENTIAL_ID", "name": "Google Sheets account" } }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": { "__rl": true, "mode": "list", "value": "REPLACE_WITH_SPREADSHEET_ID" },
+        "sheetName": { "__rl": true, "mode": "list", "value": "Homepage" },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "نام": "={{$json.name}}",
+            "نام خانوادگی": "={{$json.lastName}}",
+            "جنسیت": "={{$json.gender}}",
+            "شماره تماس": "={{$json.phone}}",
+            "ایمیل": "={{$json.email}}",
+            "رده سنی": "={{$json.ageCategory}}",
+            "پیام (اختیاری)": "={{$json.message}}",
+            "sourcePage": "={{$json.rawSourcePage}}",
+            "امتیاز مشتری بالقوه": "={{$json.leadScore}}",
+            "دلیل امتیاز": "={{$json.scoreReason}}"
+          }
+        },
+        "options": {}
+      },
+      "id": "sheets-homepage",
+      "name": "Append — Homepage",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [1320, 200],
+      "onError": "continueErrorOutput",
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 3000,
+      "credentials": { "googleSheetsOAuth2Api": { "id": "REPLACE_WITH_CREDENTIAL_ID", "name": "Google Sheets account" } }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": { "__rl": true, "mode": "list", "value": "REPLACE_WITH_SPREADSHEET_ID" },
+        "sheetName": { "__rl": true, "mode": "list", "value": "Error_Review" },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "نام": "={{$json.name}}",
+            "نام خانوادگی": "={{$json.lastName}}",
+            "جنسیت": "={{$json.gender}}",
+            "شماره تماس": "={{$json.phone}}",
+            "ایمیل": "={{$json.email}}",
+            "رده سنی": "={{$json.ageCategory}}",
+            "پیام (اختیاری)": "={{$json.message}}",
+            "sourcePage": "={{$json.rawSourcePage}}",
+            "نام کارگاه": "={{$json.workshopName}}",
+            "امتیاز مشتری بالقوه": "={{$json.leadScore}}",
+            "دلیل امتیاز": "={{$json.scoreReason}}"
+          }
+        },
+        "options": {}
+      },
+      "id": "sheets-error-review",
+      "name": "Append — Error_Review",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [1320, 330],
+      "onError": "continueErrorOutput",
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 3000,
+      "credentials": { "googleSheetsOAuth2Api": { "id": "REPLACE_WITH_CREDENTIAL_ID", "name": "Google Sheets account" } }
+    },
+    {
+      "parameters": {
+        "jsCode": "const errorMsg = $json.error?.message || (typeof $json.error === 'string' ? $json.error : null) || 'خطای نامشخص در Google Sheets';\n\nconst lines = [\n  'ثبت یک Submission در Google Sheets پس از چند تلاش ناموفق بود. لطفاً اطلاعات زیر را به‌صورت دستی در تب مربوطه وارد کنید تا از دست نرود:',\n  '',\n  `صفحه: ${$json.canonicalPage ?? 'نامشخص'}${$json.workshopName ? ' | کارگاه: ' + $json.workshopName : ''}`,\n  `نام: ${$json.name ?? ''}`,\n  `نام خانوادگی: ${$json.lastName ?? ''}`,\n  `جنسیت: ${$json.gender ?? ''}`,\n  `شماره تماس: ${$json.phone ?? ''}`,\n  `ایمیل: ${$json.email ?? ''}`,\n  `رده سنی: ${$json.ageCategory ?? ''}`,\n  `پیام: ${$json.message ?? ''}`,\n  `امتیاز مشتری بالقوه: ${$json.leadScore ?? ''}`,\n  `دلیل امتیاز: ${$json.scoreReason ?? ''}`,\n  '',\n  `پیام خطا: ${errorMsg}`,\n  `زمان: ${new Date().toISOString()}`,\n];\n\nreturn {\n  json: {\n    subject: 'خطا در ثبت یک Submission در Google Sheets — نیاز به بررسی دستی',\n    text: lines.join('\\n'),\n  },\n};"
+      },
+      "id": "code-format-sheets-failure",
+      "name": "Format Sheets Failure Alert",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1560, 330]
+    },
+    {
+      "parameters": {
+        "fromEmail": "REPLACE_WITH_SENDER_EMAIL",
+        "toEmail": "hamooninstitute.info@gmail.com",
+        "subject": "={{$json.subject}}",
+        "text": "={{$json.text}}",
+        "options": {}
+      },
+      "id": "send-sheets-failure-email",
+      "name": "Send Sheets Failure Email",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [1780, 330],
+      "credentials": {
+        "smtp": { "id": "REPLACE_WITH_CREDENTIAL_ID", "name": "SMTP account" }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" },
+          "conditions": [
+            { "leftValue": "={{$json.email}}", "rightValue": "", "operator": { "type": "string", "operation": "notEmpty" } }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "if-has-email",
+      "name": "Has Email?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [1560, 490]
+    },
+    {
+      "parameters": {
+        "jsCode": "const pageLabels = {\n  math: 'ریاضی',\n  english: 'انگلیسی',\n  ai: 'هوش مصنوعی',\n  homepage: 'مشاوره عمومی',\n  workshop: 'کارگاه‌های آموزشی',\n  unknown: 'مؤسسه آموزشی هامون',\n};\n\nconst deptLabel = ($json.canonicalPage === 'workshop' && $json.workshopName)\n  ? `کارگاه «${$json.workshopName}»`\n  : (pageLabels[$json.canonicalPage] || 'مؤسسه آموزشی هامون');\n\nconst fullName = [$json.name, $json.lastName].filter(Boolean).join(' ');\nconst greetingName = fullName || 'دوست عزیز';\n\nconst subject = `${greetingName}، درخواست شما با موفقیت ثبت شد ✅`;\n\nconst html = `\n<div dir=\"rtl\" style=\"font-family: Tahoma, Arial, sans-serif; background:#f4f5f9; padding:24px;\">\n  <div style=\"max-width:520px; margin:0 auto; background:#ffffff; border-radius:14px; overflow:hidden; box-shadow:0 2px 12px rgba(15,23,42,0.08);\">\n    <div style=\"background:linear-gradient(135deg,#1e3a8a,#2563eb); padding:28px 24px; text-align:center;\">\n      <h1 style=\"color:#ffffff; margin:0; font-size:20px;\">مؤسسه آموزشی هامون</h1>\n      <p style=\"color:#dbeafe; margin:8px 0 0; font-size:13px;\">یادگیری هوشمندانه، همراه شما</p>\n    </div>\n    <div style=\"padding:28px 24px; color:#1f2937;\">\n      <p style=\"font-size:16px; margin:0 0 16px;\">سلام ${greetingName}،</p>\n      <p style=\"font-size:15px; line-height:1.9; margin:0 0 16px;\">\n        از اینکه به <strong>${deptLabel}</strong> در هامون اعتماد کردید بسیار خوشحالیم! درخواست شما با موفقیت در سیستم ما ثبت شد.\n      </p>\n      <p style=\"font-size:15px; line-height:1.9; margin:0 0 16px;\">\n        همکاران ما به‌زودی از طریق تماس یا پیامک با شما در ارتباط خواهند بود تا مراحل بعدی را باهم هماهنگ کنیم.\n      </p>\n      <div style=\"background:#eff6ff; border-radius:10px; padding:16px 18px; margin:20px 0;\">\n        <p style=\"font-size:14px; margin:0; color:#1e40af;\">اگر همین حالا سؤالی دارید، کافی است همین ایمیل را پاسخ دهید — خوشحال می‌شویم کمکتان کنیم.</p>\n      </div>\n      <p style=\"font-size:14px; color:#6b7280; margin-top:24px; margin-bottom:0;\">با احترام و آرزوی موفقیت،<br/>تیم هامون</p>\n    </div>\n  </div>\n</div>`.trim();\n\nreturn { json: { ...$json, welcomeSubject: subject, welcomeHtml: html } };"
+      },
+      "id": "code-format-welcome-email",
+      "name": "Format Welcome Email",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1780, 490]
+    },
+    {
+      "parameters": {
+        "fromEmail": "REPLACE_WITH_SENDER_EMAIL",
+        "toEmail": "={{$json.email}}",
+        "subject": "={{$json.welcomeSubject}}",
+        "emailFormat": "html",
+        "html": "={{$json.welcomeHtml}}",
+        "options": {}
+      },
+      "id": "send-welcome-email",
+      "name": "Send Welcome Email",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [2000, 490],
+      "credentials": {
+        "smtp": { "id": "REPLACE_WITH_CREDENTIAL_ID", "name": "SMTP account" }
+      }
+    }
+  ],
+  "connections": {
+    "Webhook": { "main": [[{ "node": "Normalize Input", "type": "main", "index": 0 }]] },
+    "Normalize Input": { "main": [[{ "node": "Detect Source & Workshop", "type": "main", "index": 0 }]] },
+    "Detect Source & Workshop": { "main": [[{ "node": "AI Lead Scoring", "type": "main", "index": 0 }]] },
+    "AI Lead Scoring": { "main": [[{ "node": "Parse AI Output", "type": "main", "index": 0 }]] },
+    "Parse AI Output": { "main": [[{ "node": "Route by Page", "type": "main", "index": 0 }]] },
+    "Route by Page": {
+      "main": [
+        [{ "node": "Append — Math", "type": "main", "index": 0 }],
+        [{ "node": "Append — English", "type": "main", "index": 0 }],
+        [{ "node": "Append — AI", "type": "main", "index": 0 }],
+        [{ "node": "Append — Workshop", "type": "main", "index": 0 }],
+        [{ "node": "Append — Homepage", "type": "main", "index": 0 }],
+        [{ "node": "Append — Error_Review", "type": "main", "index": 0 }]
+      ]
+    },
+    "Append — Math": { "main": [[{ "node": "Has Email?", "type": "main", "index": 0 }], [{ "node": "Format Sheets Failure Alert", "type": "main", "index": 0 }]] },
+    "Append — English": { "main": [[{ "node": "Has Email?", "type": "main", "index": 0 }], [{ "node": "Format Sheets Failure Alert", "type": "main", "index": 0 }]] },
+    "Append — AI": { "main": [[{ "node": "Has Email?", "type": "main", "index": 0 }], [{ "node": "Format Sheets Failure Alert", "type": "main", "index": 0 }]] },
+    "Append — Workshop": { "main": [[{ "node": "Has Email?", "type": "main", "index": 0 }], [{ "node": "Format Sheets Failure Alert", "type": "main", "index": 0 }]] },
+    "Append — Homepage": { "main": [[{ "node": "Has Email?", "type": "main", "index": 0 }], [{ "node": "Format Sheets Failure Alert", "type": "main", "index": 0 }]] },
+    "Append — Error_Review": { "main": [[{ "node": "Has Email?", "type": "main", "index": 0 }], [{ "node": "Format Sheets Failure Alert", "type": "main", "index": 0 }]] },
+    "Format Sheets Failure Alert": { "main": [[{ "node": "Send Sheets Failure Email", "type": "main", "index": 0 }]] },
+    "Has Email?": { "main": [[{ "node": "Format Welcome Email", "type": "main", "index": 0 }], []] },
+    "Format Welcome Email": { "main": [[{ "node": "Send Welcome Email", "type": "main", "index": 0 }]] }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "errorWorkflow": "REPLACE_WITH_ERROR_WORKFLOW_ID_AFTER_IMPORTING_THE_SECOND_FILE"
+  }
+}

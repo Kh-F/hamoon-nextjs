@@ -36,10 +36,17 @@ export async function POST(req: NextRequest) {
   const webhookUrl = process.env.N8N_WEBHOOK_URL;
   if (webhookUrl) {
     try {
+      const webhookSecret = process.env.N8N_WEBHOOK_SECRET;
       await fetch(webhookUrl, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, lastName, gender, phone, email: email ?? '', ageCategory, message: message ?? '', sourcePage }),
+        headers: {
+          'Content-Type': 'application/json',
+          ...(webhookSecret ? { 'x-webhook-secret': webhookSecret } : {}),
+        },
+        body: JSON.stringify({
+          name, lastName, gender, phone, email: email ?? '', ageCategory,
+          message: message ?? '', sourcePage, workshopTitle: workshopTitle ?? '',
+        }),
       });
     } catch (err) {
       // Never fail the user's submission because the automation backend is down.

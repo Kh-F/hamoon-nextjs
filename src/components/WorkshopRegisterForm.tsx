@@ -29,6 +29,7 @@ const L = {
   msgPh: 'سؤال یا نکته‌ای برای ما دارید؟',
   submit: 'ثبت‌نام در کارگاه',
   success: 'ثبت‌نام شما با موفقیت انجام شد! به‌زودی اطلاعات تکمیلی کارگاه برایتان ارسال می‌شود.',
+  error: 'خطایی در ثبت اطلاعات رخ داد. لطفاً دوباره تلاش کنید.',
   reset: 'ثبت‌نام نفر دیگر',
 };
 
@@ -37,6 +38,7 @@ export default function WorkshopRegisterForm({ workshopTitle }: Props) {
 
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const [age, setAge] = useState<number | null>(null);
   const [gender, setGender] = useState('');
 
@@ -49,13 +51,10 @@ export default function WorkshopRegisterForm({ workshopTitle }: Props) {
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     setLoading(true);
+    setErrorMessage('');
+    
     try {
-      // The Workshops sheet has no dedicated "workshop" column, so fold the
-      // workshop title into the message field to keep it from getting lost.
-      const userMsg = msgRef.current?.value ?? '';
-      const message = `کارگاه: ${workshopTitle}${userMsg ? `\n\n${userMsg}` : ''}`;
-
-      await fetch('/api/consult', {
+      const res = await fetch('/api/consult', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -65,19 +64,28 @@ export default function WorkshopRegisterForm({ workshopTitle }: Props) {
           phone:         phoneRef.current?.value    ?? '',
           email:         emailRef.current?.value    ?? '',
           ageCategory:   age !== null ? c.ages[age] : '',
-          message,
+          message:       msgRef.current?.value ?? '',
           workshopTitle,
           sourcePage: 'Workshops',
         }),
       });
+
+      // بررسی پاسخ سرور (اگر موفق بود پیام موفقیت را نشان بده، در غیر این صورت خطا)
+      if (res.ok) {
+        setSent(true);
+      } else {
+        setErrorMessage(L.error);
+      }
+    } catch (err) {
+      setErrorMessage(L.error);
     } finally {
       setLoading(false);
-      setSent(true);
     }
   }
 
   function handleReset() {
     setSent(false);
+    setErrorMessage('');
     setAge(null);
     setGender('');
   }
@@ -121,6 +129,12 @@ export default function WorkshopRegisterForm({ workshopTitle }: Props) {
             ageIndex={age}
             onAgeChange={setAge}
           />
+
+          {errorMessage && (
+            <p className="error-msg" style={{ color: '#ff4d4f', marginTop: '10px', fontSize: '14px' }}>
+              {errorMessage}
+            </p>
+          )}
 
           <button type="submit" className="btn-submit" disabled={loading}>
             {loading ? '…' : L.submit}

@@ -1,0 +1,46 @@
+{
+  "name": "Hamoon — Lead Intake Unexpected Failure Alert",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "error-trigger",
+      "name": "Error Trigger",
+      "type": "n8n-nodes-base.errorTrigger",
+      "typeVersion": 1,
+      "position": [0, 0]
+    },
+    {
+      "parameters": {
+        "jsCode": "const exec = $json.execution;\nconst lastNode = exec?.lastNodeExecuted || 'نامشخص';\nconst errorMsg = exec?.error?.message || 'نامشخص';\nconst execId = exec?.id || 'نامشخص';\nconst execUrl = exec?.url || '';\n\nreturn {\n  json: {\n    subject: '[Hamoon] یک اجرای Workflow با خطای غیرمنتظره متوقف شد',\n    text: `این یک هشدار پشتیبان است — خرابی‌های شناخته‌شده (خطای AI، خطای Google Sheets، صفحه منبع نامشخص) قبلاً داخل خودِ Workflow اصلی مدیریت و ثبت می‌شوند و اینجا اطلاعشان به شما نمی‌رسد.\\n\\nاین ایمیل یعنی یک خطای پیش‌بینی‌نشده باعث توقف کامل یک اجرا شده — مثلاً یک Node بد پیکربندی شده یا یک Bug. اطلاعات کامل Submission در این ایمیل موجود نیست (محدودیت فنی n8n: Error Trigger به داده ورودی اجرای شکست‌خورده دسترسی ندارد).\\n\\nلطفاً همین حالا وارد n8n شوید و اجرای شکست‌خورده را بررسی کنید تا اگر Submissionای واقعاً از دست رفته، آن را پیدا و دستی ثبت کنید:\\nNode خطا: ${lastNode}\\nپیام خطا: ${errorMsg}\\nExecution ID: ${execId}\\n${execUrl ? 'لینک: ' + execUrl : ''}\\nزمان: ${new Date().toISOString()}`,\n  },\n};"
+      },
+      "id": "code-format-alert",
+      "name": "Format Alert",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [220, 0]
+    },
+    {
+      "parameters": {
+        "fromEmail": "REPLACE_WITH_SENDER_EMAIL",
+        "toEmail": "hamooninstitute.info@gmail.com",
+        "subject": "={{$json.subject}}",
+        "text": "={{$json.text}}",
+        "options": {}
+      },
+      "id": "send-alert-email",
+      "name": "Send Alert Email",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [440, 0],
+      "credentials": {
+        "smtp": { "id": "REPLACE_WITH_CREDENTIAL_ID", "name": "SMTP account" }
+      }
+    }
+  ],
+  "connections": {
+    "Error Trigger": { "main": [[{ "node": "Format Alert", "type": "main", "index": 0 }]] },
+    "Format Alert": { "main": [[{ "node": "Send Alert Email", "type": "main", "index": 0 }]] }
+  },
+  "active": false,
+  "settings": { "executionOrder": "v1" }
+}
