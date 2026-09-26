@@ -5,7 +5,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useLang } from '@/context/LangContext';
 import Icon from '@/components/Icon';
-import Consultation from '@/components/Consultation';
 import WorkshopRegisterForm from '@/components/WorkshopRegisterForm';
 
 type StatusKey = 'upcoming' | 'free';
@@ -185,7 +184,7 @@ export default function WorkshopsContent() {
         </div>
       </section>
 
-      <section className="dept-features">
+      <section className="dept-features" id="consult">
         <div className="dept-features-inner">
           {upcoming.length > 0 && (
             <>
@@ -199,8 +198,6 @@ export default function WorkshopsContent() {
           )}
         </div>
       </section>
-
-      <Consultation department="Workshops" />
     </>
   );
 }
