@@ -33,10 +33,8 @@ interface WsEvent {
   title: string;
   desc: string;
   meta: string[];
-  /** External/anchor registration link — used only when no inline register form is defined. */
   registerHref?: string;
   registerLabel?: string;
-  /** When set (with `presenter`), the card renders an inline expandable details panel. */
   topics?: string[];
   presenter?: WsPresenter;
 }
@@ -71,14 +69,14 @@ const WS = {
         ],
         presenter: {
           sectionLabel: 'مدرس کارگاه',
-          name: 'نام مدرس',
+          name: 'دکتر خدیجه فتحعلی‌خانی',
           role: 'متخصص طراحی وب و اتوماسیون',
-          bio: 'توضیحات مربوط به سوابق و تخصص مدرس...',
-          creds: ['مدرک تحصیلی یا تخصص'],
+          bio: 'دکترای ریاضیات با تخصص در ترکیبیات و نظریه گراف؛ اکنون در حوزه هوش مصنوعی کاربردی و مهندسی زیرساخت فعالیت می‌کند.',
+          creds: ['دکترای ریاضیات'],
           skills: ['طراحی وب', 'هوش مصنوعی', 'n8n'],
-          linkedin: 'لینک پروفایل لینکدین',
+          linkedin: 'https://www.linkedin.com/in/khadijeh-fathalikhani-405b0627',
           linkedinLabel: 'مشاهده لینکدین',
-          initials: 'نام مخفف', bg: 'var(--mint-100)', ink: 'var(--mint-700)',
+          initials: 'خ ف', bg: 'var(--mint-100)', ink: 'var(--mint-700)',
         },
       },
       {
@@ -159,7 +157,6 @@ export default function WorkshopsContent() {
 
   return (
     <>
-      {/* ── Hero ── */}
       <section className="dept-hero">
         <div className="dept-hero-inner">
           <div className="dept-hero-grid">
@@ -188,11 +185,8 @@ export default function WorkshopsContent() {
         </div>
       </section>
 
-      {/* ── Workshop grid ── */}
       <section className="dept-features">
         <div className="dept-features-inner">
-
-          {/* Upcoming */}
           {upcoming.length > 0 && (
             <>
               <h2 className="ws-section-h">{d.upcomingLabel}</h2>
@@ -203,11 +197,9 @@ export default function WorkshopsContent() {
               </div>
             </>
           )}
-
         </div>
       </section>
 
-      {/* ── Consultation form ── */}
       <Consultation department="Workshops" />
     </>
   );
@@ -245,7 +237,6 @@ function EventCard({ ev, statusLabel, cta, detailsLabel }: {
       </div>
 
       <div className="ws-ctas">
-        {/* دکمه ثبت‌نام اول قرار می‌گیرد تا در محیط RTL در سمت راست نمایش داده شود */}
         {expandable ? (
           <button type="button" className="ws-btn-primary" onClick={() => setRegisterOpen(o => !o)}>
             {ev.registerLabel ?? cta}
@@ -258,7 +249,6 @@ function EventCard({ ev, statusLabel, cta, detailsLabel }: {
           )
         )}
 
-        {/* دکمه جزئیات دوم قرار می‌گیرد تا در سمت چپ نمایش داده شود */}
         {expandable ? (
           <button
             type="button"
@@ -280,7 +270,6 @@ function EventCard({ ev, statusLabel, cta, detailsLabel }: {
         )}
       </div>
 
-      {/* ── Inline details accordion ── */}
       {expandable && p && (
         <div className={`cdp-wrap${detailsOpen ? ' cdp-wrap--open' : ''}`}>
           <div className="cdp-inner">
@@ -337,7 +326,6 @@ function EventCard({ ev, statusLabel, cta, detailsLabel }: {
         </div>
       )}
 
-      {/* ── Inline registration form ── */}
       {expandable && (
         <div className={`cdp-wrap${registerOpen ? ' cdp-wrap--open' : ''}`}>
           <div className="cdp-inner">
