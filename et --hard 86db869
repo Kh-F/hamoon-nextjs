@@ -1,0 +1,123 @@
+[33mde760a6[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m Add grade field to personal info and workshop form
+[33mf321862[m Make grade optional in PersonalInfoFields to fix build errors
+[33m3dc93cc[m Add grade field to forms and components
+[33m76dffae[m Add grade field to workshop register form
+[33m1291972[m Add grade field to workshop register form
+[33m86db869[m fix: remove consultation form from workshops page bottom
+[33md05523e[m fix: update workshop registration success message to call back notice
+[33m3238b60[m fix: update workshop presenter to Dr. Khadijeh Fathalikhani
+[33m8dc5336[m fix: update workshops card button alignment
+[33meb33af7[m Add registration link and form to workshop cards
+[33m17a3f57[m Route ElevenLabs widget through cedarloops proxy for Iran access
+[33m2fd3e84[m Align form payload with the n8n automation workflow
+[33m67ec77e[m Add Google Scholar link to Khadijeh Fathalikhani's founder card
+[33m6a09064[m Restructure all forms to a unified field set
+[33mc80fd82[m Crop baked-in letterboxing from the brand video
+[33m2e53988[m Default the brand video to play with sound on
+[33m94cb40e[m Replay brand video on scroll-into-view and About link clicks
+[33mf549ec6[m Freeze brand video before its built-in fade-to-black outro
+[33m205ba8a[m Play brand video once instead of looping
+[33m38c1286[m Add ElevenLabs Convai voice widget to each page
+[33mb5cc292[m Redesign footer with site nav links and remove ElevenLabs chat widget
+[33m9294fd0[m Replace AI workshop detail page with inline accordions and a dedicated registration form
+[33m409f3a1[m Add free AI intro workshop card and dedicated detail page
+[33m425e942[m Fix repeated verb form in About section note for smoother phrasing
+[33m736da6f[m Update About section note with expanded contact and services info
+[33m40d3798[m Trim intro sentence from workshop card description
+[33mb08fe42[m Move About stat card below the video frame
+[33m319d5fb[m Add sound toggle to the About logomotion video
+[33m46d195c[m Remove two workshop cards; fix About video frame cropping
+[33m8fbff06[m Replace About section logo image with logomotion video
+[33mc737d61[m Add "AI web design & smart automation" workshop card
+[33m852dc10[m Remove "Book Introductions & Academic Literacy" workshop card
+[33m8ddec50[m Replace AI department curriculum section with new content
+[33m51d92c4[m Rewrite AI department intro and teaching approach copy
+[33me7c5d80[m Rewrite math department "teaching approach" card copy
+[33m823d184[m Remove footer from all pages
+[33m614948b[m Enlarge founder avatar photos for better visibility
+[33m93b039f[m Add founder photos for Saeid Mousavandrani and Khadijeh Fathalikhani
+[33m63e6d0f[m Compress AI.png to reduce page weight
+[33m5a6eb5e[m Update site contact email to hamooninstitute.info@gmail.com
+[33m32eac0b[m Replace workshops hero image with new artwork
+[33m5ad9784[m Replace site logo and favicon with new mark
+[33mdac3dc5[m Route ElevenLabs chat widget to a per-department agent
+[33m2c0d185[m Update homepage copy: remove hero badge, rename Academy to Institute, add tuition note
+[33m347d831[m Fix agent ID for AI department and update widget UI
+[33m207f585[m Refactor ElevenLabsWidget to text-only bubble chat panel
+[33md686fc6[m Add ElevenLabs widgets to all department pages
+[33mba5a5bf[m Remove chat widget
+[33md4187c2[m Fix chat widget header text clipping
+[33m1f23291[m Remove CTA button from hero section
+[33m114565d[m Remove stats block from homepage hero section
+[33m547f15a[m Fix consultation button conflict: hide global CTA on dept pages, add dept-specific labels
+[33m261f7e3[m Replace navbar CTA link with scrollIntoView handler
+[33mfab7e78[m Fix navbar CTA: scroll to in-page #consult on department pages
+[33m45d9db3[m Update Workshops.png with revised image asset
+[33m19b0dca[m Fix: correct image filename Workshop.png -> Workshops.png
+[33mbf0800b[m Simplify Workshop image to standard layout after image replacement
+[33meedf216[m Fix Workshop image: use fill layout inside sized relative container
+[33m9f270f7[m Fix Workshop.png display — crop panoramic image to correct height
+[33mcd25c8f[m Add hero image to Workshops page
+[33m6c75299[m Add consultation form to Workshops page
+[33mc049a05[m Add per-department consultation booking forms
+[33m80587c7[m Add hero images to Math and AI department pages
+[33m0de75d1[m Force update: sync all components to SDK v7
+[33mf41c1c4[m Fix ChatWidget and API route for ai SDK v7 compatibility
+[33m0ce21d4[m Regenerate package-lock.json after clean install
+[33m500c8d6[m Add missing package files and API route
+[33mbe84691[m Add floating AI chat widget powered by GPT-4o-mini
+[33m33cfa01[m Remove Raychat live chat widget from root layout
+[33mf350a79[m Add Raychat live chat widget to root layout
+[33m4dd1f7c[m Remove all ElevenLabs chatbot code and proxy references
+[33m03ffff3[m Route widget script src through Cloudflare proxy
+[33m8bbfdb2[m Add ElevenLabs widgets with Cloudflare proxy
+[33mfcea0a7[m fix: correct workshops agent ID and enable text-mode-default on widget
+[33m6b7ebd6[m fix: stack goal text below label in level strip to prevent word-by-word wrapping
+[33m9c41c48[m fix: give cdp-level-val flex:1 min-width:0 so goal text wraps normally
+[33me8142c7[m feat: add expandable accordion detail panels to English department course cards
+[33m7f5d46b[m fix: revert positioning, fix mobile visibility with shadow-DOM injection
+[33maf359d3[m fix: aggressive shadow-DOM position override for ElevenLabs widget
+[33ma0eea7a[m fix: increase ElevenLabs widget offset to clear UI clashes
+[33m2a177fa[m fix: widget script lifecycle, bottom-right position, mobile z-index
+[33m2ed552b[m refactor: simplify ElevenLabsWidget with JSX approach
+[33mb545988[m fix: align AGENT_MAP keys with /departments/ routes
+[33m45f1064[m feat: add route-aware ElevenLabs convai widget
+[33m21783c4[m chore: remove all chatbot and voice assistant code
+[33m6fb4b1d[m fix: add env files and improve chat API error logging
+[33mbb27227[m feat: route-based ChatManager with Claude text chat and lazy voice
+[33m9b2abbc[m feat: lazy-mount voice assistant on click across all pages
+[33m44ff330[m config: add support for hamooninstitute.ir domain
+[33mb4e3f2c[m perf: optimize Oxford Discover image loading with Next.js priority preloading
+[33m4478ddc[m fix: remove outdated view programs button from homepage hero
+[33meefc48a[m fix: remove technology badge tags from AI department hero section
+[33m40ad408[m fix: completely remove instructor profile card from AI department page
+[33m761086c[m fix: completely remove instructor bio and course cards from math department page
+[33me8e7dd3[m fix: definitively remove the residual visual glitch from the English image container
+[33m983a74b[m fix: remove unwanted rogue element near the English department image
+[33mb3681bb[m feat: place Oxford Discover series image on the left side of English Hero
+[33m2c8a38d[m feat: add Oxford Discover full series image to English department landing
+[33m31047a2[m fix: correct typography to use half-space for به‌دست آوردن
+[33m77af8df[m feat: add 6-session English sounds prerequisite card and fix session counts to 36
+[33m4124d2e[m fix: completely remove courses and programs preview section from homepage
+[33mdf660be[m feat: list all 6 Oxford Discover levels individually and add strict registration policy managed by Saeid
+[33m4ef4d77[m fix: remove end-of-course card, clear husband links, and keep only LinkedIn for Khadijeh
+[33ma364d9e[m fix: remove live conversation class card and update founder surname spacing
+[33m071e1a7[m fix: precise founder names cleanup and integrate mission statement
+[33m7376e1a[m fix: sync public icon asset and update favicon metadata
+[33m08837cd[m fix: link public logo.png to website favicon metadata
+[33m790061a[m fix: optimize homepage hero image asset size for production
+[33m991eaf3[m feat: integrate website-photo illustration into homepage hero section
+[33m49649c2[m fix: correct founder spelling, clear roles, and remove top-right live class link
+[33mee84371[m fix: correct founder names, adjust bio tones, and remove deprecated program sections
+[33med63c2a[m feat: build and embed custom voice assistants for all departments
+[33m23eae7c[m feat: populate inner content for all departments and founders
+[33m6166750[m arch: structure department and workshop routes
+[33m88f7ace[m feat: replace ElevenLabs embed with custom SDK voice assistant
+[33m4995909[m feat: update ElevenLabs widget to Persian version
+[33m8920de6[m Add ElevenLabs Conversational AI widget globally
+[33m93f291d[m Update contact phone and email in consultation section
+[33ma875402[m Remove language icon from navbar and add second website domain
+[33m74b822a[m Add UI screenshots (desktop, English, and mobile views)
+[33m59175f4[m Add testimonials carousel and remove instructor count stat
+[33mb935881[m Update site URL to hamooninstitute.com and align age groups
+[33m5965f6e[m Initial commit: Hamoon Academy landing page (Next.js App Router)
