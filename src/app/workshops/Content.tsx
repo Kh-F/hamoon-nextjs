@@ -6,7 +6,7 @@ import Icon from './Icon';
 import PersonalInfoFields from './PersonalInfoFields';
 
 interface Props {
-  workshopTitle: string;
+  workshopTitle?: string;
 }
 
 const L = {
@@ -16,7 +16,8 @@ const L = {
   lastName: 'نام خانوادگی',
   lastNamePh: 'مثلاً محمدی',
   gender: 'جنسیت',
-  genderPh: 'انتخاب کنید',
+  grade: 'پایه تحصیلی',
+ genderPh: 'انتخاب کنید',
   genderFemale: 'خانم',
   genderMale: 'آقا',
   phone: 'شماره تماس',
