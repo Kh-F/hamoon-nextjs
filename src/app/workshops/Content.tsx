@@ -2,8 +2,8 @@
 
 import { useRef, useState, FormEvent } from 'react';
 import { useLang } from '@/context/LangContext';
-import Icon from './Icon';
-import PersonalInfoFields from './PersonalInfoFields';
+import Icon from '@/components/Icon';
+import PersonalInfoFields from '@/components/PersonalInfoFields';
 
 interface Props {
   workshopTitle?: string;
