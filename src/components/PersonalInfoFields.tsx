@@ -9,6 +9,7 @@ export interface PersonalInfoLabels {
   phone: string; phonePh: string;
   email: string; emailPh: string;
   age: string; agePh: string;
+  grade: string; gradePh: string;
   msg: string; msgPh: string;
 }
 
@@ -25,13 +26,16 @@ interface Props {
   onGenderChange: (value: string) => void;
   ageIndex: number | null;
   onAgeChange: (index: number) => void;
+  grade: string;
+  onGradeChange: (value: string) => void;
 }
 
-/** The shared field set (name, last name, gender, phone, email, age, message) used by every form on the site. */
+/** The shared field set (name, last name, gender, phone, email, age, grade, message) used by every form on the site. */
 export default function PersonalInfoFields({
   idPrefix, labels, ages,
   nameRef, lastNameRef, phoneRef, emailRef, messageRef,
   gender, onGenderChange, ageIndex, onAgeChange,
+  grade, onGradeChange,
 }: Props) {
   return (
     <>
@@ -112,6 +116,35 @@ export default function PersonalInfoFields({
           {ages.map((label, i) => (
             <option key={label} value={i}>{label}</option>
           ))}
+        </select>
+      </div>
+
+      <div className="form-group">
+        <label htmlFor={`${idPrefix}-grade`} className="form-label">{labels.grade}</label>
+        <select
+          id={`${idPrefix}-grade`}
+          required
+          value={grade}
+          onChange={e => onGradeChange(e.target.value)}
+          className="form-input form-select"
+        >
+          <option value="" disabled>{labels.gradePh}</option>
+          <option value="پیش‌دبستانی">پیش‌دبستانی</option>
+          <option value="اول ابتدایی">اول ابتدایی</option>
+          <option value="دوم ابتدایی">دوم ابتدایی</option>
+          <option value="سوم ابتدایی">سوم ابتدایی</option>
+          <option value="چهارم ابتدایی">چهارم ابتدایی</option>
+          <option value="پنجم ابتدایی">پنجم ابتدایی</option>
+          <option value="ششم ابتدایی">ششم ابتدایی</option>
+          <option value="هفتم">هفتم</option>
+          <option value="هشتم">هشتم</option>
+          <option value="نهم">نهم</option>
+          <option value="دهم">دهم</option>
+          <option value="یازدهم">یازدهم</option>
+          <option value="دوازدهم">دوازدهم</option>
+          <option value="دانشجو">دانشجو</option>
+          <option value="فارغ‌التحصیل">فارغ‌التحصیل</option>
+          <option value="سایر">سایر</option>
         </select>
       </div>
 

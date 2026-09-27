@@ -25,6 +25,8 @@ const L = {
   emailPh: 'example@email.com',
   age: 'رده سنی',
   agePh: 'انتخاب کنید',
+  grade: 'پایه تحصیلی',
+  gradePh: 'انتخاب کنید',
   msg: 'پیام (اختیاری)',
   msgPh: 'سؤال یا نکته‌ای برای ما دارید؟',
   submit: 'ثبت‌نام در کارگاه',
@@ -41,6 +43,7 @@ export default function WorkshopRegisterForm({ workshopTitle }: Props) {
   const [errorMessage, setErrorMessage] = useState('');
   const [age, setAge] = useState<number | null>(null);
   const [gender, setGender] = useState('');
+  const [grade, setGrade] = useState('');
 
   const nameRef     = useRef<HTMLInputElement>(null);
   const lastNameRef = useRef<HTMLInputElement>(null);
@@ -64,6 +67,7 @@ export default function WorkshopRegisterForm({ workshopTitle }: Props) {
           phone:         phoneRef.current?.value    ?? '',
           email:         emailRef.current?.value    ?? '',
           ageCategory:   age !== null ? c.ages[age] : '',
+          grade,
           message:       msgRef.current?.value ?? '',
           workshopTitle,
           sourcePage: 'Workshops',
@@ -88,6 +92,7 @@ export default function WorkshopRegisterForm({ workshopTitle }: Props) {
     setErrorMessage('');
     setAge(null);
     setGender('');
+    setGrade('');
   }
 
   return (
@@ -128,6 +133,8 @@ export default function WorkshopRegisterForm({ workshopTitle }: Props) {
             onGenderChange={setGender}
             ageIndex={age}
             onAgeChange={setAge}
+            grade={grade}
+            onGradeChange={setGrade}
           />
 
           {errorMessage && (
