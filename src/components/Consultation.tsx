@@ -30,6 +30,7 @@ export default function Consultation({ department = 'Home Page' }: Props) {
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     setLoading(true);
+
     try {
       await fetch('/api/consult', {
         method: 'POST',
@@ -39,7 +40,7 @@ export default function Consultation({ department = 'Home Page' }: Props) {
           lastName:    lastNameRef.current?.value ?? '',
           gender,
           phone:       phoneRef.current?.value    ?? '',
-          email:       emailRef.current?.value    ?? '',
+          email:       emailRef.current?.value     ?? '',
           ageCategory: age !== null ? ages[age] : '',
           grade,
           message:     msgRef.current?.value      ?? '',
@@ -58,6 +59,13 @@ export default function Consultation({ department = 'Home Page' }: Props) {
     setGender('');
     setGrade('');
   }
+
+  // Add the new education-grade labels required by PersonalInfoFields.
+  const personalInfoLabels = {
+    ...form,
+    grade: 'پایه تحصیلی',
+    gradePh: 'انتخاب کنید',
+  };
 
   // Success message includes the department name so the user sees which
   // department their request was submitted to.
@@ -133,7 +141,7 @@ export default function Consultation({ department = 'Home Page' }: Props) {
                 <form className="form-fields" onSubmit={handleSubmit}>
                   <PersonalInfoFields
                     idPrefix="hm"
-                    labels={form}
+                    labels={personalInfoLabels}
                     ages={ages}
                     nameRef={nameRef}
                     lastNameRef={lastNameRef}
