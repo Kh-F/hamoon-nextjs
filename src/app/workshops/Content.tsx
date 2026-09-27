@@ -50,7 +50,11 @@ const WS = {
     ctaTitle: 'در کارگاه بعدی شرکت کنید',
     ctaLead: 'کارگاه‌های هامون با ظرفیت محدود برگزار می‌شوند. همین حالا جای خود را رزرو کنید.',
     upcomingLabel: 'کارگاه‌های پیش رو',
-    status: { upcoming: 'پیش رو', free: 'رایگان' } as Record<StatusKey, string>,
+    status: {
+      upcoming: 'پیش رو',
+      free: 'رایگان',
+    } as Record<StatusKey, string>,
+
     events: [
       {
         ic: 'laptop',
@@ -67,7 +71,7 @@ const WS = {
           'استفاده از ابزارهای هوش مصنوعی در توسعه وب',
           'آشنایی با اتوماسیون‌های هوشمند و ابزار n8n',
           'ایجاد گردش‌کارهای خودکار (Workflows)',
-          'پیاده‌سازی عملی پروژه وب‌سایت'
+          'پیاده‌سازی عملی پروژه وب‌سایت',
         ],
         presenter: {
           sectionLabel: 'مدرس کارگاه',
@@ -83,6 +87,7 @@ const WS = {
           ink: 'var(--mint-700)',
         },
       },
+
       {
         ic: 'target',
         soft: 'var(--blue-50)',
@@ -103,11 +108,12 @@ const WS = {
         presenter: {
           sectionLabel: 'مدرس کارگاه',
           name: 'دکتر خدیجه فتحعلی‌خانی',
-          role: 'متخصص ریاضیات و هوش مصنوعی',
-          bio: 'دکترای ریاضیات با تخصص در ترکیبیات و نظریه گراف؛ اکنون در حوزه هوش مصنوعی کاربردی و مهندسی زیرساخت DevOps فعالیت می‌کند و سابقه تدریس گسترده‌ای در دانشگاه‌های مختلف دارد.',
-          creds: ['دکترای ریاضیات', 'متخصص هوش مصنوعی'],
+          role: 'دکترای ریاضیات | فعال در حوزه هوش مصنوعی',
+          bio: 'دکترای ریاضیات با تخصص در ترکیبیات و نظریه گراف و بیش از ۱۵ سال سابقه تدریس در دانشگاه‌ها و مؤسسات آموزشی. در سال‌های اخیر در حوزه هوش مصنوعی کاربردی، تحلیل داده و اتوماسیون فعالیت داشته است.',
+          creds: ['دکترای ریاضیات'],
           skills: ['یادگیری ماشین', 'تحلیل داده', 'AI Agents'],
-          linkedin: 'https://www.linkedin.com/in/khadijeh-fathalikhani-405b0627',
+          linkedin:
+            'https://www.linkedin.com/in/khadijeh-fathalikhani-405b0627',
           linkedinLabel: 'مشاهده لینکدین',
           initials: 'خ ف',
           bg: 'var(--amber-100)',
@@ -126,7 +132,10 @@ const WS = {
     ctaTitle: 'Join our next workshop',
     ctaLead: 'Hamoon workshops run with limited capacity. Reserve your spot now.',
     upcomingLabel: 'Upcoming workshops',
-    status: { upcoming: 'Upcoming' } as Record<StatusKey, string>,
+    status: {
+      upcoming: 'Upcoming',
+    } as Record<StatusKey, string>,
+
     events: [
       {
         ic: 'laptop',
@@ -192,7 +201,7 @@ export default function WorkshopsContent() {
             <div className="dept-hero-img-col">
               <Image
                 src="/Workshops.png"
-                alt="Workshops — Hamoon Academy"
+                alt="Workshops — Hamoon Institute"
                 width={600}
                 height={400}
                 sizes="(max-width: 860px) 100vw, 50vw"
@@ -207,7 +216,6 @@ export default function WorkshopsContent() {
       {/* ── Workshop grid ── */}
       <section className="dept-features">
         <div className="dept-features-inner">
-
           {/* Upcoming */}
           {upcoming.length > 0 && (
             <>
@@ -228,7 +236,6 @@ export default function WorkshopsContent() {
               </div>
             </>
           )}
-
         </div>
       </section>
     </>
@@ -362,7 +369,6 @@ function EventCard({
         >
           <div className="cdp-inner">
             <div className="cdp-panel">
-
               <div className="cdp-section">
                 <div className="cdp-section-head">
                   <span className="cdp-section-icon">
@@ -467,7 +473,6 @@ function EventCard({
                   </div>
                 </div>
               </div>
-
             </div>
           </div>
         </div>
@@ -482,7 +487,6 @@ function EventCard({
         >
           <div className="cdp-inner">
             <div className="cdp-panel">
-
               <div className="cdp-section">
                 <div className="cdp-section-head">
                   <span className="cdp-section-icon">
@@ -498,7 +502,6 @@ function EventCard({
                   workshopTitle={ev.title}
                 />
               </div>
-
             </div>
           </div>
         </div>
