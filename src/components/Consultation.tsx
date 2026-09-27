@@ -19,6 +19,7 @@ export default function Consultation({ department = 'Home Page' }: Props) {
   const [loading, setLoading] = useState(false);
   const [age, setAge] = useState<number | null>(null);
   const [gender, setGender] = useState('');
+  const [grade, setGrade] = useState('');
 
   const nameRef     = useRef<HTMLInputElement>(null);
   const lastNameRef = useRef<HTMLInputElement>(null);
@@ -40,6 +41,7 @@ export default function Consultation({ department = 'Home Page' }: Props) {
           phone:       phoneRef.current?.value    ?? '',
           email:       emailRef.current?.value    ?? '',
           ageCategory: age !== null ? ages[age] : '',
+          grade,
           message:     msgRef.current?.value      ?? '',
           sourcePage:  department,
         }),
@@ -54,6 +56,7 @@ export default function Consultation({ department = 'Home Page' }: Props) {
     setSent(false);
     setAge(null);
     setGender('');
+    setGrade('');
   }
 
   // Success message includes the department name so the user sees which
@@ -141,6 +144,8 @@ export default function Consultation({ department = 'Home Page' }: Props) {
                     onGenderChange={setGender}
                     ageIndex={age}
                     onAgeChange={setAge}
+                    grade={grade}
+                    onGradeChange={setGrade}
                   />
 
                   <button type="submit" className="btn-submit" disabled={loading}>
