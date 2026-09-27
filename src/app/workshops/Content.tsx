@@ -5,7 +5,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useLang } from '@/context/LangContext';
 import Icon from '@/components/Icon';
-import Consultation from '@/components/Consultation';
 import WorkshopRegisterForm from '@/components/WorkshopRegisterForm';
 
 type StatusKey = 'upcoming' | 'free';
@@ -48,7 +47,6 @@ const WS = {
     lead: 'فراتر از دوره‌های منظم — کارگاه‌های فشرده و کاربردی برای رشد مهارت‌های عملی در حوزه‌های فناوری، آموزش و توسعه فردی.',
     back: 'بازگشت به صفحه اصلی',
     cta: 'ثبت‌نام در کارگاه',
-    consultCta: 'رزرو مشاوره اختصاصی کارگاه‌ها',
     ctaTitle: 'در کارگاه بعدی شرکت کنید',
     ctaLead: 'کارگاه‌های هامون با ظرفیت محدود برگزار می‌شوند. همین حالا جای خود را رزرو کنید.',
     upcomingLabel: 'کارگاه‌های پیش رو',
@@ -125,7 +123,6 @@ const WS = {
     lead: 'Beyond regular courses — intensive, hands-on workshops for practical skill growth in technology, education, and academic literacy.',
     back: 'Back to home',
     cta: 'Register for a workshop',
-    consultCta: 'Book a Workshops consultation',
     ctaTitle: 'Join our next workshop',
     ctaLead: 'Hamoon workshops run with limited capacity. Reserve your spot now.',
     upcomingLabel: 'Upcoming workshops',
@@ -160,10 +157,6 @@ const STATUS_CLASS: Record<StatusKey, string> = {
   free: 'ws-status ws-status--free',
 };
 
-function scrollToConsult() {
-  document.getElementById('consult')?.scrollIntoView({ behavior: 'smooth' });
-}
-
 export default function WorkshopsContent() {
   const { c } = useLang();
   const d = WS[c.lang as 'fa' | 'en'];
@@ -182,24 +175,18 @@ export default function WorkshopsContent() {
                   <Icon name="arrowleft" size={16} />
                   {d.back}
                 </Link>
+
                 <span className="dept-badge">{d.badge}</span>
               </div>
 
-              <h1 className="dept-title" style={{ whiteSpace: 'pre-line' }}>
+              <h1
+                className="dept-title"
+                style={{ whiteSpace: 'pre-line' }}
+              >
                 {d.title}
               </h1>
 
               <p className="dept-lead">{d.lead}</p>
-
-              <div className="dept-btns">
-                <button
-                  type="button"
-                  className="btn-primary"
-                  onClick={scrollToConsult}
-                >
-                  {d.consultCta}
-                </button>
-              </div>
             </div>
 
             <div className="dept-hero-img-col">
@@ -224,7 +211,9 @@ export default function WorkshopsContent() {
           {/* Upcoming */}
           {upcoming.length > 0 && (
             <>
-              <h2 className="ws-section-h">{d.upcomingLabel}</h2>
+              <h2 className="ws-section-h">
+                {d.upcomingLabel}
+              </h2>
 
               <div className="ws-grid">
                 {upcoming.map(ev => (
@@ -242,9 +231,6 @@ export default function WorkshopsContent() {
 
         </div>
       </section>
-
-      {/* ── Consultation form ── */}
-      <Consultation department="Workshops" />
     </>
   );
 }
@@ -328,7 +314,10 @@ function EventCard({
           </button>
         ) : (
           ev.registerHref && (
-            <Link href={ev.registerHref} className="ws-btn-primary">
+            <Link
+              href={ev.registerHref}
+              className="ws-btn-primary"
+            >
               {ev.registerLabel ?? cta}
             </Link>
           )
@@ -347,12 +336,17 @@ function EventCard({
               name="chevron"
               size={15}
               className={`course-toggle-icon${
-                detailsOpen ? ' course-toggle-icon--open' : ''
+                detailsOpen
+                  ? ' course-toggle-icon--open'
+                  : ''
               }`}
             />
           </button>
         ) : (
-          <Link href="/#consult" className="ws-cta-link">
+          <Link
+            href="/#consult"
+            className="ws-cta-link"
+          >
             {detailsLabel}
             <Icon name="chevron" size={15} />
           </Link>
@@ -361,7 +355,11 @@ function EventCard({
 
       {/* ── Inline details accordion ── */}
       {expandable && p && (
-        <div className={`cdp-wrap${detailsOpen ? ' cdp-wrap--open' : ''}`}>
+        <div
+          className={`cdp-wrap${
+            detailsOpen ? ' cdp-wrap--open' : ''
+          }`}
+        >
           <div className="cdp-inner">
             <div className="cdp-panel">
 
@@ -378,7 +376,10 @@ function EventCard({
 
                 <ul className="cdp-bullets">
                   {ev.topics!.map(t => (
-                    <li key={t} className="cdp-bullet">
+                    <li
+                      key={t}
+                      className="cdp-bullet"
+                    >
                       <span className="cdp-bullet-dot" />
                       <span>{t}</span>
                     </li>
@@ -409,26 +410,38 @@ function EventCard({
                   </div>
 
                   <div className="ip-body">
-                    <h4 className="ip-name">{p.name}</h4>
+                    <h4 className="ip-name">
+                      {p.name}
+                    </h4>
 
-                    <div className="ip-role">{p.role}</div>
+                    <div className="ip-role">
+                      {p.role}
+                    </div>
 
                     {p.creds.length > 0 && (
                       <div className="ip-creds">
                         {p.creds.map(cr => (
-                          <span key={cr} className="ip-cred">
+                          <span
+                            key={cr}
+                            className="ip-cred"
+                          >
                             {cr}
                           </span>
                         ))}
                       </div>
                     )}
 
-                    <p className="ip-bio">{p.bio}</p>
+                    <p className="ip-bio">
+                      {p.bio}
+                    </p>
 
                     {p.skills.length > 0 && (
                       <div className="ip-skills">
                         {p.skills.map(s => (
-                          <span key={s} className="ip-skill">
+                          <span
+                            key={s}
+                            className="ip-skill"
+                          >
                             {s}
                           </span>
                         ))}
@@ -443,7 +456,10 @@ function EventCard({
                           rel="noopener noreferrer"
                           className="founder-link founder-link--linkedin"
                         >
-                          <Icon name="linkedin" size={14} />
+                          <Icon
+                            name="linkedin"
+                            size={14}
+                          />
                           {p.linkedinLabel}
                         </Link>
                       </div>
@@ -478,7 +494,9 @@ function EventCard({
                   </span>
                 </div>
 
-                <WorkshopRegisterForm workshopTitle={ev.title} />
+                <WorkshopRegisterForm
+                  workshopTitle={ev.title}
+                />
               </div>
 
             </div>
