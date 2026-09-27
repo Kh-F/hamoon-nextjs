@@ -1,3 +1,4 @@
+```tsx
 'use client';
 
 import { useState } from 'react';
@@ -32,10 +33,8 @@ interface WsEvent {
   title: string;
   desc: string;
   meta: string[];
-  /** External/anchor registration link — used only when no inline register form is defined. */
   registerHref?: string;
   registerLabel?: string;
-  /** When set (with `presenter`), the card renders an inline expandable details panel. */
   topics?: string[];
   presenter?: WsPresenter;
 }
@@ -48,7 +47,8 @@ const WS = {
     back: 'بازگشت به صفحه اصلی',
     cta: 'ثبت‌نام در کارگاه',
     ctaTitle: 'در کارگاه بعدی شرکت کنید',
-    ctaLead: 'کارگاه‌های هامون با ظرفیت محدود برگزار می‌شوند. همین حالا جای خود را رزرو کنید.',
+    ctaLead:
+      'کارگاه‌های هامون با ظرفیت محدود برگزار می‌شوند. همین حالا جای خود را رزرو کنید.',
     upcomingLabel: 'کارگاه‌های پیش رو',
     status: {
       upcoming: 'پیش رو',
@@ -62,10 +62,20 @@ const WS = {
         ink: 'var(--mint-600)',
         badge: 'فناوری',
         statusKey: 'upcoming' as StatusKey,
+
         title: 'طراحی وب‌سایت با هوش مصنوعی و اتوماسیون هوشمند',
-        desc: 'در این کارگاه یاد می‌گیرید چگونه با کمک ابزارهای هوش مصنوعی یک وب‌سایت حرفه‌ای طراحی کنید و فرآیندهای کاری را با اتوماسیون‌های هوشمند ساده‌تر و سریع‌تر کنید. شرکت‌کنندگان با مفاهیم طراحی وب، ساخت صفحات مدرن، ابزارهای AI در توسعه وب و ایجاد گردش‌کارهای خودکار با ابزارهایی مانند n8n آشنا می‌شوند.',
-        meta: ['۵ جلسه', 'آنلاین', 'سطح: مقدماتی تا متوسط'],
+
+        desc:
+          'در این کارگاه یاد می‌گیرید چگونه با کمک ابزارهای هوش مصنوعی یک وب‌سایت حرفه‌ای طراحی کنید و فرآیندهای کاری را با اتوماسیون‌های هوشمند ساده‌تر و سریع‌تر کنید. شرکت‌کنندگان با مفاهیم طراحی وب، ساخت صفحات مدرن، ابزارهای AI در توسعه وب و ایجاد گردش‌کارهای خودکار با ابزارهایی مانند n8n آشنا می‌شوند.',
+
+        meta: [
+          '۵ جلسه',
+          'آنلاین',
+          'سطح: مقدماتی تا متوسط',
+        ],
+
         registerLabel: 'ثبت‌نام',
+
         topics: [
           'مفاهیم پایه طراحی وب و صفحات مدرن',
           'استفاده از ابزارهای هوش مصنوعی در توسعه وب',
@@ -73,16 +83,33 @@ const WS = {
           'ایجاد گردش‌کارهای خودکار (Workflows)',
           'پیاده‌سازی عملی پروژه وب‌سایت',
         ],
+
         presenter: {
           sectionLabel: 'مدرس کارگاه',
+
           name: 'نام مدرس',
+
           role: 'متخصص طراحی وب و اتوماسیون',
-          bio: 'توضیحات مربوط به سوابق و تخصص مدرس...',
-          creds: ['مدرک تحصیلی یا تخصص'],
-          skills: ['طراحی وب', 'هوش مصنوعی', 'n8n'],
-          linkedin: 'لینک پروفایل لینکدین',
+
+          bio:
+            'توضیحات مربوط به سوابق و تخصص مدرس...',
+
+          creds: [
+            'مدرک تحصیلی یا تخصص',
+          ],
+
+          skills: [
+            'طراحی وب',
+            'هوش مصنوعی',
+            'n8n',
+          ],
+
+          linkedin: '',
+
           linkedinLabel: 'مشاهده لینکدین',
-          initials: 'نام مخفف',
+
+          initials: '',
+
           bg: 'var(--mint-100)',
           ink: 'var(--mint-700)',
         },
@@ -94,10 +121,21 @@ const WS = {
         ink: 'var(--blue-600)',
         badge: 'هوش مصنوعی',
         statusKey: 'free' as StatusKey,
-        title: 'آشنایی با دنیای هوش مصنوعی؛ از ریاضیات تا AI مدرن',
-        desc: 'در این کارگاه با مفاهیم پایه و کاربردی هوش مصنوعی، یادگیری ماشین و تحلیل داده‌ها آشنا می‌شویم و بررسی می‌کنیم که چگونه تفکر ریاضی به درک بهتر فناوری‌های نوین کمک می‌کند. شرکت‌کنندگان با ایده‌های اصلی داده، مدل‌های یادگیری ماشین و عامل‌های هوشمند (AI Agents) آشنا خواهند شد.',
-        meta: ['یک جلسه', 'آنلاین', 'سطح: مقدماتی'],
+
+        title:
+          'آشنایی با دنیای هوش مصنوعی؛ از ریاضیات تا AI مدرن',
+
+        desc:
+          'در این کارگاه با مفاهیم پایه و کاربردی هوش مصنوعی، یادگیری ماشین و تحلیل داده‌ها آشنا می‌شویم و بررسی می‌کنیم که چگونه تفکر ریاضی به درک بهتر فناوری‌های نوین کمک می‌کند. شرکت‌کنندگان با ایده‌های اصلی داده، مدل‌های یادگیری ماشین و عامل‌های هوشمند (AI Agents) آشنا خواهند شد.',
+
+        meta: [
+          'یک جلسه',
+          'آنلاین',
+          'سطح: مقدماتی',
+        ],
+
         registerLabel: 'ثبت‌نام',
+
         topics: [
           'ارتباط ریاضیات با هوش مصنوعی',
           'آشنایی با Data Analytics و نقش داده‌ها در تصمیم‌گیری',
@@ -105,17 +143,34 @@ const WS = {
           'آشنایی با AI Agents و کاربردهای آن‌ها',
           'مسیر یادگیری برای ورود به حوزه هوش مصنوعی',
         ],
+
         presenter: {
           sectionLabel: 'مدرس کارگاه',
+
           name: 'دکتر خدیجه فتحعلی‌خانی',
+
           role: 'دکترای ریاضیات | فعال در حوزه هوش مصنوعی',
-          bio: 'دکترای ریاضیات با تخصص در ترکیبیات و نظریه گراف و بیش از ۱۵ سال سابقه تدریس در دانشگاه‌ها و مؤسسات آموزشی. در سال‌های اخیر در حوزه هوش مصنوعی کاربردی، تحلیل داده و اتوماسیون فعالیت داشته است.',
-          creds: ['دکترای ریاضیات'],
-          skills: ['یادگیری ماشین', 'تحلیل داده', 'AI Agents'],
+
+          bio:
+            'دکترای ریاضیات با تخصص در ترکیبیات و نظریه گراف و بیش از ۱۵ سال سابقه تدریس در دانشگاه‌ها و مؤسسات آموزشی. در سال‌های اخیر در حوزه هوش مصنوعی کاربردی، تحلیل داده و اتوماسیون فعالیت داشته است.',
+
+          creds: [
+            'دکترای ریاضیات',
+          ],
+
+          skills: [
+            'یادگیری ماشین',
+            'تحلیل داده',
+            'AI Agents',
+          ],
+
           linkedin:
             'https://www.linkedin.com/in/khadijeh-fathalikhani-405b0627',
+
           linkedinLabel: 'مشاهده لینکدین',
-          initials: 'خ ف',
+
+          initials: '',
+
           bg: 'var(--amber-100)',
           ink: 'var(--amber-700)',
         },
@@ -126,11 +181,13 @@ const WS = {
   en: {
     badge: 'Special Workshops',
     title: 'Hamoon workshops\n& specialty events',
-    lead: 'Beyond regular courses — intensive, hands-on workshops for practical skill growth in technology, education, and academic literacy.',
+    lead:
+      'Beyond regular courses — intensive, hands-on workshops for practical skill growth in technology, education, and academic literacy.',
     back: 'Back to home',
     cta: 'Register for a workshop',
     ctaTitle: 'Join our next workshop',
-    ctaLead: 'Hamoon workshops run with limited capacity. Reserve your spot now.',
+    ctaLead:
+      'Hamoon workshops run with limited capacity. Reserve your spot now.',
     upcomingLabel: 'Upcoming workshops',
     status: {
       upcoming: 'Upcoming',
@@ -143,19 +200,35 @@ const WS = {
         ink: 'var(--blue-600)',
         badge: 'Technology',
         statusKey: 'upcoming' as StatusKey,
+
         title: 'Web Design & Workflow Automation',
-        desc: 'From basic HTML/CSS to workflow automation with modern tools — an intensive workshop that takes you from idea to a real, deployed product.',
-        meta: ['2 days', 'Online & in-person'],
+
+        desc:
+          'From basic HTML/CSS to workflow automation with modern tools — an intensive workshop that takes you from idea to a real, deployed product.',
+
+        meta: [
+          '2 days',
+          'Online & in-person',
+        ],
       },
+
       {
         ic: 'graduation',
         soft: 'var(--amber-50)',
         ink: 'var(--amber-600)',
         badge: 'Education',
         statusKey: 'upcoming' as StatusKey,
-        title: 'AI-Driven Education: Teacher Training Programs',
-        desc: 'For educators, mentors and teaching enthusiasts — how to use AI tools to personalise the learning experience and elevate teaching quality.',
-        meta: ['3 days', 'In-person'],
+
+        title:
+          'AI-Driven Education: Teacher Training Programs',
+
+        desc:
+          'For educators, mentors and teaching enthusiasts — how to use AI tools to personalise the learning experience and elevate teaching quality.',
+
+        meta: [
+          '3 days',
+          'In-person',
+        ],
       },
     ] as WsEvent[],
   },
@@ -168,6 +241,7 @@ const STATUS_CLASS: Record<StatusKey, string> = {
 
 export default function WorkshopsContent() {
   const { c } = useLang();
+
   const d = WS[c.lang as 'fa' | 'en'];
 
   const upcoming = d.events;
@@ -178,24 +252,40 @@ export default function WorkshopsContent() {
       <section className="dept-hero">
         <div className="dept-hero-inner">
           <div className="dept-hero-grid">
+
             <div>
               <div className="dept-badge-row">
-                <Link href="/" className="dept-back">
-                  <Icon name="arrowleft" size={16} />
+
+                <Link
+                  href="/"
+                  className="dept-back"
+                >
+                  <Icon
+                    name="arrowleft"
+                    size={16}
+                  />
+
                   {d.back}
                 </Link>
 
-                <span className="dept-badge">{d.badge}</span>
+                <span className="dept-badge">
+                  {d.badge}
+                </span>
+
               </div>
 
               <h1
                 className="dept-title"
-                style={{ whiteSpace: 'pre-line' }}
+                style={{
+                  whiteSpace: 'pre-line',
+                }}
               >
                 {d.title}
               </h1>
 
-              <p className="dept-lead">{d.lead}</p>
+              <p className="dept-lead">
+                {d.lead}
+              </p>
             </div>
 
             <div className="dept-hero-img-col">
@@ -209,6 +299,7 @@ export default function WorkshopsContent() {
                 priority
               />
             </div>
+
           </div>
         </div>
       </section>
@@ -216,6 +307,7 @@ export default function WorkshopsContent() {
       {/* ── Workshop grid ── */}
       <section className="dept-features">
         <div className="dept-features-inner">
+
           {/* Upcoming */}
           {upcoming.length > 0 && (
             <>
@@ -224,18 +316,23 @@ export default function WorkshopsContent() {
               </h2>
 
               <div className="ws-grid">
+
                 {upcoming.map(ev => (
                   <EventCard
                     key={ev.title}
                     ev={ev}
-                    statusLabel={d.status[ev.statusKey]}
+                    statusLabel={
+                      d.status[ev.statusKey]
+                    }
                     cta={d.cta}
                     detailsLabel={c.detailsLabel}
                   />
                 ))}
+
               </div>
             </>
           )}
+
         </div>
       </section>
     </>
@@ -253,15 +350,22 @@ function EventCard({
   cta: string;
   detailsLabel: string;
 }) {
-  const [detailsOpen, setDetailsOpen] = useState(false);
-  const [registerOpen, setRegisterOpen] = useState(false);
+  const [detailsOpen, setDetailsOpen] =
+    useState(false);
 
-  const expandable = !!(ev.topics && ev.presenter);
+  const [registerOpen, setRegisterOpen] =
+    useState(false);
+
+  const expandable =
+    !!(ev.topics && ev.presenter);
+
   const p = ev.presenter;
 
   return (
     <div className="ws-card">
+
       <div className="ws-card-top">
+
         <div
           className="dept-feature-icon"
           style={{
@@ -270,7 +374,10 @@ function EventCard({
             margin: 0,
           }}
         >
-          <Icon name={ev.ic} size={24} />
+          <Icon
+            name={ev.ic}
+            size={24}
+          />
         </div>
 
         <div
@@ -281,6 +388,7 @@ function EventCard({
             alignItems: 'flex-end',
           }}
         >
+
           <span
             className="ws-badge"
             style={{
@@ -291,31 +399,50 @@ function EventCard({
             {ev.badge}
           </span>
 
-          <span className={STATUS_CLASS[ev.statusKey]}>
+          <span
+            className={
+              STATUS_CLASS[ev.statusKey]
+            }
+          >
             <span className="ws-status-dot" />
+
             {statusLabel}
           </span>
+
         </div>
+
       </div>
 
-      <h3 className="ws-title">{ev.title}</h3>
+      <h3 className="ws-title">
+        {ev.title}
+      </h3>
 
-      <p className="ws-desc">{ev.desc}</p>
+      <p className="ws-desc">
+        {ev.desc}
+      </p>
 
       <div className="ws-meta">
+
         {ev.meta.map(m => (
-          <span key={m} className="course-meta-item">
+          <span
+            key={m}
+            className="course-meta-item"
+          >
             {m}
           </span>
         ))}
+
       </div>
 
       <div className="ws-ctas">
+
         {expandable ? (
           <button
             type="button"
             className="ws-btn-primary"
-            onClick={() => setRegisterOpen(o => !o)}
+            onClick={() =>
+              setRegisterOpen(o => !o)
+            }
           >
             {ev.registerLabel ?? cta}
           </button>
@@ -335,7 +462,9 @@ function EventCard({
             type="button"
             className="course-toggle"
             aria-expanded={detailsOpen}
-            onClick={() => setDetailsOpen(o => !o)}
+            onClick={() =>
+              setDetailsOpen(o => !o)
+            }
           >
             {detailsLabel}
 
@@ -355,68 +484,107 @@ function EventCard({
             className="ws-cta-link"
           >
             {detailsLabel}
-            <Icon name="chevron" size={15} />
+
+            <Icon
+              name="chevron"
+              size={15}
+            />
           </Link>
         )}
+
       </div>
 
       {/* ── Inline details accordion ── */}
       {expandable && p && (
         <div
           className={`cdp-wrap${
-            detailsOpen ? ' cdp-wrap--open' : ''
+            detailsOpen
+              ? ' cdp-wrap--open'
+              : ''
           }`}
         >
+
           <div className="cdp-inner">
+
             <div className="cdp-panel">
+
+              {/* Topics */}
               <div className="cdp-section">
+
                 <div className="cdp-section-head">
+
                   <span className="cdp-section-icon">
-                    <Icon name="target" size={14} />
+                    <Icon
+                      name="target"
+                      size={14}
+                    />
                   </span>
 
                   <span className="cdp-section-title">
                     سرفصل‌های این کارگاه
                   </span>
+
                 </div>
 
                 <ul className="cdp-bullets">
+
                   {ev.topics!.map(t => (
                     <li
                       key={t}
                       className="cdp-bullet"
                     >
                       <span className="cdp-bullet-dot" />
-                      <span>{t}</span>
+
+                      <span>
+                        {t}
+                      </span>
                     </li>
                   ))}
+
                 </ul>
+
               </div>
 
+              {/* Instructor */}
               <div className="cdp-section">
+
                 <div className="cdp-section-head">
+
                   <span className="cdp-section-icon">
-                    <Icon name="graduation" size={14} />
+                    <Icon
+                      name="graduation"
+                      size={14}
+                    />
                   </span>
 
                   <span className="cdp-section-title">
                     {p.sectionLabel}
                   </span>
+
                 </div>
 
                 <div className="instructor-profile">
-                  <div
-                    className="ip-avatar"
-                    style={{
-                      background: p.bg,
-                      color: p.ink,
-                    }}
-                  >
-                    {p.initials}
-                  </div>
+
+                  {p.initials && (
+                    <div
+                      className="ip-avatar"
+                      style={{
+                        background: p.bg,
+                        color: p.ink,
+                      }}
+                    >
+                      {p.initials}
+                    </div>
+                  )}
 
                   <div className="ip-body">
-                    <h4 className="ip-name">
+
+                    <h4
+                      className="ip-name"
+                      style={{
+                        fontSize: '17px',
+                      }}
+                    >
                       {p.name}
                     </h4>
 
@@ -426,6 +594,7 @@ function EventCard({
 
                     {p.creds.length > 0 && (
                       <div className="ip-creds">
+
                         {p.creds.map(cr => (
                           <span
                             key={cr}
@@ -434,6 +603,7 @@ function EventCard({
                             {cr}
                           </span>
                         ))}
+
                       </div>
                     )}
 
@@ -443,6 +613,7 @@ function EventCard({
 
                     {p.skills.length > 0 && (
                       <div className="ip-skills">
+
                         {p.skills.map(s => (
                           <span
                             key={s}
@@ -451,11 +622,13 @@ function EventCard({
                             {s}
                           </span>
                         ))}
+
                       </div>
                     )}
 
                     {p.linkedin && (
                       <div className="ip-actions">
+
                         <Link
                           href={p.linkedin}
                           target="_blank"
@@ -466,13 +639,18 @@ function EventCard({
                             name="linkedin"
                             size={14}
                           />
+
                           {p.linkedinLabel}
                         </Link>
+
                       </div>
                     )}
+
                   </div>
                 </div>
+
               </div>
+
             </div>
           </div>
         </div>
@@ -482,30 +660,45 @@ function EventCard({
       {expandable && (
         <div
           className={`cdp-wrap${
-            registerOpen ? ' cdp-wrap--open' : ''
+            registerOpen
+              ? ' cdp-wrap--open'
+              : ''
           }`}
         >
+
           <div className="cdp-inner">
+
             <div className="cdp-panel">
+
               <div className="cdp-section">
+
                 <div className="cdp-section-head">
+
                   <span className="cdp-section-icon">
-                    <Icon name="pen" size={14} />
+                    <Icon
+                      name="pen"
+                      size={14}
+                    />
                   </span>
 
                   <span className="cdp-section-title">
                     {ev.registerLabel ?? cta}
                   </span>
+
                 </div>
 
                 <WorkshopRegisterForm
                   workshopTitle={ev.title}
                 />
+
               </div>
+
             </div>
           </div>
         </div>
       )}
+
     </div>
   );
 }
+```
