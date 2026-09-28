@@ -700,4 +700,4 @@ function EventCard({
     </div>
   );
 }
-```
+
