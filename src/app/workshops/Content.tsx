@@ -1,3 +1,4 @@
+```tsx
 'use client';
 
 import { useState } from 'react';
@@ -18,6 +19,8 @@ interface WsPresenter {
   skills: string[];
   linkedin: string;
   linkedinLabel: string;
+  scholar: string;
+  scholarLabel: string;
   initials: string;
   bg: string;
   ink: string;
@@ -42,7 +45,8 @@ const WS = {
   fa: {
     badge: 'کارگاه‌های ویژه',
     title: 'رویدادها و کارگاه‌های\nتخصصی هامون',
-    lead: 'فراتر از دوره‌های منظم — کارگاه‌های فشرده و کاربردی برای رشد مهارت‌های عملی در حوزه‌های فناوری، آموزش و توسعه فردی.',
+    lead:
+      'فراتر از دوره‌های منظم — کارگاه‌های فشرده و کاربردی برای رشد مهارت‌های عملی در حوزه‌های فناوری، آموزش و توسعه فردی.',
     back: 'بازگشت به صفحه اصلی',
     cta: 'ثبت‌نام در کارگاه',
     ctaTitle: 'در کارگاه بعدی شرکت کنید',
@@ -86,26 +90,32 @@ const WS = {
         presenter: {
           sectionLabel: 'مدرس کارگاه',
 
-          name: 'نام مدرس',
+          name: 'دکتر خدیجه فتحعلی‌خانی',
 
-          role: 'متخصص طراحی وب و اتوماسیون',
+          role: 'دکترای ریاضیات | فعال در حوزه هوش مصنوعی',
 
           bio:
-            'توضیحات مربوط به سوابق و تخصص مدرس...',
+            'دکترای ریاضیات با تخصص در ترکیبیات و نظریه گراف و بیش از ۱۵ سال سابقه تدریس در دانشگاه‌ها و مؤسسات آموزشی. در سال‌های اخیر در حوزه هوش مصنوعی کاربردی، تحلیل داده و اتوماسیون فعالیت داشته است.',
 
           creds: [
-            'مدرک تحصیلی یا تخصص',
+            'دکترای ریاضیات',
           ],
 
           skills: [
-            'طراحی وب',
-            'هوش مصنوعی',
-            'n8n',
+            'یادگیری ماشین',
+            'تحلیل داده',
+            'AI Agents',
           ],
 
-          linkedin: '',
+          linkedin:
+            'https://www.linkedin.com/in/khadijeh-fathalikhani-405b0627',
 
           linkedinLabel: 'مشاهده لینکدین',
+
+          scholar:
+            'https://scholar.google.com/citations?user=vNX16Z4AAAAJ&hl=en',
+
+          scholarLabel: 'Google Scholar',
 
           initials: '',
 
@@ -167,6 +177,11 @@ const WS = {
             'https://www.linkedin.com/in/khadijeh-fathalikhani-405b0627',
 
           linkedinLabel: 'مشاهده لینکدین',
+
+          scholar:
+            'https://scholar.google.com/citations?user=vNX16Z4AAAAJ&hl=en',
+
+          scholarLabel: 'Google Scholar',
 
           initials: '',
 
@@ -625,22 +640,35 @@ function EventCard({
                       </div>
                     )}
 
-                    {p.linkedin && (
+                    {(p.linkedin || p.scholar) && (
                       <div className="ip-actions">
 
-                        <Link
-                          href={p.linkedin}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="founder-link founder-link--linkedin"
-                        >
-                          <Icon
-                            name="linkedin"
-                            size={14}
-                          />
+                        {p.linkedin && (
+                          <Link
+                            href={p.linkedin}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="founder-link founder-link--linkedin"
+                          >
+                            <Icon
+                              name="linkedin"
+                              size={14}
+                            />
 
-                          {p.linkedinLabel}
-                        </Link>
+                            {p.linkedinLabel}
+                          </Link>
+                        )}
+
+                        {p.scholar && (
+                          <Link
+                            href={p.scholar}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="founder-link"
+                          >
+                            {p.scholarLabel}
+                          </Link>
+                        )}
 
                       </div>
                     )}
@@ -700,4 +728,4 @@ function EventCard({
     </div>
   );
 }
-
+```
