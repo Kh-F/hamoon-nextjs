@@ -97,7 +97,7 @@ const WS = {
             'دکترای ریاضیات با تخصص در ترکیبیات و نظریه گراف و بیش از ۱۵ سال سابقه تدریس در دانشگاه‌ها و مؤسسات آموزشی. در سال‌های اخیر در حوزه هوش مصنوعی کاربردی، تحلیل داده و اتوماسیون فعالیت داشته است.',
 
           creds: [
-            'دکترای ریاضیات',
+           
           ],
 
           skills: [
@@ -163,7 +163,7 @@ const WS = {
             'دکترای ریاضیات با تخصص در ترکیبیات و نظریه گراف و بیش از ۱۵ سال سابقه تدریس در دانشگاه‌ها و مؤسسات آموزشی. در سال‌های اخیر در حوزه هوش مصنوعی کاربردی، تحلیل داده و اتوماسیون فعالیت داشته است.',
 
           creds: [
-            'دکترای ریاضیات',
+           
           ],
 
           skills: [
@@ -659,16 +659,20 @@ function EventCard({
                         )}
 
                         {p.scholar && (
-                          <Link
-                            href={p.scholar}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="founder-link"
-                          >
-                            {p.scholarLabel}
-                          </Link>
-                        )}
+			  <Link
+  			  href={p.scholar}
+  				  target="_blank"
+ 			   rel="noopener noreferrer"
+   			 className="founder-link founder-link--scholar"
+ 				 >
+			    <Icon
+ 			     name="graduation"
+  			    size={14}
+  			  />
 
+		    {p.scholarLabel}
+  			</Link>
+			)}
                       </div>
                     )}
 
