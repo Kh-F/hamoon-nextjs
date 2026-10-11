@@ -27,31 +27,42 @@ export default function Consultation({ department = 'Home Page' }: Props) {
   const emailRef    = useRef<HTMLInputElement>(null);
   const msgRef      = useRef<HTMLTextAreaElement>(null);
 
-  async function handleSubmit(e: FormEvent) {
-    e.preventDefault();
-    setLoading(true);
+  
+async function handleSubmit(e: FormEvent) {
+  e.preventDefault();
+  setLoading(true);
 
-    try {
-      await fetch('/api/consult', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name:        nameRef.current?.value     ?? '',
-          lastName:    lastNameRef.current?.value ?? '',
-          gender,
-          phone:       phoneRef.current?.value    ?? '',
-          email:       emailRef.current?.value     ?? '',
-          ageCategory: age !== null ? ages[age] : '',
-          grade,
-          message:     msgRef.current?.value      ?? '',
-          sourcePage:  department,
-        }),
-      });
-    } finally {
-      setLoading(false);
-      setSent(true);
+  try {
+    const response = await fetch('/api/consult', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: nameRef.current?.value ?? '',
+        lastName: lastNameRef.current?.value ?? '',
+        gender,
+        phone: phoneRef.current?.value ?? '',
+        email: emailRef.current?.value ?? '',
+        ageCategory: age !== null ? ages[age] : '',
+        grade,
+        message: msgRef.current?.value ?? '',
+        sourcePage: department,
+      }),
+    });
+
+    // HTTP errors such as 400 or 500 must not be treated as success.
+    if (!response.ok) {
+      throw new Error(`Request failed with status ${response.status}`);
     }
+
+    // Success is shown only when the API confirms success.
+    setSent(true);
+  } catch (error) {
+    console.error('Consultation form submission failed:', error);
+    alert('ارسال درخواست با مشکل مواجه شد. لطفاً دوباره تلاش کنید یا با مؤسسه تماس بگیرید.');
+  } finally {
+    setLoading(false);
   }
+}
 
   function handleReset() {
     setSent(false);
