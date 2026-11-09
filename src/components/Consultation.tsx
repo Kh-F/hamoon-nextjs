@@ -16,7 +16,6 @@ export default function Consultation({ department = 'Home Page' }: Props) {
   const { formTitle, formLead, contact, form, ages } = c;
 
   const [sent, setSent] = useState(false);
-  const [loading, setLoading] = useState(false);
   const [age, setAge] = useState<number | null>(null);
   const [gender, setGender] = useState('');
   const [grade, setGrade] = useState('');
@@ -27,41 +26,9 @@ export default function Consultation({ department = 'Home Page' }: Props) {
   const emailRef    = useRef<HTMLInputElement>(null);
   const msgRef      = useRef<HTMLTextAreaElement>(null);
 
-  
-async function handleSubmit(e: FormEvent) {
+ function handleSubmit(e: FormEvent) {
   e.preventDefault();
-  setLoading(true);
-
-  try {
-    const response = await fetch('/api/consult', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        name: nameRef.current?.value ?? '',
-        lastName: lastNameRef.current?.value ?? '',
-        gender,
-        phone: phoneRef.current?.value ?? '',
-        email: emailRef.current?.value ?? '',
-        ageCategory: age !== null ? ages[age] : '',
-        grade,
-        message: msgRef.current?.value ?? '',
-        sourcePage: department,
-      }),
-    });
-
-    // HTTP errors such as 400 or 500 must not be treated as success.
-    if (!response.ok) {
-      throw new Error(`Request failed with status ${response.status}`);
-    }
-
-    // Success is shown only when the API confirms success.
-    setSent(true);
-  } catch (error) {
-    console.error('Consultation form submission failed:', error);
-    alert('ارسال درخواست با مشکل مواجه شد. لطفاً دوباره تلاش کنید یا با مؤسسه تماس بگیرید.');
-  } finally {
-    setLoading(false);
-  }
+  setSent(true);
 }
 
   function handleReset() {
@@ -78,11 +45,21 @@ async function handleSubmit(e: FormEvent) {
     gradePh: 'انتخاب کنید',
   };
 
-  // Success message includes the department name so the user sees which
-  // department their request was submitted to.
-  const successMsg = department !== 'Home Page'
-    ? `${form.success.replace(/[.!]$/, '')} (${department}).`
-    : form.success;
+  
+
+const successMsg = (
+  <>
+    متأسفانه در حال حاضر امکان تکمیل ثبت‌نام از طریق این فرم وجود ندارد.
+    برای ثبت‌نام و دریافت راهنمایی می‌توانید از طریق شماره تماس{' '}
+    <a href="tel:09129474553" dir="ltr">۰۹۱۲۹۴۷۴۵۵۳</a>
+    {' '}یا ایمیل{' '}
+    <a href="mailto:hamooninstitute.info@gmail.com">
+      hamooninstitute.info@gmail.com
+    </a>
+    {' '}با مؤسسه هامون در ارتباط باشید.
+  </>
+);
+
 
   return (
     <section id="consult">
@@ -167,8 +144,8 @@ async function handleSubmit(e: FormEvent) {
                     onGradeChange={setGrade}
                   />
 
-                  <button type="submit" className="btn-submit" disabled={loading}>
-                    {loading ? '…' : form.submit}
+                  <button type="submit" className="btn-submit">
+                  {form.submit}
                   </button>
                 </form>
               )}

@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { useLang } from '@/context/LangContext';
 import Icon from '@/components/Icon';
 import Consultation from '@/components/Consultation';
+import DepartmentArticles from '@/components/articles/DepartmentArticles';
+import { getDepartmentArticles } from '@/components/articles/articleData';
 
 const DEPT = {
   fa: {
@@ -34,6 +36,11 @@ const DEPT = {
         desc: 'تبدیل ایده‌ها به پروژه‌های واقعی با استفاده از ابزارهای هوش مصنوعی، برنامه‌نویسی و فناوری‌های نوین؛ از تجربه‌های ساده تا پروژه‌های پیشرفته‌تر.',
       },
     ],
+    aiLiteracy: {
+      title: 'پرورش سواد هوش مصنوعی و تفکر انتقادی',
+      body: 'در دپارتمان هوش مصنوعی مؤسسه هامون، تلاش می‌کنیم کودکان و نوجوانان علاوه بر آشنایی با ابزارهای هوش مصنوعی، مهارت‌هایی مانند تفکر انتقادی، خلاقیت، ارزیابی اطلاعات و استفادهٔ مسئولانه از فناوری را نیز پرورش دهند. هدف، آماده‌کردن نسل آینده برای مواجهه‌ای آگاهانه و سازنده با دنیای هوش مصنوعی است.',
+    },
+    
     curriculum: {
       badge: 'برنامه درسی اختصاصی هوش مصنوعی هامون',
       title: 'از یادگیری مفاهیم تا ساختن آینده',
@@ -70,6 +77,10 @@ const DEPT = {
     ctaLead: 'Talk to our advisors to find the right AI learning path for you.',
     ctaTitle: 'Get ready for the AI-powered world',
     featuresTitle: 'Three core pillars',
+aiLiteracy: {
+      title: 'AI Literacy and Critical Thinking',
+      body: 'At Hamoon Institute’s AI Department, we aim to help children and teenagers develop critical thinking, creativity, information evaluation, and responsible technology use alongside learning about AI tools. Our goal is to prepare the next generation to engage with the world of artificial intelligence in an informed and constructive way.',
+    },
     features: [
       {
         ic: 'graduation', soft: 'var(--blue-50)', ink: 'var(--blue-600)',
@@ -174,6 +185,24 @@ export default function AIContent() {
         </div>
       </section>
 
+      {/* ── AI Literacy & Critical Thinking ── */}
+      <section className="dept-features">
+        <div className="dept-features-inner">
+          <div className="dept-features-h section-center">
+            <h2 className="section-title">{d.aiLiteracy.title}</h2>
+          </div>
+          <p
+            className="section-body"
+            style={{
+              textAlign: 'center',
+              maxWidth: '900px',
+              margin: '0 auto',
+            }}
+          >
+            {d.aiLiteracy.body}
+          </p>
+        </div>
+      </section>
       {/* ── Curriculum highlight ── */}
       <section className="dept-curriculum">
         <div className="dept-curriculum-inner">
@@ -231,7 +260,13 @@ export default function AIContent() {
       </section>
 
       {/* ── Consultation form ── */}
+      <DepartmentArticles
+        department="ai"
+        lang={lang}
+        articles={getDepartmentArticles('ai', lang)}
+      />
       <Consultation department="AI" />
     </>
   );
 }
+

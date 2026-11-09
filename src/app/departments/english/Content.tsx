@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState } from 'react';
 import Image from 'next/image';
@@ -6,6 +6,8 @@ import Link from 'next/link';
 import { useLang } from '@/context/LangContext';
 import Icon from '@/components/Icon';
 import Consultation from '@/components/Consultation';
+import DepartmentArticles from '@/components/articles/DepartmentArticles';
+import { getDepartmentArticles } from '@/components/articles/articleData';
 
 /* ── Shared general-info sections (shown in every accordion panel) ───────── */
 type GenSection = { icon: string; title: string; text?: string; items?: string[] };
@@ -475,7 +477,13 @@ export default function EnglishContent() {
       </section>
 
       {/* ── Consultation form ── */}
+      <DepartmentArticles
+        department="english"
+        lang={lang}
+        articles={getDepartmentArticles('english', lang)}
+      />
       <Consultation department="English" />
     </>
   );
 }
+

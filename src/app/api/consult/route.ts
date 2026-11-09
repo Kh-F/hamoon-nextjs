@@ -27,8 +27,12 @@ export async function POST(req: NextRequest) {
   } = body;
 
   if (
-    !name || !lastName || !gender || !phone ||
-    !ageCategory || !grade
+    !name ||
+    !lastName ||
+    !gender ||
+    !phone ||
+    !ageCategory ||
+    !grade
   ) {
     return NextResponse.json(
       { ok: false, error: 'Missing required fields' },
@@ -38,7 +42,6 @@ export async function POST(req: NextRequest) {
 
   const webhookUrl = process.env.N8N_WEBHOOK_URL;
 
-  // Never report success if the automation is not configured.
   if (!webhookUrl) {
     console.error('[Consult] N8N_WEBHOOK_URL is not configured');
 
@@ -72,26 +75,51 @@ export async function POST(req: NextRequest) {
         workshopTitle: workshopTitle ?? '',
       }),
       cache: 'no-store',
+      signal: AbortSignal.timeout(15000),
     });
 
-    if (!response.ok) {
-      console.error(
-        '[Consult] n8n returned HTTP error:',
-        response.status
-      );
+    const responseText = await response.text();
 
-      return NextResponse.json(
-        { ok: false, error: 'Submission could not be confirmed' },
-        { status: 502 }
-      );
+    let result: { ok?: boolean; saved?: boolean } | null = null;
+
+    try {
+      result = JSON.parse(responseText);
+    } catch {
+      result = null;
     }
 
-    return NextResponse.json({ ok: true });
+    // Success requires explicit confirmation of Google Sheets storage.
+    if (
+      response.ok &&
+      result?.ok === true &&
+      result?.saved === true
+    ) {
+      return NextResponse.json({
+        ok: true,
+        message: 'Submission saved successfully',
+      });
+    }
+
+    console.error('[Consult] Submission not confirmed:', {
+      httpStatus: response.status,
+      validConfirmation: result?.saved === true,
+    });
+
+    return NextResponse.json(
+      {
+        ok: false,
+        error: 'Submission could not be confirmed. Please try again later.',
+      },
+      { status: 502 }
+    );
   } catch (error) {
     console.error('[Consult] Failed to contact n8n:', error);
 
     return NextResponse.json(
-      { ok: false, error: 'Submission service is unavailable' },
+      {
+        ok: false,
+        error: 'Submission service is unavailable. Please try again later.',
+      },
       { status: 502 }
     );
   }
